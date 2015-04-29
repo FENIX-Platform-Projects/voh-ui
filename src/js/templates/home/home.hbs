@@ -1,0 +1,56 @@
+<!-- Header: Map + toolbar -->
+<div class="row">
+
+    <div class="col-xs-12">
+        <!-- Map container -->
+        <div id="map-container"></div>
+
+        <!-- Map toolbar -->
+        <div id="map-toolbar">
+            <div>
+                {{{ map_toolbar_legend }}}
+            </div>
+            <form id="map-toolbar-form" action="" onsubmit="return(false);">
+                <input id="radio-severe-status" type="radio" name="status" value="s"><label
+                    for="radio-severe-status"> {{{ fi_status_severe }}}</label>
+                <input id="radio-moderate-severe-status" type="radio" name="status" value="sm"><label
+                    for="radio-moderate-severe-status">{{{ fi_status_moderate_severe }}}</label>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Logo -->
+<div class="row">
+    <div class="col-xs-3">
+        <div>LOGO VOH</div>
+    </div>
+    <div class="col-xs-9">
+        <div> {{{ home_intro_title }}}</div>
+        <div> {{{ home_intro_text }}}</div>
+    </div>
+</div>
+
+<!-- Home Page Content: Database updates + left column -->
+<div class="row">
+    <!-- Database upadate-->
+    <div class="col-xs-9">
+        <div> {{ database_update_title }}</div>
+        <div>
+            <ul id="db-updates-list"></ul>
+        </div>
+    </div>
+    <div class="col-xs-3">
+       <div class="row">
+           <div class="col-xs-12">
+               <div> {{ documents_links_title }} </div>
+               <div>
+                   <ul id="documents-list"></ul>
+               </div>
+           </div>
+       </div>
+        <div class="row">
+            <div class="col-xs-12">Twitter</div>
+        </div>
+    </div>
+</div>

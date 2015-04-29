@@ -1,0 +1,79 @@
+{
+   "items":[
+      {
+         "attrs":{
+            "id":"home"
+         },
+         "target":"#home",
+         "label":{
+            "EN":"Data Portal Home"
+         }
+      },
+      {
+         "attrs":{
+            "id":"visualization"
+         },
+        "type": "dropdown",
+
+         "label":{
+            "EN":"Data Visualization"
+         } ,
+        "children" : [
+          {
+            "attrs":{
+              "id":"scores"
+            },
+            "target":"#visualization/scores",
+            "label":{
+              "EN":"Scores"
+            }
+          },
+          {
+            "attrs":{
+              "id":"table"
+            },
+            "target":"#visualization/table",
+            "label":{
+              "EN":"Table"
+            }
+          }
+        ]
+      },
+      {
+         "attrs":{
+            "id":"country"
+         },
+         "target":"#country",
+         "label":{
+            "EN":"Country Data"
+         }
+      },
+      {
+         "attrs":{
+            "id":"standards"
+         },
+         "target":"#standards",
+         "label":{
+            "EN":"Methods and Standards"
+         }
+      }
+   ],
+
+   "rightItems":[
+      {
+         "attrs":{
+            "id":"link"
+         },
+         "target":"http://google.com",
+         "label":{
+            "EN":"VOH Home"
+         }
+      }
+   ],
+
+   "type" : "static-top",
+
+   "brand":{
+      "target":"#"
+   }
+}
