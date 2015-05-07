@@ -48,7 +48,6 @@ define([
                     active : true,
                     container : "#footer-menu-container"
                 }
-
             });
         },
 
@@ -56,7 +55,6 @@ define([
 
             this.subscribeEvent('dispatcher:dispatch', _.bind(function (a,b,c) {
                 var path = State.path.split("/");
-
                 this.topMenu.select(path[ (path.length - 1 )]);
 
             }, this));

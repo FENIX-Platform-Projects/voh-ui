@@ -3,7 +3,7 @@ define([
     'views/base/view',
     'config/Config',
     'text!templates/home/home.hbs',
-    'text!templates/home/db_update_item.hbs',
+    'text!templates/home/database_update_item.hbs',
     'text!templates/home/document_item.hbs',
     'i18n!nls/home',
     'handlebars',
@@ -103,7 +103,7 @@ define([
 
         setMapStatus : function ( status ){
 
-            console.log("SET MAP STAUTS: " + status);
+            //console.log("SET MAP STAUTS: " + status);
 
         },
 

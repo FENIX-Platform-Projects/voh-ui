@@ -11,7 +11,7 @@ define([
         "database_update_title": "Database Updates",
         "documents_links_title": "Documents",
         "home_intro_title": "Welcome to Voices of the Hungry Data Portal",
-        "home_intro_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque interdum placerat lectus. Vivamus hendrerit arcu in est pulvinar facilisis. Proin consequat ipsum metus, sit amet tempus tortor laoreet quis. Maecenas tincidunt fringilla augue nec euismod. Nam aliquet risus in neque porta."
+        "home_intro_text": "Voices of the Hungry is an initiative by FAO with financial support of United Kingdom and Belgium. The project is seeking resources partners to extend the data collection beyond 2015 and to strengthen the capacity development activities. To know more about the project and get in touch with the VOH team, please visit the VOH Home."
     });
 
 });

@@ -28,19 +28,34 @@
 <div class="container" id="main-container"></div>
 
 <!-- Page Footer -->
-<div class="container">
-    <footer>
-        <div>
-            <p>{{{ footer_row_1 }}}</p>
-
-            <p>{{{ footer_row_2 }}}</p>
-
-            <p>{{{ footer_row_3 }}}</p>
+<footer class="container">
+    <!-- Logo -->
+    <div class="row">
+        <div class="col-xs-3">
+            <div>LOGO VOH</div>
         </div>
-        <div>
-            VOH© 2015 <span id="footer-menu-container"></span>
-            <span class="pull-right">Powered by <a href="http://fenix.fao.org">FENIX</a> </span>
-        </div>
+        <div class="col-xs-3 col-xs-offset-6">
+            <!-- Social networks -->
+            <div class="pull-right">
+                <span> <a href="https://facebook.com" target="_blank">facebook</a> </span>
+                <span> <a href="https://twitter.com" target="_blank">twitter</a> </span>
+                <span> <a href="https://youtube.com" target="_blank">youtube</a> </span>
+            </div>
 
-    </footer>
-</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">{{{ footer_row_1 }}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-9">
+            <span>VOH© 2015</span><span id="footer-menu-container"></span>
+        </div>
+        <div class="col-xs-3">
+            <span class="pull-right">Powered by <a href="http://fenix.fao.org">FENIX</a></span>
+        </div>
+    </div>
+
+</footer>

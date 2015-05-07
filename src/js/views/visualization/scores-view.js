@@ -42,7 +42,6 @@ define([
             //forms
             this.$ifForm = this.$el.find(s.IF_FORM);
             this.$variablesForm = this.$el.find(s.VARIABLE_FORM);
-
         },
 
         attach: function () {
@@ -100,6 +99,7 @@ define([
             this.$goBtn.attr('disabled', 'disabled');
             this.$resetBtn.attr('disabled', 'disabled');
         },
+
         unlockForm: function () {
             this.$goBtn.removeAttr('disabled');
             this.$resetBtn.removeAttr('disabled');
@@ -118,7 +118,6 @@ define([
         search: function () {
 
            this.onSearchError();
-
         },
 
         onSearchError : function () {
@@ -133,7 +132,7 @@ define([
         },
 
         onClickResetBtn: function () {
-            alert("reset")
+
             this.printDefaultSelection();
         },
 
