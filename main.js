@@ -3,7 +3,7 @@
 require([
     './submodules/fenix-ui-common/js/Compiler',
     './submodules/fenix-ui-menu/js/paths'
-], function (Compiler,Menu) {
+], function (Compiler, Menu) {
 
     'use strict';
 
@@ -12,11 +12,10 @@ require([
 
     Compiler.resolve([menuConfig],
         {
-            placeholders:  {"FENIX_CDN": "//fenixapps.fao.org/repository"},
+            placeholders: {"FENIX_CDN": "//fenixapps.fao.org/repository"},
             config: {
 
                 //Set the config for the i18n
-                //module ID
                 i18n: {
                     locale: 'en'
                 },
@@ -36,11 +35,15 @@ require([
                     handlebars: "{FENIX_CDN}/js/handlebars/2.0.0/handlebars",
                     chaplin: "{FENIX_CDN}/js/chaplin/1.0.1/chaplin.min",
 
-                    config :  "../../config",
-                    json : "../../json",
+                    config: "../../config",
+                    json: "../../json",
 
-                    amplify : '{FENIX_CDN}/js/amplify/1.1.2/amplify.min',
+                    amplify: '{FENIX_CDN}/js/amplify/1.1.2/amplify.min',
+                    packery : '{FENIX_CDN}/js/packery/1.4.1/packery.pkgd.min',
+                    jstree : '{FENIX_CDN}/js/jstree/3.0.8/dist/jstree.min',
+                    //,swiper: '{FENIX_CDN}/js/swiper/3.07/dist/js/swiper.jquery.min'
                     q : '{FENIX_CDN}/js/q/1.1.2/q'
+
                 },
 
                 // Underscore and Backbone are not AMD-capable per default,
@@ -59,9 +62,15 @@ require([
                     handlebars: {
                         exports: 'Handlebars'
                     },
+                   /* swiper: {
+                        deps: ['jquery']
+                    },*/
                     amplify: {
                         deps: ['jquery'],
                         exports: 'amplifyjs'
+                    },
+                    jstree : {
+                        deps: ['jquery']
                     },
                     application: {
                         deps: ['bootstrap']
@@ -84,7 +93,8 @@ require([
             routes: routes,
             controllerSuffix: '-controller',
             root: '/voh/',
-            pushState: false
+            pushState: false,
+            scrollTo : false
         });
     });
 });

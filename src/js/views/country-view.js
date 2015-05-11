@@ -1,11 +1,12 @@
-/*global define, _:false, $*/
+/*global define, _:false, $, amplify*/
 define([
     'views/base/view',
     'text!templates/country/country.hbs',
     'text!templates/country/download_item.hbs',
     'i18n!nls/country',
     'handlebars',
-    'text!json/country/downloads.json'
+    'text!json/country/downloads.json',
+    'amplify'
 ], function (View, template, itemTemplate, i18nLabels, Handlebars, downloadModels) {
 
     'use strict';
@@ -33,6 +34,9 @@ define([
         attach: function () {
 
             View.prototype.attach.call(this, arguments);
+
+            //update State
+            amplify.publish('voh.state.change', {menu: 'country'});
 
             this.initVariables();
             this.initComponents();
@@ -77,7 +81,6 @@ define([
 
             View.prototype.dispose.call(this, arguments);
         }
-
 
     });
 

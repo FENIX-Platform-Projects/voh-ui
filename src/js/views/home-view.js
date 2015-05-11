@@ -1,4 +1,4 @@
-/*global define, _:false, $, console*/
+/*global define, _:false, $, console, amplify*/
 define([
     'views/base/view',
     'config/Config',
@@ -8,7 +8,8 @@ define([
     'i18n!nls/home',
     'handlebars',
     'text!json/home/database_updates.json',
-    'text!json/home/documents.json'
+    'text!json/home/documents.json',
+    'amplify'
 ], function (View, Config, template, dbUpdatesTemplate, documentTemplate,  i18nLabels, Handlebars, dbUpdatesModels, documentsModels) {
 
     'use strict';
@@ -35,6 +36,9 @@ define([
         attach: function () {
 
             View.prototype.attach.call(this, arguments);
+
+            //update State
+            amplify.publish('voh.state.change', {menu: 'home'});
 
             this.initVariables();
             this.initComponents();
@@ -71,6 +75,8 @@ define([
 
             //If a map toolbar radio btn is changed -> update Map
             this.$mapformRadioBtns.on('change', _.bind(this.onMapStatusChange, this));
+
+
         },
 
         //Page section initialization
@@ -98,7 +104,6 @@ define([
         onMapStatusChange: function (e) {
 
             this.setMapStatus($(e.currentTarget).val());
-
         },
 
         setMapStatus : function ( status ){

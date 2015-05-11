@@ -1,5 +1,9 @@
-/*global define*/
-define(['chaplin'], function (Chaplin) {
+/*global define, amplify*/
+define([
+    'jquery',
+    'chaplin',
+    'amplify'
+], function ($, Chaplin) {
 
     'use strict';
 
@@ -17,6 +21,7 @@ define(['chaplin'], function (Chaplin) {
             // (by calling supermethod) after that.
             Chaplin.Application.prototype.start.apply(this, args);
         }
+
     });
 
     return Application;

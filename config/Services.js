@@ -1,6 +1,8 @@
 /*global define*/
 define(function ( ) {
 
+    'use strict';
+
     return {
         CD_REGION : 'select region_code, region_label from codes_region',
         AGGREGATION : 'select country, variable||'|'||group_code "column", ms from master_aggregation where country = "111"',

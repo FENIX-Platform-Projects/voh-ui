@@ -1,14 +1,14 @@
-/*global define*/
+/*global define, amplify*/
 define(['chaplin',
-    'views/site-view',
-    'globals/State'
-], function (Chaplin, SiteView, State) {
+    'views/site-view'
+], function (Chaplin, SiteView) {
     'use strict';
 
     var Controller = Chaplin.Controller.extend({
+
         // Place your application-specific controller features here.
         beforeAction: function (params, options) {
-            State.path = options.path;
+
             this.reuse('site', SiteView);
         }
     });

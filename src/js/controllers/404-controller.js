@@ -1,4 +1,4 @@
-/*global define*/
+/*global define, amplify*/
 define([
     'controllers/base/controller',
     'views/404-view'

@@ -1,4 +1,4 @@
-/*global define, _:false*/
+/*global define, _:false, amplify*/
 define([
     'chaplin',
     'handlebars',
@@ -7,8 +7,10 @@ define([
     'text!templates/visualization/scores.hbs',
     'text!templates/common/error.hbs',
     'i18n!nls/visualization-scores',
-    'i18n!nls/errors'
-], function (Chaplin, Handlebars, View, Config, template, errorTemplate, i18nLabels, i18Errors) {
+    'i18n!nls/errors',
+    'packery',
+    'amplify'
+], function (Chaplin, Handlebars, View, Config, template, errorTemplate, i18nLabels, i18Errors, Packery) {
 
     'use strict';
 
@@ -47,6 +49,9 @@ define([
         attach: function () {
 
             View.prototype.attach.call(this, arguments);
+
+            //update State
+            amplify.publish('voh.state.change', {menu: 'scores'});
 
             this.initVariables();
 
@@ -137,7 +142,6 @@ define([
         },
 
         unbindEventListeners: function () {
-
             this.$goBtn.off();
             this.$resetBtn.off();
         },

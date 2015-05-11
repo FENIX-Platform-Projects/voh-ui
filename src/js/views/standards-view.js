@@ -1,20 +1,31 @@
-/*global define, _:false, $*/
+/*global define, _:false, $, amplify*/
 define([
+    'chaplin',
     'views/base/view',
     'text!templates/standards/standards.hbs',
-    'text!templates/standards/download_item.hbs',
+    'text!templates/standards/standard_item.hbs',
     'i18n!nls/standards',
     'handlebars',
-    'text!json/standards/downloads.json'
-], function (View, template, itemTemplate, i18nLabels, Handlebars, downloadModels) {
+    'lib/utils',
+    'jstree',
+    'amplify'
+], function (Chaplin, View, template, itemTemplate, i18nLabels, Handlebars, Utils) {
 
     'use strict';
 
     var s = {
-        standards_LIST: "#standards-list"
+        STANDARD_LIST: "#standards-list",
+        STANDARD_CONTAINERS: "#standards-container",
+        STANDARD_PLACEHOLDER: "#standards-placeholder"
     };
 
     var StandardsView = View.extend({
+
+        initialize : function ( o ) {
+            View.prototype.initialize.call(this, arguments);
+
+            $.extend(true, this, o);
+        },
 
         // Automatically render after initialize
         autoRender: true,
@@ -32,7 +43,11 @@ define([
 
         attach: function () {
 
+
             View.prototype.attach.call(this, arguments);
+
+            //update State
+            amplify.publish('voh.state.change', {menu: 'standards'});
 
             this.initVariables();
             this.initComponents();
@@ -42,32 +57,97 @@ define([
 
         initVariables: function () {
 
-            this.$standardsList = this.$el.find(s.standards_LIST);
+            this.$standardsList = this.$el.find(s.STANDARD_LIST);
+            this.$standardsContainers = this.$el.find(s.STANDARD_CONTAINERS);
+            this.$standardPlaceholder = this.$standardsContainers.find(s.STANDARD_PLACEHOLDER);
         },
 
         initComponents: function () {
-            this.initDownloadList();
+
+            this.initStandardsList();
         },
 
+        initStandardsList: function () {
 
-        initDownloadList: function () {
-
-            _.each(JSON.parse(downloadModels), _.bind(this.printDownloads, this));
+            this.$standardsList.jstree({
+                'core': {
+                    'data': this.formatModelForJsTree()
+                }
+            });
         },
 
-        printDownloads : function (d) {
+        formatModelForJsTree : function () {
 
-            var template = Handlebars.compile(itemTemplate);
-            this.$standardsList.append(template(d));
+            var result = [];
+
+            _.each(this.standardCollection, function (s) {
+                s.text = Utils.getLabel(s.model.title);
+                result.push(s);
+            });
+
+            return result;
+        },
+
+        printStandard: function (id) {
+
+            var model = _.findWhere(this.standardCollection, {id: id}),
+                template,
+                $compiled;
+
+            if (model !== undefined) {
+
+                template = Handlebars.compile(itemTemplate);
+                $compiled = template(model);
+                this.$standardsContainers.append($compiled);
+
+            } else {
+                 //Show placeholder
+                this.$standardPlaceholder.show();
+            }
+
         },
 
         bindEventListeners: function () {
+
+            this.$standardsList.on("changed.jstree", _.bind(function (e, data) {
+                var id = data.selected[0];
+                //TODO update URL silent:true
+                //Chaplin.Router.prototype.changeURL('standards /' + id);
+                this.onStandardSelect(id);
+            }, this));
+        },
+
+        onStandardSelect : function ( id ) {
+
+            var $candidateStandard;
+
+            // Clear the standards container
+            this.$standardsContainers.children().hide();
+
+            //Search if the Standards is already printed
+            $candidateStandard = this.$standardsContainers.find('[data-standard="'+id+'"]');
+
+            if ($candidateStandard.length > 0) {
+                //Standard was already printed so show it
+                $candidateStandard.show();
+                return;
+            }
+
+            //The standards has to be printed
+            this.printStandard(id);
+
         },
 
         configurePage: function () {
+
+            if (this.id !== undefined) {
+                this.onStandardSelect(this.id);
+            }
         },
 
         unbindEventListeners: function () {
+
+            this.$standardsList.off();
 
         },
 
@@ -77,7 +157,6 @@ define([
 
             View.prototype.dispose.call(this, arguments);
         }
-
 
     });
 

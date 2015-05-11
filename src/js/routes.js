@@ -10,7 +10,7 @@ define(function() {
     match('visualization/scores', 'visualization-scores#show');
     match('visualization/table', 'visualization-table#show');
     match('country', 'country#show');
-    match('standards', 'standards#show');
+    match('standards(/)(:id)', 'standards#show');
     match('*anything', '404#show');
   };
 });
