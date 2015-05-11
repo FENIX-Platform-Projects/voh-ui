@@ -10,15 +10,16 @@ define([
     'text!json/home/database_updates.json',
     'text!json/home/documents.json',
     'amplify'
-], function (View, Config, template, dbUpdatesTemplate, documentTemplate,  i18nLabels, Handlebars, dbUpdatesModels, documentsModels) {
+], function (View, Config, template, dbUpdatesTemplate, documentTemplate, i18nLabels, Handlebars, dbUpdatesModels, documentsModels) {
 
     'use strict';
 
     var s = {
-        MAP_TOOLBAR_FORM : '#map-toolbar-form',
+        MAP_TOOLBAR_FORM: '#map-toolbar-form',
         FORM_RADIO_BTNS: 'input[type="radio"][name="status"]',
-        DB_UPDATES_LIST : '#db-updates-list',
-        DOCUMENTS_LIST : '#documents-list'
+        DB_UPDATES_LIST: '#db-updates-list',
+        DOCUMENTS_LIST: '#documents-list',
+        DOWNLOAD_MAP_BTN: '#download-map-button'
     };
 
     var HomeView = View.extend({
@@ -46,7 +47,7 @@ define([
             this.configurePage();
         },
 
-        initVariables : function () {
+        initVariables: function () {
 
             this.$mapToolbarForm = this.$el.find(s.MAP_TOOLBAR_FORM);
             this.$mapformRadioBtns = this.$mapToolbarForm.find(s.FORM_RADIO_BTNS);
@@ -56,19 +57,22 @@ define([
 
             //document list
             this.$documentsList = this.$el.find(s.DOCUMENTS_LIST);
+
+            //document list
+            this.$downloadMapBtn = this.$el.find(s.DOWNLOAD_MAP_BTN);
         },
 
-        initComponents : function () {
+        initComponents: function () {
 
             this.initDatabaseUpdatesList();
             this.initDocumentsLinkList();
 
         },
 
-        configurePage : function () {
+        configurePage: function () {
 
             //Activate the default food insecurity status on the map
-            this.$mapformRadioBtns.filter('[value="'+Config.DEFAULT_IF_STATUS+'"]').prop("checked", true).change();
+            this.$mapformRadioBtns.filter('[value="' + Config.DEFAULT_IF_STATUS + '"]').prop("checked", true).change();
         },
 
         bindEventListeners: function () {
@@ -76,6 +80,8 @@ define([
             //If a map toolbar radio btn is changed -> update Map
             this.$mapformRadioBtns.on('change', _.bind(this.onMapStatusChange, this));
 
+            //If the download btn is clicked
+            this.$downloadMapBtn.on('click', _.bind(this.onClickDownloadMap, this));
 
         },
 
@@ -85,7 +91,7 @@ define([
             _.each(JSON.parse(dbUpdatesModels), _.bind(this.printDatabaseUpdate, this));
         },
 
-        printDatabaseUpdate : function ( u ) {
+        printDatabaseUpdate: function (u) {
 
             var template = Handlebars.compile(dbUpdatesTemplate);
             this.$dbUpdatesList.append(template(u));
@@ -95,7 +101,7 @@ define([
             _.each(JSON.parse(documentsModels), _.bind(this.printDocuments, this));
         },
 
-        printDocuments : function ( d ) {
+        printDocuments: function (d) {
 
             var template = Handlebars.compile(documentTemplate);
             this.$documentsList.append(template(d));
@@ -106,7 +112,16 @@ define([
             this.setMapStatus($(e.currentTarget).val());
         },
 
-        setMapStatus : function ( status ){
+        onClickDownloadMap: function (e) {
+
+            this.downloadMap();
+        },
+
+        downloadMap: function () {
+            //console.log('download Map');
+        },
+
+        setMapStatus: function (status) {
 
             //console.log("SET MAP STAUTS: " + status);
 
@@ -115,6 +130,8 @@ define([
         unbindEventListeners: function () {
 
             this.$mapformRadioBtns.off();
+            this.$downloadMapBtn.off();
+
         },
 
         dispose: function () {
