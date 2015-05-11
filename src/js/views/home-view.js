@@ -102,10 +102,10 @@ define([
         },
 
         printDocuments: function (d) {
-
             var template = Handlebars.compile(documentTemplate);
             this.$documentsList.append(template(d));
         },
+
 
         onMapStatusChange: function (e) {
 

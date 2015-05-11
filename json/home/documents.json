@@ -9,7 +9,9 @@
     "title": {
       "EN": "Document 2"
     },
-    "link": "http://google.com"
+    "link":{
+      "EN": "http://news.google.com"
+    }
   },
   {
     "title": {
