@@ -1,5 +1,6 @@
 /*global define, amplify*/
 define([
+    'jquery',
     'chaplin',
     'underscore',
     'globals/State',
@@ -7,7 +8,7 @@ define([
     'fx-menu/start',
     'i18n!nls/site',
     'text!templates/site.hbs'
-], function (Chaplin, _, State, View, Menu, i18nLabels, template) {
+], function ($, Chaplin, _, State, View, Menu, i18nLabels, template) {
 
     'use strict';
 
@@ -61,27 +62,20 @@ define([
 
         onMenuRendered : function () {
 
-            console.log("onMenuRendered");
-
             this.onMenuUpdate();
             amplify.subscribe('voh.menu.update', this, this.onMenuUpdate);
         },
 
         onStateUpdate : function ( s ) {
 
-            console.log("change state")
             State = $.extend(true, State, s);
 
             amplify.publish("voh.menu.update");
-
         },
 
         onMenuUpdate : function () {
-
-            console.log("change menu " + State.menu)
-
             this.topMenu.select(State.menu);
-        },
+        }
 
     });
 

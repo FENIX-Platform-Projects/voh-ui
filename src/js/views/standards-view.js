@@ -1,6 +1,6 @@
 /*global define, _:false, $, amplify*/
 define([
-    'chaplin',
+    'backbone',
     'views/base/view',
     'text!templates/standards/standards.hbs',
     'text!templates/standards/standard_item.hbs',
@@ -9,7 +9,7 @@ define([
     'lib/utils',
     'jstree',
     'amplify'
-], function (Chaplin, View, template, itemTemplate, i18nLabels, Handlebars, Utils) {
+], function (Backbone, View, template, itemTemplate, i18nLabels, Handlebars, Utils) {
 
     'use strict';
 
@@ -111,8 +111,9 @@ define([
 
             this.$standardsList.on("changed.jstree", _.bind(function (e, data) {
                 var id = data.selected[0];
-                //TODO update URL silent:true
-                //Chaplin.Router.prototype.changeURL('standards /' + id);
+
+                Backbone.history.navigate('#standards/' + id, {trigger: false});
+
                 this.onStandardSelect(id);
             }, this));
         },
