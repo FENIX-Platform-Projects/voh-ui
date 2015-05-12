@@ -9,5 +9,6 @@ define({
     "var_marital_status" : "Marital Status",
     "var_income" : "Income",
     "go_btn": "View Data",
-    "reset_btn": "Reset"
+    "reset_btn": "Reset",
+    "twitter_account_id":"598107149366099968"
 });
