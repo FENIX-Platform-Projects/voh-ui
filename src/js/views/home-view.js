@@ -19,8 +19,11 @@ define([
         FORM_RADIO_BTNS: 'input[type="radio"][name="status"]',
         DB_UPDATES_LIST: '#db-updates-list',
         DOCUMENTS_LIST: '#documents-list',
-        DOWNLOAD_MAP_BTN: '#download-map-button'
+        DOWNLOAD_MAP_BTN: '#download-map-button',
+        TWITTER_WIDG_ID : "twitter-wjs"
     };
+
+    var secondProva = false;
 
     var HomeView = View.extend({
 
@@ -41,6 +44,7 @@ define([
             //update State
             amplify.publish('voh.state.change', {menu: 'home'});
 
+            this.initTwitterWidget(document,"script", s.TWITTER_WIDG_ID);
             this.initVariables();
             this.initComponents();
             this.bindEventListeners();
@@ -132,6 +136,15 @@ define([
             this.$mapformRadioBtns.off();
             this.$downloadMapBtn.off();
 
+        },
+
+        initTwitterWidget : function (d,s,id) {
+                var js, fjs = d.getElementsByTagName(s)[0],
+                    p = /^http:/.test(d.location) ? 'http' : 'https';
+                js = d.createElement(s);
+                js.id = id;
+                js.src = p + "://platform.twitter.com/widgets.js";
+                fjs.parentNode.insertBefore(js, fjs);secondProva = true;
         },
 
         dispose: function () {
