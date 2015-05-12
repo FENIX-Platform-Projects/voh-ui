@@ -1,16 +1,17 @@
-/*global define, _:false, amplify*/
+/*global define, _:false, amplify, $*/
 define([
-    'chaplin',
     'handlebars',
     'views/base/view',
     'config/Config',
     'text!templates/visualization/scores.hbs',
+    'text!templates/visualization/scores-result.hbs',
     'text!templates/common/error.hbs',
     'i18n!nls/visualization-scores',
     'i18n!nls/errors',
     'packery',
+    'jqueryBridget',
     'amplify'
-], function (Chaplin, Handlebars, View, Config, template, errorTemplate, i18nLabels, i18Errors, Packery) {
+], function ( Handlebars, View, Config, template, resultTemplate, errorTemplate, i18nLabels, i18Errors, Packery, bridget) {
 
     'use strict';
 
@@ -18,8 +19,10 @@ define([
         GO_BTN: "#scores-go-btn",
         RESET_BTN: "#scores-reset-btn",
         ERROR_HOLDER: ".error-holder",
-        IF_FORM: "#scores-if-form",
-        VARIABLE_FORM: "#scores-variables-form"
+        FI_FORM: "#scores-if-form",
+        VARIABLE_FORM: "#scores-variables-form",
+        RESULTS_CONTAINER: '#results-container',
+        RESULT_SELECTOR: '.voh-result'
     };
 
     var VisualizationView = View.extend({
@@ -42,8 +45,11 @@ define([
             this.$errorHolder = this.$el.find(s.ERROR_HOLDER);
 
             //forms
-            this.$ifForm = this.$el.find(s.IF_FORM);
+            this.$fiForm = this.$el.find(s.FI_FORM);
             this.$variablesForm = this.$el.find(s.VARIABLE_FORM);
+
+            //results
+            this.$resultsContainer = this.$el.find(s.RESULTS_CONTAINER);
         },
 
         attach: function () {
@@ -57,12 +63,33 @@ define([
 
             this.bindEventListeners();
 
+            this.initComponents();
+
             this.initPage();
         },
 
         printDefaultSelection: function () {
 
-            this.$ifForm.find('[value="'+Config.DEFAULT_IF_STATUS+'"]').prop("checked", true).change();
+            this.$fiForm.find('[value="' + Config.DEFAULT_IF_STATUS + '"]').prop("checked", true).change();
+        },
+
+        initComponents: function () {
+
+            bridget( 'packery', Packery );
+
+            this.$resultsContainer.packery({
+                itemSelector: s.RESULT_SELECTOR,
+                "percentPosition": true
+            });
+        },
+
+        appendResult : function ( model ) {
+
+            var $result = $(resultTemplate);
+
+            // add to packery layout
+            this.$resultsContainer.append( $result ).packery( 'appended', $result );
+
         },
 
         initPage: function () {
@@ -97,7 +124,7 @@ define([
         printError: function (errors) {
 
             var template = Handlebars.compile(errorTemplate);
-            this.$errorHolder.html(template({error: i18Errors[errors[0]] }));
+            this.$errorHolder.html(template({error: i18Errors[errors[0]]}));
         },
 
         lockForm: function () {
@@ -122,15 +149,15 @@ define([
 
         search: function () {
 
-           this.onSearchError();
+            this.onSearchError();
         },
 
-        onSearchError : function () {
+        onSearchError: function () {
             this.unlockForm();
             this.printError(['request_error']);
         },
 
-        onSearchSuccess : function ( models ) {
+        onSearchSuccess: function (models) {
             this.unlockForm();
 
 

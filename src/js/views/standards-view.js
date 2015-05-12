@@ -43,7 +43,6 @@ define([
 
         attach: function () {
 
-
             View.prototype.attach.call(this, arguments);
 
             //update State
@@ -69,10 +68,20 @@ define([
 
         initStandardsList: function () {
 
+            var self = this;
+
             this.$standardsList.jstree({
                 'core': {
                     'data': this.formatModelForJsTree()
                 }
+            }).on('ready.jstree', function (e, data) {
+
+                //data.instance.open_node(["id1","id2","id3"]);
+
+                if (self.hasOwnProperty("id")){
+                    data.instance.select_node([self.id]);
+                }
+
             });
         },
 

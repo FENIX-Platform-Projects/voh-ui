@@ -987,3 +987,11 @@
   .jstree-default-responsive > .jstree-container-ul > .jstree-node {
     margin-left: 0;
     margin-right: 0; } }
+/* Pages */
+/* Packery css*/
+.voh-result {
+  width: 50%;
+  height: 100px; }
+
+.voh-result.w2 {
+  width: 100%; }

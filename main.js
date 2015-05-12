@@ -40,6 +40,7 @@ require([
 
                     amplify: '{FENIX_CDN}/js/amplify/1.1.2/amplify.min',
                     packery : '{FENIX_CDN}/js/packery/1.4.1/packery.pkgd.min',
+                    jqueryBridget : '{FENIX_CDN}/js/jquery.bridget/1.1.0/jquery.bridget',
                     jstree : '{FENIX_CDN}/js/jstree/3.0.8/dist/jstree.min',
                     //,swiper: '{FENIX_CDN}/js/swiper/3.07/dist/js/swiper.jquery.min'
                     q : '{FENIX_CDN}/js/q/1.1.2/q'
@@ -72,6 +73,7 @@ require([
                     jstree : {
                         deps: ['jquery']
                     },
+                    packery : ["jquery"],
                     application: {
                         deps: ['bootstrap']
                     }
