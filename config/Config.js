@@ -8,6 +8,8 @@ define(function ( ) {
         //HOME PAGE
         DEFAULT_IF_STATUS : 's',
         DB_NAME : 'voh',
-        WDS_URL : 'http://faostat3.fao.org/wds/rest/table/json'
+        WDS_URL : 'http://faostat3.fao.org/wds/rest/table/json',
+
+        TWITTER_ACCOUNT_ID: "598107149366099968"
     };
 });

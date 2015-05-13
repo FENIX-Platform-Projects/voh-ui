@@ -34,7 +34,11 @@ define([
         template: template,
 
         getTemplateData: function () {
-            return i18nLabels;
+
+            var lables =  i18nLabels;
+            lables.twitter_account_id = Config.TWITTER_ACCOUNT_ID;
+
+            return lables;
         },
 
         attach: function () {
@@ -44,7 +48,6 @@ define([
             //update State
             amplify.publish('voh.state.change', {menu: 'home'});
 
-            this.initTwitterWidget(document,"script", s.TWITTER_WIDG_ID);
             this.initVariables();
             this.initComponents();
             this.bindEventListeners();
@@ -71,6 +74,7 @@ define([
             this.initDatabaseUpdatesList();
             this.initDocumentsLinkList();
 
+            this.initTwitterWidget(document,"script", s.TWITTER_WIDG_ID);
         },
 
         configurePage: function () {
@@ -144,7 +148,7 @@ define([
                 js = d.createElement(s);
                 js.id = id;
                 js.src = p + "://platform.twitter.com/widgets.js";
-                fjs.parentNode.insertBefore(js, fjs);secondProva = true;
+                fjs.parentNode.insertBefore(js, fjs);
         },
 
         dispose: function () {

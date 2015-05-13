@@ -10,8 +10,9 @@ define([
     'i18n!nls/errors',
     'packery',
     'jqueryBridget',
+    'q',
     'amplify'
-], function ( Handlebars, View, Config, template, resultTemplate, errorTemplate, i18nLabels, i18Errors, Packery, bridget) {
+], function ( Handlebars, View, Config, template, resultTemplate, errorTemplate, i18nLabels, i18Errors, Packery, bridget, Q) {
 
     'use strict';
 
@@ -22,7 +23,8 @@ define([
         FI_FORM: "#scores-if-form",
         VARIABLE_FORM: "#scores-variables-form",
         RESULTS_CONTAINER: '#results-container',
-        RESULT_SELECTOR: '.voh-result'
+        RESULT_SELECTOR: '.voh-result',
+        CHART_CONTAINER: '[data-role="chart-container"]'
     };
 
     var VisualizationView = View.extend({
@@ -83,13 +85,25 @@ define([
             });
         },
 
+        setResultWidth : function ( $template ) {
+            /* Add the 'w2' class to display the element with width:100%. Default width:50% */
+            return $template.addClass('w2');
+        },
+
         appendResult : function ( model ) {
 
-            var $result = $(resultTemplate);
+            var $result = this.setResultWidth($(resultTemplate));
 
             // add to packery layout
             this.$resultsContainer.append( $result ).packery( 'appended', $result );
 
+            this.renderChart(model, $result);
+        },
+
+        renderChart : function ( model, $result) {
+
+            // Chart Container
+            $result.find(s.CHART_CONTAINER).html("Franc")
         },
 
         initPage: function () {
