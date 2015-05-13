@@ -12,7 +12,8 @@ define([
     'use strict';
 
     var s = {
-        COUNTRY_LIST: "#country-list"
+        COUNTRY_LIST: "#country-list",
+        DONWLOAD_ITEMS : ".item-download"
     };
 
     var CountryView = View.extend({
@@ -38,15 +39,16 @@ define([
             //update State
             amplify.publish('voh.state.change', {menu: 'country'});
 
-            this.initVariables();
+            this.initVariables()
             this.initComponents();
+
             this.bindEventListeners();
             this.configurePage();
         },
 
         initVariables: function () {
-
             this.$countryList = this.$el.find(s.COUNTRY_LIST);
+            this.$downloadItems = this.$el.find(s.COUNTRY_LIST);
         },
 
         initComponents: function () {
@@ -66,13 +68,22 @@ define([
         },
 
         bindEventListeners: function () {
+
+            var self = this;
+            this.$downloadItems = $(s.DONWLOAD_ITEMS);
+            this.$downloadItems.on('click', function (e) {  self.downloadItem(e) });
         },
+
+        downloadItem: function (e) {
+            window.open(e.currentTarget.href );
+        },
+
 
         configurePage: function () {
         },
 
         unbindEventListeners: function () {
-
+            this.$downloadItems.off();
         },
 
         dispose: function () {
