@@ -71,7 +71,10 @@ define([
 
             var self = this;
             this.$downloadItems = $(s.DONWLOAD_ITEMS);
-            this.$downloadItems.on('click', function (e) {  self.downloadItem(e) });
+            this.$downloadItems.on('click', function (e) {
+                e.preventDefault();
+                self.downloadItem(e);
+            });
         },
 
         downloadItem: function (e) {
