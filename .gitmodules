@@ -4,3 +4,6 @@
 [submodule "submodules/fenix-ui-common"]
 	path = submodules/fenix-ui-common
 	url = https://github.com/FENIX-Platform/fenix-ui-common
+[submodule "submodules/fenix-ui-chart-creator"]
+	path = submodules/fenix-ui-chart-creator
+	url = https://github.com/FENIX-Platform/fenix-ui-chart-creator

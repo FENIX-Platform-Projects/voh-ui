@@ -80,7 +80,7 @@ define([
         configurePage: function () {
 
             //Activate the default food insecurity status on the map
-            this.$mapformRadioBtns.filter('[value="' + Config.DEFAULT_IF_STATUS + '"]').prop("checked", true).change();
+            this.$mapformRadioBtns.filter('[value="' + Config.DEFAULT_FI_STATUS + '"]').prop("checked", true).change();
         },
 
         bindEventListeners: function () {

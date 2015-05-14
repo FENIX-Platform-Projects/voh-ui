@@ -1,12 +1,13 @@
 /*global define, _:false, amplify*/
 define([
+    'backbone',
     'chaplin',
     'controllers/base/controller',
     'views/standards-view',
     'text!json/standards/models.json',
     'q',
     'amplify'
-], function (Chaplin, Controller, CountryView, StandardCollection, Q) {
+], function (Backbone, Chaplin, Controller, CountryView, StandardCollection, Q) {
     'use strict';
 
     var StandardsController = Controller.extend({
@@ -59,9 +60,11 @@ define([
                 standardCollection: this.collection
             };
 
-            //Pass the valid id to view
+            //Pass the valid id to view if valid
             if (this.validstandardId === true) {
                 conf.id = params.id;
+            } else {
+                Backbone.history.navigate('#standards/' , {trigger: false});
             }
 
             this.view = new CountryView(conf);

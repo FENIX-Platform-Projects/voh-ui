@@ -23,7 +23,7 @@
 
         <!-- FI status selectors-->
         <div>
-            <form id="scores-if-form" action="" onsubmit="return(false);">
+            <form id="scores-fi-form" action="" onsubmit="return(false);">
                 <input id="radio-severe-status" type="radio" name="status" value="s">
                 <label for="radio-severe-status"> {{ fi_status_severe }}</label>
                 <input id="radio-moderate-severe-status" type="radio" name="status" value="sm">
@@ -43,7 +43,7 @@
                 <label for="scores-education-sel"> {{ var_education }}</label>
                 <input id="scores-gender-sel" type="checkbox" name="variable" value="gender">
                 <label for="scores-gender-sel"> {{ var_gender }}</label>
-                <input id="scores-marital-sel" type="checkbox" name="variable" value="marital_status">
+                <input id="scores-marital-sel" type="checkbox" name="variable" value="marital">
                 <label for="scores-marital-sel"> {{ var_marital_status }}</label>
                 <input id="scores-income-sel" type="checkbox" name="variable" value="income">
                 <label for="scores-income-sel"> {{ var_income }}</label>
@@ -52,7 +52,7 @@
 
         <!-- Total selectors-->
         <div>
-            <input id="checkbox-show-total" type="checkbox">
+            <input id="checkbox-show-total" type="checkbox" name="total" value="population">
             <label for="checkbox-show-total">{{ checkbox_show_total }}</label>
         </div>
 

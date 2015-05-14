@@ -2,15 +2,19 @@
 
 require([
     './submodules/fenix-ui-common/js/Compiler',
+    './submodules/fenix-ui-common/js/paths',
     './submodules/fenix-ui-menu/js/paths'
-], function (Compiler, Menu) {
+], function (Compiler, Common, Menu) {
 
     'use strict';
 
     var menuConfig = Menu;
     menuConfig.baseUrl = '../../submodules/fenix-ui-menu/js';
 
-    Compiler.resolve([menuConfig],
+    var commonConfig = Common;
+    commonConfig.baseUrl = '../../submodules/fenix-ui-common/js';
+
+    Compiler.resolve([menuConfig, commonConfig],
         {
             placeholders: {"FENIX_CDN": "//fenixapps.fao.org/repository"},
             config: {

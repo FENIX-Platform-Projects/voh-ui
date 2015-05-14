@@ -18,7 +18,7 @@ define([
         GO_BTN: "#table-go-btn",
         RESET_BTN: "#table-reset-btn",
         ERROR_HOLDER: ".error-holder",
-        IF_FORM: "#table-if-form",
+        FI_FORM: "#table-fI-form",
         VARIABLE_FORM: "#table-variables-form"
     };
 
@@ -38,7 +38,7 @@ define([
             this.$errorHolder = this.$el.find(s.ERROR_HOLDER);
 
             //forms
-            this.$ifForm = this.$el.find(s.IF_FORM);
+            this.$fiForm = this.$el.find(s.FI_FORM);
             this.$variablesForm = this.$el.find(s.VARIABLE_FORM);
         },
 
@@ -62,7 +62,7 @@ define([
 
         printDefaultSelection: function () {
 
-            this.$ifForm.find('[value="'+Config.DEFAULT_IF_STATUS+'"]').prop("checked", true).change();
+            this.$fiForm.find('[value="'+Config.DEFAULT_FI_STATUS+'"]').prop("checked", true).change();
         },
 
         initPage: function () {
