@@ -10,11 +10,12 @@ define([
     'i18n!nls/visualization-scores',
     'i18n!nls/errors',
     'fx-common/WDSClient',
+    'fx-c-c/start',
     'packery',
     'jqueryBridget',
     'q',
     'amplify'
-], function (Handlebars, View, Config, Services, template, resultTemplate, errorTemplate, i18nLabels, i18Errors, WDSClient, Packery, bridget) {
+], function (Handlebars, View, Config, Services, template, resultTemplate, errorTemplate, i18nLabels, i18Errors, WDSClient, ChartCreator, Packery, bridget) {
 
     'use strict';
 
@@ -75,6 +76,8 @@ define([
                 datasource: Config.DB_NAME
             });
 
+            this.chartCreator = new ChartCreator();
+
         },
 
         attach: function () {
@@ -133,41 +136,13 @@ define([
             }
         },
 
-        createRequest: function (inputs) {
-
-            this.currentRequest = {
-                inputs: inputs,
-                processedInputs: prepareInputsForWds(inputs)
-            };
-
-            function prepareInputsForWds(inputs) {
-
-                var result = {},
-                    keys = Object.keys(inputs);
-
-                _.each(keys, function (k) {
-                    result[k] = Array.isArray(inputs[k]) ? processArray(inputs[k]) : inputs[k];
-                });
-
-                return result;
-            }
-
-            function processArray(input) {
-
-                var result = '',
-                    concat = "','";
-
-                _.each(input, function (item) {
-                    result += item + concat;
-                });
-
-                return result.substring(0, result.length - concat.length);
-            }
-        },
-
         onClickResetBtn: function () {
 
             this.printDefaultSelection();
+
+            this.resetResults();
+
+            this.resetError();
         },
 
         /* Data request process */
@@ -202,25 +177,63 @@ define([
         getInputs: function () {
 
             var variables = [],
+                query_variables,
                 showTotal = this.$showTotalCheckbox.is(':checked');
 
             $.each(this.$variablesForm.find("input[name='variable']:checked"), function () {
                 variables.push($(this).val());
             });
 
+            //clone array
+            query_variables = variables.slice(0);
+
             //Append total to variable if checked
             if (showTotal === true) {
-                variables.push(this.$showTotalCheckbox.val());
+                query_variables.push(this.$showTotalCheckbox.val());
             }
 
             return {
                 status: this.$fiForm.find("input[name='status']:checked").val(),
                 variables: variables,
+                query_variables: query_variables,
                 total: showTotal,
                 //TODO
-                country: ['3']
+                country: ['3'],
+                query_country: ['3']
             };
 
+        },
+
+        createRequest: function (inputs) {
+
+            this.currentRequest = {
+                inputs: inputs,
+                processedInputs: prepareInputsForWds(inputs)
+            };
+
+            function prepareInputsForWds(inputs) {
+
+                var result = {},
+                    keys = Object.keys(inputs);
+
+                _.each(keys, function (k) {
+                    result[k] = Array.isArray(inputs[k]) ? processArray(inputs[k]) : inputs[k];
+                });
+
+                return result;
+            }
+
+            function processArray(input) {
+
+                var result = '',
+                    concat = "','";
+
+                _.each(input, function (item) {
+                    result += item + concat;
+                });
+
+                return result.substring(0, result.length - concat.length);
+            }
         },
 
         search: function () {
@@ -231,7 +244,6 @@ define([
                 success: _.bind(this.onSearchSuccess, this),
                 error: _.bind(this.onSearchError, this)
             });
-
         },
 
         onSearchError: function () {
@@ -243,52 +255,100 @@ define([
         onSearchSuccess: function (response) {
 
             this.currentRequest.response = response;
-
-            console.log(this.currentRequest)
+            this.currentRequest.processdResponse = this.processResponse(response);
 
             this.unlockForm();
 
-            this.printResults();
+            this.initChartCreator();
         },
 
         /* Results rendering */
 
+        processResponse: function (response) {
+
+            return response;
+        },
+
+        initChartCreator: function () {
+
+            this.chartCreator.init({
+                model: this.currentRequest.processdResponse,
+                adapter: {
+                    filters: [0, 2, 3],
+                    x_dimension: '0',
+                    y_dimension: '4'
+                },
+                template: {},
+                creator: {},
+                onReady: _.bind(this.printResults, this)
+
+            });
+
+        },
+
         printResults: function () {
 
-            _.each(this.currentRequest.response, _.bind(function (row) {
-                this.appendResult(this.processRowForResult(row));
+            //Print a number of results equals to the selected variables
+            _.each(this.currentRequest.inputs.variables, _.bind(function (v) {
+
+                this.appendResult(v);
             }, this));
         },
 
-        setResultWidth: function ($template) {
-
-            /* Add the 'w2' class to display the element with width:100%. Default width:50% */
-            return (this.currentRequest.inputs.country.length > Config.COUNTRY_THRESHOLD ) ? $template.addClass('w2') : $template;
-        },
-
-        processRowForResult: function (row) {
-
-            console.log(this.currentRequest)
-
-            return row;
-        },
-
-        appendResult: function (model) {
+        appendResult: function (variable) {
 
             var $result = this.setResultWidth($(resultTemplate));
 
             // add to packery layout
             this.$resultsContainer.append($result).packery('appended', $result);
 
-            this.renderChart(model, $result);
+            this.renderChart($result, variable);
         },
 
-        renderChart: function (model, $result) {
+        setResultWidth: function ($template) {
+
+            /* Add the 'w2' class to display the element with width:100%. Default width:50% */
+            return (this.currentRequest.inputs.country.length < Config.COUNTRY_THRESHOLD ) ? $template.addClass('w2') : $template;
+        },
+
+        renderChart: function ($result, variable) {
+
+            //Create dynamically the series
+
 
             // Chart Container
             this.charts.push("");
 
-            $result.find(s.CHART_CONTAINER).html("Franc");
+            this.chartCreator.render({
+                container: $result.find(s.CHART_CONTAINER),
+                series: [
+                    {
+                        filters: {
+                            '0': "3",
+                            '2': "age",
+                            "3": "2"
+                        },
+                        type: 'column'
+                    },
+                    {
+                        filters: {
+                            '0': "3",
+                            '2': "age",
+                            "3": "3"
+                        },
+                        type: 'column'
+                    },
+                    {
+                        filters: {
+                            '0': "3",
+                            '2': "age",
+                            "3": "1"
+                        },
+                        type: 'column'
+                    }
+                ]
+            });
+
         },
 
         resetResults: function () {

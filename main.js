@@ -3,8 +3,9 @@
 require([
     './submodules/fenix-ui-common/js/Compiler',
     './submodules/fenix-ui-common/js/paths',
+    './submodules/fenix-ui-chart-creator/src/js/paths',
     './submodules/fenix-ui-menu/js/paths'
-], function (Compiler, Common, Menu) {
+], function (Compiler, Common, ChartCreator, Menu) {
 
     'use strict';
 
@@ -14,7 +15,10 @@ require([
     var commonConfig = Common;
     commonConfig.baseUrl = '../../submodules/fenix-ui-common/js';
 
-    Compiler.resolve([menuConfig, commonConfig],
+    var chartCreatorConfig = ChartCreator;
+    chartCreatorConfig.baseUrl = '../../submodules/fenix-ui-chart-creator/src/js';
+
+    Compiler.resolve([menuConfig, commonConfig, chartCreatorConfig],
         {
             placeholders: {"FENIX_CDN": "//fenixapps.fao.org/repository"},
             config: {
