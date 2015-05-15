@@ -15,7 +15,8 @@ define(function ( ) {
         TWITTER_ACCOUNT_ID: "598107149366099968",
 
         //Visualization Scores
-        COUNTRY_THRESHOLD: 3
+        COUNTRY_THRESHOLD: 3,
+        CHART_TYPE: "column"
 
 
     };

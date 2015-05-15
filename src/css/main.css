@@ -998,4 +998,8 @@
   .voh-result.w2 {
     width: 100%; }
   .voh-result [data-role="content"] {
-    height: 300px; }
+    height: 350px; }
+
+.country-selector-container {
+  height: 300px;
+  overflow-y: auto; }

@@ -53,6 +53,7 @@ require([
                     //,swiper: '{FENIX_CDN}/js/swiper/3.07/dist/js/swiper.jquery.min'
                     q : '{FENIX_CDN}/js/q/1.1.2/q',
 
+
                     // fenix-map-js
                     'import-dependencies': '{FENIX_CDN}/js//FENIX/utils/import-dependencies-1.0',
                     leaflet: '{FENIX_CDN}/js/leaflet/0.7.3/leaflet',

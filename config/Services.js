@@ -14,6 +14,7 @@ define(function ( ) {
         CL_LOCATION : "SELECT location_range_code as code, location_range_label FROM codes_location_range",
         CL_INCOME: "SELECT income_code as code, income_label FROM codes_income;",
         CL_GENDER: "SELECT gender_code as code, gender_label FROM codes_gender;",
+        CL_COUNTRY: "SELECT country_code as code, country_label FROM codes_country;",
 
         MAP_FI_POPULATION: "SELECT country, {query_variables} FROM master_aggregation WHERE variable = 'population';"
     };

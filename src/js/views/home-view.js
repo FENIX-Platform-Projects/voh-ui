@@ -143,7 +143,7 @@ define([
                     wmsLoader: false
                 }
             });
-            s.map.createMap(0, 0, 2);
+            s.map.createMap(30, 0, 2);
 
             s.joinlayer = new FM.layer({
                 layers: 'fenix:gaul0_3857',
