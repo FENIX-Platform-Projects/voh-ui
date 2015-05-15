@@ -60,6 +60,20 @@ define([
             this.$resultsContainer = this.$el.find(s.RESULTS_CONTAINER);
 
             this.charts = [];
+
+            //Codelists
+            this.cachedCodelist = [];
+
+            this.codelists_conf = {
+                cl_marital: Services.CL_MARITAL,
+                cl_age: Services.CL_AGE,
+                cl_education: Services.CL_EDUCATION,
+                cl_location: Services.CL_LOCATION,
+                cl_income: Services.CL_INCOME,
+                cl_gender: Services.CL_GENDER
+            };
+
+            this.codelists = Object.keys(this.codelists_conf);
         },
 
         initComponents: function () {
@@ -74,10 +88,57 @@ define([
             this.WDSClient = new WDSClient({
                 serviceUrl: Config.WDS_URL,
                 datasource: Config.DB_NAME,
-                outputType : Config.WDS_OUTPUT_TYPE
+                outputType: Config.WDS_OUTPUT_TYPE
             });
 
             this.chartCreator = new ChartCreator();
+
+        },
+
+        preloadResources: function () {
+
+            _.each(this.codelists, _.bind(function (cd) {
+
+                //Check if codelist is cached otherwise query
+                var stored = amplify.store.sessionStorage(cd);
+
+                if (stored === undefined) {
+
+                    this.WDSClient.query({
+                        queryTmpl: this.codelists_conf[cd],
+                        success: _.bind(this.onPreloadCodelistSuccess, this, cd),
+                        error: _.bind(this.onPreloadCodelistError, this)
+                    });
+
+                } else {
+                    this.onCodelistCached(cd);
+                }
+
+            }, this));
+
+        },
+
+        onCodelistCached: function (codelist) {
+
+            this.cachedCodelist.push(codelist);
+
+            if (this.cachedCodelist.length === this.codelists.length) {
+
+                this.ready = true;
+            }
+
+        },
+
+        onPreloadCodelistError: function () {
+
+            this.printError(["preload_resources_error"]);
+        },
+
+        onPreloadCodelistSuccess: function (cd, response) {
+
+            amplify.store.sessionStorage(cd, response);
+
+            this.onCodelistCached(cd);
 
         },
 
@@ -93,6 +154,8 @@ define([
             this.bindEventListeners();
 
             this.initComponents();
+
+            this.preloadResources();
 
             this.initPage();
         },
@@ -283,7 +346,6 @@ define([
                 template: {},
                 creator: {},
                 onReady: _.bind(this.printResults, this)
-
             });
 
         },
