@@ -51,7 +51,18 @@ require([
                     jqueryBridget : '{FENIX_CDN}/js/jquery.bridget/1.1.0/jquery.bridget',
                     jstree : '{FENIX_CDN}/js/jstree/3.0.8/dist/jstree.min',
                     //,swiper: '{FENIX_CDN}/js/swiper/3.07/dist/js/swiper.jquery.min'
-                    q : '{FENIX_CDN}/js/q/1.1.2/q'
+                    q : '{FENIX_CDN}/js/q/1.1.2/q',
+
+                    // fenix-map-js
+                    'import-dependencies': '{FENIX_CDN}/js//FENIX/utils/import-dependencies-1.0',
+                    leaflet: '{FENIX_CDN}/js/leaflet/0.7.3/leaflet',
+                    'jquery.power.tip': '{FENIX_CDN}/js/jquery.power.tip/1.2.0/jquery.powertip.min',
+                    'jquery-ui':   '{FENIX_CDN}/js/jquery-ui/1.10.3/jquery-ui-1.10.3.custom.min',
+                    'jquery.i18n.properties': '{FENIX_CDN}/js/jquery/1.0.9/jquery.i18n.properties-min',
+                    'jquery.hoverIntent': '{FENIX_CDN}/js/jquery.hoverIntent/1.8.0/jquery.hoverIntent.min',
+
+                    'fenix-ui-map': '{FENIX_CDN}/js/fenix-ui-map/0.1/fenix-ui-map.min',
+                    'fenix-ui-map-config': '{FENIX_CDN}/js/fenix-ui-map/0.1/fenix-ui-map-config'
 
                 },
 
@@ -84,6 +95,19 @@ require([
                     packery : ["jquery"],
                     application: {
                         deps: ['bootstrap']
+                    },
+                    'fenix-ui-map': {
+                        deps: [
+                            'jquery',
+                            'jquery-ui',
+                            'leaflet',
+                            'fenix-ui-map-config',
+                            'jquery.power.tip',
+                            'jquery.i18n.properties',
+                            'import-dependencies',
+                            'jquery.hoverIntent',
+                            //'chosen'
+                        ]
                     }
                 }
                 // For easier development, disable browser caching
