@@ -988,10 +988,14 @@
     margin-left: 0;
     margin-right: 0; } }
 /* Pages */
+.map-home-page {
+  height: 400px; }
+
 /* Packery css*/
 .voh-result {
   width: 50%;
-  height: 100px; }
-
-.voh-result.w2 {
-  width: 100%; }
+  height: 350px; }
+  .voh-result.w2 {
+    width: 100%; }
+  .voh-result [data-role="content"] {
+    height: 300px; }

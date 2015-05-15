@@ -1,4 +1,4 @@
-/*global define, _:false, $, console, amplify*/
+/*global define, _:false, $, console, amplify, FM*/
 define([
     'views/base/view',
     'config/Config',

@@ -81,8 +81,7 @@ define([
             bridget('packery', Packery);
 
             this.$resultsContainer.packery({
-                itemSelector: s.RESULT_SELECTOR,
-                percentPosition: true
+                itemSelector: s.RESULT_SELECTOR
             });
 
             this.WDSClient = new WDSClient({
@@ -243,7 +242,9 @@ define([
 
             var variables = [],
                 query_variables,
-                showTotal = this.$showTotalCheckbox.is(':checked');
+                showTotal = this.$showTotalCheckbox.is(':checked'),
+                //TODO
+                country = ['3', '111'];
 
             $.each(this.$variablesForm.find("input[name='variable']:checked"), function () {
                 variables.push($(this).val());
@@ -262,9 +263,8 @@ define([
                 variables: variables,
                 query_variables: query_variables,
                 total: showTotal,
-                //TODO
-                country: ['3'],
-                query_country: ['3']
+                country: country,
+                query_country: country.slice(0)
             };
 
         },
@@ -339,7 +339,7 @@ define([
             this.chartCreator.init({
                 model: this.currentRequest.processdResponse,
                 adapter: {
-                    filters: ['country', 'variable', 'group_code'],
+                    filters: ['variable', 'group_code'],
                     x_dimension: 'country',
                     y_dimension: this.currentRequest.inputs.status
                 },
@@ -371,47 +371,46 @@ define([
 
         setResultWidth: function ($template) {
 
-            /* Add the 'w2' class to display the element with width:100%. Default width:50% */
-            return (this.currentRequest.inputs.country.length < Config.COUNTRY_THRESHOLD ) ? $template.addClass('w2') : $template;
+            if (this.currentRequest.inputs.variables.length > 1) {
+                /* Add the 'w2' class to display the element with width:100%. Default width:50% */
+                return (this.currentRequest.inputs.country.length > Config.COUNTRY_THRESHOLD ) ? $template.addClass('w2') : $template;
+            } else {
+                return $template.addClass('w2');
+            }
+
+        },
+
+        createSeriesForChartCreator: function (variable) {
+
+            var cd = amplify.store.sessionStorage('cl_' + variable),
+                series = [];
+
+            _.each(cd, function (c) {
+
+                series.push(
+                    {
+                        filters: {
+                            'variable': variable,
+                            'group_code': c.code
+                        },
+                        type: 'column'
+                    });
+            });
+
+            return series;
+
         },
 
         renderChart: function ($result, variable) {
 
             //Create dynamically the series
-
-
-            // Chart Container
-            this.charts.push("");
-
-            this.chartCreator.render({
+            var series = this.createSeriesForChartCreator(variable),
+                chart = this.chartCreator.render({
                 container: $result.find(s.CHART_CONTAINER),
-                series: [
-                    {
-                        filters: {
-                            'country': "3",
-                            'variable': "age",
-                            'group_code': "1"
-                        },
-                        type: 'column'
-                    },
-                    {
-                        filters: {
-                            'country': "3",
-                            'variable': "age",
-                            'group_code': "2"
-                        },
-                        type: 'column'
-                    },
-                    {
-                        filters: {
-                            'country': "3",
-                            'variable': "age",
-                            'group_code': "3"
-                        },
-                        type: 'column'
-                    }
-                ]
+                series: series
             });
+
+            this.charts.push(chart);
 
         },
 
