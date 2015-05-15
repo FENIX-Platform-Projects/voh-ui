@@ -129,23 +129,21 @@ define([
         initMap: function(d) {
             s.map = new FM.Map(d, {
                 plugins: {
+                    zoomcontrol: 'bottomright',
+                    disclaimerfao: true,
+                    fullscreen: true,
+                    geosearch: true,
                     mouseposition: false,
                     controlloading : true,
-                    zoomControl: 'bottomright'
+                    zoomResetControl: true
                 },
                 guiController: {
                     overlay: false,
                     baselayer: true,
                     wmsLoader: false
-                },
-                gui: {
-                    disclaimerfao: true
                 }
-            }, {
-                zoomControl: false,
-                attributionControl: false
             });
-            s.map.createMap();
+            s.map.createMap(0, 0, 2);
 
             s.joinlayer = new FM.layer({
                 layers: 'fenix:gaul0_3857',
