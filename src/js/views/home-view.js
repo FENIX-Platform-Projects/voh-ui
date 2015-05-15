@@ -23,8 +23,6 @@ define([
         TWITTER_WIDG_ID : "twitter-wjs"
     };
 
-    var secondProva = false;
-
     var HomeView = View.extend({
 
         autoRender: true,

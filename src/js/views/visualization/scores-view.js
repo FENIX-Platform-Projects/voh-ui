@@ -68,12 +68,13 @@ define([
 
             this.$resultsContainer.packery({
                 itemSelector: s.RESULT_SELECTOR,
-                "percentPosition": true
+                percentPosition: true
             });
 
             this.WDSClient = new WDSClient({
                 serviceUrl: Config.WDS_URL,
-                datasource: Config.DB_NAME
+                datasource: Config.DB_NAME,
+                outputType : Config.WDS_OUTPUT_TYPE
             });
 
             this.chartCreator = new ChartCreator();
@@ -132,6 +133,7 @@ define([
                 this.search();
 
             } else {
+
                 this.printError(valid);
             }
         },
@@ -274,9 +276,9 @@ define([
             this.chartCreator.init({
                 model: this.currentRequest.processdResponse,
                 adapter: {
-                    filters: [0, 2, 3],
-                    x_dimension: '0',
-                    y_dimension: '4'
+                    filters: ['country', 'variable', 'group_code'],
+                    x_dimension: 'country',
+                    y_dimension: this.currentRequest.inputs.status
                 },
                 template: {},
                 creator: {},
@@ -324,25 +326,25 @@ define([
                 series: [
                     {
                         filters: {
-                            '0': "3",
-                            '2': "age",
-                            "3": "2"
+                            'country': "3",
+                            'variable': "age",
+                            'group_code': "1"
                         },
                         type: 'column'
                     },
                     {
                         filters: {
-                            '0': "3",
-                            '2': "age",
-                            "3": "3"
+                            'country': "3",
+                            'variable': "age",
+                            'group_code': "2"
                         },
                         type: 'column'
                     },
                     {
                         filters: {
-                            '0': "3",
-                            '2': "age",
-                            "3": "1"
+                            'country': "3",
+                            'variable': "age",
+                            'group_code': "3"
                         },
                         type: 'column'
                     }
@@ -386,7 +388,10 @@ define([
 
         dispose: function () {
 
+            this.resetResults();
+
             this.unbindEventListeners();
+
             View.prototype.dispose.call(this, arguments);
         }
 
