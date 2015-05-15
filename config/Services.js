@@ -13,7 +13,8 @@ define(function ( ) {
         CD_EDUCATION : "SELECT education_code, education_label FROM codes_education;",
         CD_LOCATION : "SELECT location_range_code, location_range_label FROM codes_location_range",
         CD_INCOME: "SELECT income_code, income_label FROM codes_income;",
-        CD_GENDER: "SELECT gender_code, gender_label FROM codes_gender;"
+        CD_GENDER: "SELECT gender_code, gender_label FROM codes_gender;",
 
+        MAP_FI_POPULATION: "SELECT country, {query_variables} FROM master_aggregation WHERE variable = 'population';"
     };
 });
