@@ -2,6 +2,7 @@
 define([
     'views/base/view',
     'config/Config',
+    'config/Services',
     'text!templates/home/home.hbs',
     'text!templates/home/database_update_item.hbs',
     'text!templates/home/document_item.hbs',
@@ -9,8 +10,10 @@ define([
     'handlebars',
     'text!json/home/database_updates.json',
     'text!json/home/documents.json',
-    'amplify'
-], function (View, Config, template, dbUpdatesTemplate, documentTemplate, i18nLabels, Handlebars, dbUpdatesModels, documentsModels) {
+    'fx-common/WDSClient',
+    'amplify',
+    'fenix-ui-map'
+], function (View, Config, Services, template, dbUpdatesTemplate, documentTemplate, i18nLabels, Handlebars, dbUpdatesModels, documentsModels, WDSClient) {
 
     'use strict';
 
@@ -20,6 +23,7 @@ define([
         DB_UPDATES_LIST: '#db-updates-list',
         DOCUMENTS_LIST: '#documents-list',
         DOWNLOAD_MAP_BTN: '#download-map-button',
+        MAP: '#map',
         TWITTER_WIDG_ID : "twitter-wjs"
     };
 
@@ -65,6 +69,7 @@ define([
 
             //document list
             this.$downloadMapBtn = this.$el.find(s.DOWNLOAD_MAP_BTN);
+
         },
 
         initComponents: function () {
@@ -73,6 +78,14 @@ define([
             this.initDocumentsLinkList();
 
             this.initTwitterWidget(document,"script", s.TWITTER_WIDG_ID);
+
+            this.WDSClient = new WDSClient({
+                serviceUrl: Config.WDS_URL,
+                datasource: Config.DB_NAME,
+                outputType : Config.WDS_OUTPUT_TYPE
+            });
+
+            this.initMap(s.MAP);
         },
 
         configurePage: function () {
@@ -113,10 +126,86 @@ define([
         },
 
 
+        initMap: function(d) {
+            s.map = new FM.Map(d, {
+                plugins: {
+                    mouseposition: false,
+                    controlloading : true,
+                    zoomControl: 'bottomright'
+                },
+                guiController: {
+                    overlay: false,
+                    baselayer: true,
+                    wmsLoader: false
+                },
+                gui: {
+                    disclaimerfao: true
+                }
+            }, {
+                zoomControl: false,
+                attributionControl: false
+            });
+            s.map.createMap();
+
+            s.joinlayer = new FM.layer({
+                layers: 'fenix:gaul0_3857',
+                layertitle: i18nLabels.food_insecurity,
+                opacity: '0.7',
+                joincolumn: 'adm0_code',
+                joincolumnlabel: 'adm0_name',
+                joindata: [],
+                mu: "Index",
+                legendsubtitle: "Index",
+                layertype: 'JOIN',
+                jointype: 'shaded',
+                openlegend: true,
+                defaultgfi: true,
+                colorramp: 'OrRd',
+                lang: 'en',
+                customgfi: {
+                    content: {
+                        en: "<div class='fm-popup'>{{adm0_name}} <div class='fm-popup-join-content'>{{{adm0_code}}} Index</div></div>"
+                    },
+                    showpopup: true
+                }
+            });
+            s.map.addLayer(s.joinlayer);
+
+            s.map.addLayer(new FM.layer({
+                layers: 'fenix:gaul0_line_3857',
+                layertitle: 'Country Boundaries',
+                urlWMS: 'http://fenix.fao.org/geoserver',
+                opacity: '0.9',
+                lang: 'en'
+            }));
+        },
+
         onMapStatusChange: function (e) {
 
             this.setMapStatus($(e.currentTarget).val());
+            this.WDSClient.query({
+                queryTmpl: Services.MAP_FI_POPULATION,
+                queryVars: {'query_variables': $(e.currentTarget).val()},
+                success: _.bind(this.updateJoinLayer, this),
+                error: _.bind(this.onUpdateJoinLayerError, this)
+            });
         },
+
+        onUpdateJoinLayerError: function(e) {
+
+        },
+
+        updateJoinLayer: function (data) {
+            s.joinlayer.layer.joindata = [];
+            _.each(data, _.bind(function (f) {
+                var keys = Object.keys(f);
+                var d = {};
+                d[f[keys[0]]] = f[keys[1]];
+                s.joinlayer.layer.joindata.push(d);
+            }, this));
+            s.joinlayer.redraw();
+        },
+
 
         onClickDownloadMap: function (e) {
 
