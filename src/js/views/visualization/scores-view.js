@@ -61,7 +61,7 @@ define([
 
             this.$showTotalCheckbox = this.$el.find(s.TOTAL_CHECKBOX);
 
-            this.$countrySelector = this.$el.find(s.COUNTRY_SELECTOR)
+            this.$countrySelector = this.$el.find(s.COUNTRY_SELECTOR);
 
             //results
             this.$resultsContainer = this.$el.find(s.RESULTS_CONTAINER);
@@ -99,6 +99,9 @@ define([
             });
 
             this.chartCreator = new ChartCreator();
+        },
+
+        initCountrySelector : function () {
 
             //Init country selector
             var clCountry = [];
@@ -106,6 +109,7 @@ define([
             _.each(amplify.store.sessionStorage('cl_country'), function (n) {
                 clCountry.push(createNode(n));
             });
+
 
             this.$countrySelector.jstree({
                 "core": {
@@ -117,6 +121,17 @@ define([
                 "plugins": ["wholerow", "ui", "checkbox"]
 
             });
+
+            //TODO
+            /*on("check_node.jstree", _.bind(function (e, data) {
+                console.log("ok")
+                if (data.func === "check_node") {
+                    if (this.$countrySelector.jstree('get_checked').length >= 1) {
+                        e.preventDefault();
+                        return false;
+                    }
+                }
+            }, this));*/
 
             function createNode(item) {
 
@@ -169,6 +184,8 @@ define([
             if (this.cachedCodelist.length === this.codelists.length) {
 
                 this.ready = true;
+
+                this.onReady();
             }
 
         },
@@ -200,7 +217,15 @@ define([
 
             this.preloadResources();
 
+        },
+
+        onReady : function () {
+
+            this.initCountrySelector();
+
             this.initPage();
+
+            this.unlockForm();
         },
 
         initPage: function () {
@@ -211,6 +236,11 @@ define([
         printDefaultSelection: function () {
 
             this.$fiForm.find('[value="' + Config.DEFAULT_FI_STATUS + '"]').prop("checked", true).change();
+
+            this.$variablesForm.find("input").attr('checked', false);
+
+            this.$showTotalCheckbox.attr('checked', false);
+
             this.$countrySelector.jstree("uncheck_all");
         },
 
@@ -227,7 +257,7 @@ define([
             var inputs = this.getInputs(),
                 valid = this.validateInput(inputs);
 
-            if (valid === true) {
+            if ( valid === true) {
 
                 this.lockForm();
 
