@@ -13,6 +13,8 @@ define(function ( ) {
         //General
         DEFAULT_FI_STATUS : 's',
         DEFAULT_GEO_GRANULARITY : 'country',
+        DEFAULT_GEO_SELECTION : ['3', '79'],
+        DEFAULT_VARIABLE_SELECTION : ['age', 'location'],
 
         TWITTER_ACCOUNT_ID: "598107149366099968",
 

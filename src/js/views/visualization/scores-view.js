@@ -80,7 +80,7 @@ define([
                 cl_location: Services.CL_LOCATION,
                 cl_income: Services.CL_INCOME,
                 cl_gender: Services.CL_GENDER,
-                cl_country : Services.CL_COUNTRY,
+                cl_country: Services.CL_COUNTRY,
                 cl_region: Services.CL_REGION
             };
 
@@ -104,12 +104,12 @@ define([
             this.chartCreator = new ChartCreator();
         },
 
-        initCountrySelector : function ( granularity ) {
+        initCountrySelector: function (granularity) {
 
             //Init country selector
             var data = [];
 
-            _.each(amplify.store.sessionStorage('cl_' + granularity ), function (n) {
+            _.each(amplify.store.sessionStorage('cl_' + granularity), function (n) {
                 data.push(createNode(n));
             });
 
@@ -134,6 +134,15 @@ define([
                     this.$geoSelector.jstree(true).deselect_node(data.node);
                 }
 
+            }, this));
+
+            this.$geoSelector.on("ready.jstree", _.bind(function () {
+
+                if (Config.DEFAULT_GEO_SELECTION && Array.isArray(Config.DEFAULT_GEO_SELECTION)) {
+                    _.each(Config.DEFAULT_GEO_SELECTION, _.bind(function (g) {
+                        this.$geoSelector.jstree(true).select_node(g);
+                    }, this));
+                }
             }, this));
 
             function createNode(item) {
@@ -222,7 +231,7 @@ define([
 
         },
 
-        onReady : function () {
+        onReady: function () {
 
             this.initPage();
 
@@ -236,15 +245,23 @@ define([
 
         printDefaultSelection: function () {
 
+            var self = this;
+
             this.$fiForm.find('[value="' + Config.DEFAULT_FI_STATUS + '"]').prop("checked", true).change();
 
             this.$variablesForm.find("input").attr('checked', false);
+            if (Config.DEFAULT_VARIABLE_SELECTION && Array.isArray(Config.DEFAULT_VARIABLE_SELECTION)) {
+                _.each(Config.DEFAULT_VARIABLE_SELECTION, function (v) {
+                    self.$variablesForm.find('[value="' + v + '"]').prop("checked", true).change();
+                });
+            }
 
             this.$geoGranularityForm.find('[value="' + Config.DEFAULT_GEO_GRANULARITY + '"]').prop("checked", true).change();
 
             this.$showTotalCheckbox.attr('checked', false);
 
             this.$geoSelector.jstree("uncheck_all");
+
         },
 
         /* Event binding and callback */
@@ -252,12 +269,13 @@ define([
         bindEventListeners: function () {
 
             this.$goBtn.on('click', _.bind(this.onClickGoBtn, this));
+
             this.$resetBtn.on('click', _.bind(this.onClickResetBtn, this));
 
             this.$geoGranularityForm.find("input").on('change', _.bind(this.onGeoGranularityChange, this));
         },
 
-        onGeoGranularityChange : function (e) {
+        onGeoGranularityChange: function (e) {
             this.initCountrySelector($(e.currentTarget).val());
         },
 
@@ -266,7 +284,7 @@ define([
             var inputs = this.getInputs(),
                 valid = this.validateInput(inputs);
 
-            if ( valid === true) {
+            if (valid === true) {
 
                 this.lockForm();
 
@@ -358,7 +376,7 @@ define([
                 variables: variables,
                 query_variables: query_variables,
                 total: showTotal,
-                geo_granularity : this.$geoGranularityForm.find("input[name='geo-granularity']:checked").val(),
+                geo_granularity: this.$geoGranularityForm.find("input[name='geo-granularity']:checked").val(),
                 geo: geo,
                 query_geo: geo.slice(0)
             };
@@ -420,8 +438,8 @@ define([
 
             this.unlockForm();
 
-            if (this.currentRequest.response.length === 0 ) {
-                   this.printCourtesyMessage();
+            if (this.currentRequest.response.length === 0) {
+                this.printCourtesyMessage();
             } else {
                 this.initChartCreator();
             }
@@ -430,6 +448,7 @@ define([
         /* Results rendering */
 
         processResponse: function (response) {
+
 
             return response;
         },
@@ -441,7 +460,8 @@ define([
                 adapter: {
                     filters: ['variable', 'group_code'],
                     x_dimension: 'geo',
-                    y_dimension: this.currentRequest.inputs.status
+                    x_dimension_label: 'geo_label',
+                    value: this.currentRequest.inputs.status
                 },
                 template: {},
                 creator: {},
@@ -493,12 +513,14 @@ define([
                             'variable': variable,
                             'group_code': c.code
                         },
+                        creator: {
+                            name: _.findWhere(cd, {code: c.code}).label
+                        },
                         type: Config.CHART_TYPE
                     });
             });
 
             return series;
-
         },
 
         renderChart: function ($result, variable) {
@@ -506,9 +528,9 @@ define([
             //Create dynamically the series
             var series = this.createSeriesForChartCreator(variable),
                 chart = this.chartCreator.render({
-                container: $result.find(s.CHART_CONTAINER),
-                series: series
-            });
+                    container: $result.find(s.CHART_CONTAINER),
+                    series: series
+                });
 
             this.charts.push(chart);
 
