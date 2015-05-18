@@ -8,6 +8,7 @@ define({
     "var_gender": "Gender",
     "var_marital_status" : "Marital Status",
     "var_income" : "Income",
+    "var_total" : "Total",
     "go_btn": "View Data",
     "reset_btn": "Reset",
     "courtesy_message" : "No results",

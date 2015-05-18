@@ -14,13 +14,15 @@ define(function ( ) {
         DEFAULT_FI_STATUS : 's',
         DEFAULT_GEO_GRANULARITY : 'country',
         DEFAULT_GEO_SELECTION : ['3', '79'],
-        DEFAULT_VARIABLE_SELECTION : ['age', 'location'],
+        DEFAULT_VARIABLE_SELECTION : ['age', 'location', 'gender'],
+        DEFAULT_SHOW_TOTAL : true,
 
         TWITTER_ACCOUNT_ID: "598107149366099968",
 
         //Visualization Scores
         GEO_SELECTION_THRESHOLD: 999,
-        CHART_TYPE: "column"
+        CHART_TYPE: "column",
+        CHART_TOTAL_COLOR: "red"
 
 
     };

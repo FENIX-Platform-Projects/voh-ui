@@ -104,7 +104,7 @@ define([
             this.chartCreator = new ChartCreator();
         },
 
-        initCountrySelector: function (granularity) {
+        initGeoSelector: function (granularity) {
 
             //Init country selector
             var data = [];
@@ -258,7 +258,7 @@ define([
 
             this.$geoGranularityForm.find('[value="' + Config.DEFAULT_GEO_GRANULARITY + '"]').prop("checked", true).change();
 
-            this.$showTotalCheckbox.attr('checked', false);
+            this.$showTotalCheckbox.prop("checked",  Config.DEFAULT_SHOW_TOTAL).change();
 
             this.$geoSelector.jstree("uncheck_all");
 
@@ -276,7 +276,7 @@ define([
         },
 
         onGeoGranularityChange: function (e) {
-            this.initCountrySelector($(e.currentTarget).val());
+            this.initGeoSelector($(e.currentTarget).val());
         },
 
         onClickGoBtn: function () {
@@ -428,13 +428,15 @@ define([
         onSearchError: function () {
 
             this.unlockForm();
+
             this.printError(['request_error']);
         },
 
         onSearchSuccess: function (response) {
 
             this.currentRequest.response = response;
-            this.currentRequest.processdResponse = this.processResponse(response);
+
+            this.currentRequest.processedResponse = this.processResponse(response);
 
             this.unlockForm();
 
@@ -449,14 +451,41 @@ define([
 
         processResponse: function (response) {
 
+            var processedResponse = response.slice(0) || [];
 
-            return response;
+            if ( this.currentRequest.inputs.total === true ){
+
+                var geos = this.currentRequest.inputs.geo,
+                    variables = this.currentRequest.inputs.variables;
+
+                _.each(geos, _.bind(function ( g ) {
+
+                    var obj = _.findWhere(processedResponse, {geo : g, variable : "population" });
+
+                    _.each(variables, _.bind(function ( v ) {
+
+                        var addMe = $.extend(true, {}, obj);
+
+                        addMe.variable = v;
+                        addMe.group_code = "population";
+
+                        processedResponse.push(addMe);
+
+                    }, this));
+
+                    processedResponse = _.without(processedResponse, obj);
+
+                }, this));
+
+            }
+
+            return processedResponse;
         },
 
         initChartCreator: function () {
 
             this.chartCreator.init({
-                model: this.currentRequest.processdResponse,
+                model: this.currentRequest.processedResponse,
                 adapter: {
                     filters: ['variable', 'group_code'],
                     x_dimension: 'geo',
@@ -519,6 +548,22 @@ define([
                         type: Config.CHART_TYPE
                     });
             });
+
+            if (this.currentRequest.inputs.total === true ){
+
+                series.push(
+                    {
+                        filters: {
+                            'variable': variable,
+                            'group_code': 'population'
+                        },
+                        creator: {
+                            name: i18nLabels.var_total,
+                            color : Config.CHART_TOTAL_COLOR
+                        },
+                        type: Config.CHART_TYPE
+                    });
+            }
 
             return series;
         },
