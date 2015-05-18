@@ -425,8 +425,9 @@ define([
 
             console.log(this.currentRequest.response)
 
-            console.log("Render OLAP here")
-
+            var p1 = new pivot();
+            
+			p1.render("pivot1",dataTest1_1, dataConfig1)
         },
 
         resetResults: function () {

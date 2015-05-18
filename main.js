@@ -55,7 +55,7 @@ require([
 
 
                     // fenix-map-js
-                    'import-dependencies': '{FENIX_CDN}/js//FENIX/utils/import-dependencies-1.0',
+                    'import-dependencies': '{FENIX_CDN}/js/FENIX/utils/import-dependencies-1.0',
                     leaflet: '{FENIX_CDN}/js/leaflet/0.7.3/leaflet',
                     'jquery.power.tip': '{FENIX_CDN}/js/jquery.power.tip/1.2.0/jquery.powertip.min',
                     'jquery-ui':   '{FENIX_CDN}/js/jquery-ui/1.10.3/jquery-ui-1.10.3.custom.min',
@@ -63,14 +63,26 @@ require([
                     'jquery.hoverIntent': '{FENIX_CDN}/js/jquery.hoverIntent/1.8.0/jquery.hoverIntent.min',
 
                     'fenix-ui-map': '{FENIX_CDN}/js/fenix-ui-map/0.1/fenix-ui-map.min',
-                    'fenix-ui-map-config': '{FENIX_CDN}/js/fenix-ui-map/0.1/fenix-ui-map-config'
+                    'fenix-ui-map-config': '{FENIX_CDN}/js/fenix-ui-map/0.1/fenix-ui-map-config',
 
+                    //OLAP DEPS
+					pivot:      "submodules/fenix-ui-olap/js/pivot",
+					gt_msg:     "submodules/fenix-ui-olap/lib/grid/gt_msg_en",
+					HPivot:     "//fenixapps.fao.org/repository/js/jbpivot/0.1.0-olap/jbpivot.min",
+					jqueryui:   "submodules/fenix-ui-olap/lib/jquery-ui-1.9.2.custom.min",
+					highcharts: "//fenixapps.fao.org/repository/js/highcharts/4.0.4/js/highcharts",
+					gt_msg_grid:"submodules/fenix-ui-olap/lib/grid/gt_grid_all",
+
+					pivotRenderersFuncs:   "submodules/fenix-ui-olap/js/rend/function_rendererers",
+					pivotRenderers:        "submodules/fenix-ui-olap/js/rend/rendererers",
+					pivotAggregatorsFuncs: "submodules/fenix-ui-olap/js/rend/function_aggregators",
+					pivotAggregators:      "submodules/fenix-ui-olap/js/rend/aggregators"
                 },
 
                 // Underscore and Backbone are not AMD-capable per default,
                 // so we need to use the AMD wrapping of RequireJS
                 shim: {
-                    "bootstrap": {
+                    bootstrap: {
                         deps: ["jquery"]
                     },
                     underscore: {
@@ -109,7 +121,24 @@ require([
                             'jquery.hoverIntent',
                             //'chosen'
                         ]
-                    }
+                    },
+                    //OLAP DEPS
+					jqueryui: ['jquery'],
+					highcharts:  ['jquery'],
+					gt_msg:      ['jquery'],
+					gt_msg_grid: ['jquery','gt_msg'],
+					pivotRenderers: ['pivotRenderersFuncs'],	
+					pivotAggregators: ['pivotAggregatorsFuncs','jquery'],			
+					pivot: {
+					    deps: [
+					        'jquery',
+					        'jqueryui',
+							'gt_msg','gt_msg_grid',
+							'HPivot',
+							'pivotRenderers'
+					    ]
+					},
+					HPivot: ['jquery','jqueryui']                    
                 }
                 // For easier development, disable browser caching
                 // Of course, this should be removed in a production environment
