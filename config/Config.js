@@ -12,10 +12,12 @@ define(function ( ) {
 
         //General
         DEFAULT_FI_STATUS : 's',
+        DEFAULT_GEO_GRANULARITY : 'country',
+
         TWITTER_ACCOUNT_ID: "598107149366099968",
 
         //Visualization Scores
-        COUNTRY_THRESHOLD: 3,
+        GEO_SELECTION_THRESHOLD: 999,
         CHART_TYPE: "column"
 
 

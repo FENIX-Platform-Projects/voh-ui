@@ -157,6 +157,7 @@ define([
 
         unbindEventListeners: function () {
 
+            this.$standardsList.jstree('destory');
             this.$standardsList.off();
 
         },

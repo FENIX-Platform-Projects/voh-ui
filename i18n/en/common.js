@@ -10,5 +10,8 @@ define({
     "var_income" : "Income",
     "go_btn": "View Data",
     "reset_btn": "Reset",
-    "courtesy_message" : "No results"
+    "courtesy_message" : "No results",
+    "geo_granularity_country" : "Country",
+    "geo_granularity_region" : "Region"
+
 });

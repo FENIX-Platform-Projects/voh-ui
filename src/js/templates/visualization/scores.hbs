@@ -14,9 +14,27 @@
 <div class="row">
     <!-- Map Container-->
     <div class="col-xs-8">
-        <div> {{ map_selector_title }}</div>
-        <div class="country-selector-container">
-            <div id="country-selector"> </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- Geo selector granularity-->
+                <div>
+                    <form id="geo-granularity-form" action="" onsubmit="return(false);">
+                        <input id="geo-as-country" type="radio" name="geo-granularity" value="country">
+                        <label for="geo-as-country"> {{ geo_granularity_country }}</label>
+                        <input id="geo-as-region" type="radio" name="geo-granularity" value="region">
+                        <label for="geo-as-region">{{ geo_granularity_region }}</label>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div> {{ map_selector_title }}</div>
+                <div class="geo-selector-container">
+                    <div id="geo-selector"> </div>
+                </div>
+            </div>
         </div>
 
     </div>
