@@ -7,7 +7,7 @@ define(function ( ) {
 
 //        CHART_COUNTRY: "SELECT country, country_label, variable, group_code, ms, s FROM master_aggregation JOIN codes_country on (country = country_code) WHERE country IN ( '3' ) AND variable IN ( 'age', 'marital' ) ORDER BY variable, country, group_code",
         CHART_COUNTRY: "SELECT country as geo, country_label as geo_label, variable, group_code, ms, s FROM master_aggregation JOIN codes_country on (country = country_code) WHERE country IN ( '{query_geo}' ) AND variable IN ( '{query_variables}' ) ORDER BY variable, country, group_code",
-        CHART_REGION: "SELECT geo, geo_label, variable, group_code, ms, s FROM master_aggregation_region JOIN codes_country on (country = country_code) WHERE country IN ( '{query_geo}' ) AND variable IN ( '{query_variables}' ) ORDER BY variable, country, group_code",
+        CHART_REGION: "SELECT region as geo, region_label as geo_label, variable, group_code, ms, s FROM master_aggregation_region JOIN codes_region on (region = region_code) WHERE region IN ( '{query_geo}' ) AND variable IN ( '{query_variables}' ) ORDER BY variable, region, group_code",
 
         CL_MARITAL: "SELECT marital_code as code, marital_label FROM codes_marital;",
         CL_AGE : "SELECT age_range_code as code, age_range_label FROM codes_age_range;",
