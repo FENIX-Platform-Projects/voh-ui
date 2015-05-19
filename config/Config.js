@@ -8,6 +8,7 @@ define(function ( ) {
         //WDS and Data
         DB_NAME : 'voh',
         WDS_URL : 'http://fenixapps2.fao.org/wds_5/rest/fenix/query',
+        WDS_URL_ARRAY : 'http://fenixapps2.fao.org/wds_5/rest/table/json',
         WDS_OUTPUT_TYPE : 'object',
 
         //General
