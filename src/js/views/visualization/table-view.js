@@ -22,7 +22,7 @@ define([
     'amplify',
 //TODO REMOVE
 ], function (Handlebars, View, Config, Services, template, errorTemplate, courtesyMessageTemplate, i18nLabels, i18Errors, WDSClient,
-	pivot,
+     Pivot,
 	pivotRenderers,
 	pivotAggregators,
 	pivotDataTest,
@@ -103,8 +103,6 @@ define([
                 datasource: Config.DB_NAME
                 //,outputType: Config.WDS_OUTPUT_TYPE
             });
-
-            this.pivot = null;
 
         },
 
@@ -463,24 +461,26 @@ define([
 
         initOlapCreator: function () {
 
-            this.pivot = new pivot();
+            this.pivot = new Pivot();
 
-            console.log(this.currentRequest.processdResponse)
+            var pivotDataConf = $.extend(true, {}, pivotDataConfig);
 
-			pivotDataConfig.rendererDisplay = pivotRenderers;
-			pivotDataConfig.aggregatorDisplay = pivotAggregators;
+            pivotDataConf.rendererDisplay = pivotRenderers;
+            pivotDataConf.aggregatorDisplay = pivotAggregators;
+            pivotDataConf.vals.push(this.currentRequest.inputs.status);
 
 
-			//console.log(pivotDataTest, pivotDataConfig);
 
-			this.pivot.render("pivot1", this.currentRequest.processdResponse, pivotDataConfig);
+
+			this.pivot.render("pivot1", this.currentRequest.processdResponse, pivotDataConf);
         },
 
         resetResults: function () {
 
             //Destroy OLAP
-            console.log("insert destroy OLAP here")
-
+            if (this.pivot && this.pivot.hasOwnProperty('destroy')) {
+                this.pivot.destroy();
+            }
         },
 
         /* Utils */
