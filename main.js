@@ -64,6 +64,8 @@ require([
 
                     'fenix-ui-map': '{FENIX_CDN}/js/fenix-ui-map/0.1/fenix-ui-map.min',
                     'fenix-ui-map-config': '{FENIX_CDN}/js/fenix-ui-map/0.1/fenix-ui-map-config',
+                    //'bootstrap-list-filter' : "{FENIX_CDN}/js/bootstrap-list-filter/0.1.7/bootstrap-list-filter.min",
+                    'bootstrap-list-filter' : "lib/bootstrap-list-filter",
 
                     //OLAP DEPS
 					pivot:      "../../submodules/fenix-ui-olap/js/pivot",
@@ -87,6 +89,9 @@ require([
                 // so we need to use the AMD wrapping of RequireJS
                 shim: {
                     bootstrap: {
+                        deps: ["jquery"]
+                    },
+                    'bootstrap-list-filter': {
                         deps: ["jquery"]
                     },
                     underscore: {

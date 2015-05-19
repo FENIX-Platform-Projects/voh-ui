@@ -6,6 +6,7 @@ define([
     'i18n!nls/country',
     'handlebars',
     'text!json/country/downloads.json',
+    'bootstrap-list-filter',
     'amplify'
 ], function (View, template, itemTemplate, i18nLabels, Handlebars, downloadModels) {
 
@@ -13,7 +14,7 @@ define([
 
     var s = {
         COUNTRY_LIST: "#country-list",
-        DONWLOAD_ITEMS : ".item-download"
+        SEARCH_FIELD: "#country-search-input"
     };
 
     var CountryView = View.extend({
@@ -39,29 +40,32 @@ define([
             //update State
             amplify.publish('voh.state.change', {menu: 'country'});
 
-            this.initVariables()
+            this.initVariables();
+
             this.initComponents();
 
             this.bindEventListeners();
+
             this.configurePage();
         },
 
         initVariables: function () {
+
             this.$countryList = this.$el.find(s.COUNTRY_LIST);
-            this.$downloadItems = this.$el.find(s.COUNTRY_LIST);
+
+            this.$searchField = this.$el.find(s.SEARCH_FIELD);
         },
 
         initComponents: function () {
             this.initDownloadList();
         },
 
-
         initDownloadList: function () {
 
             _.each(JSON.parse(downloadModels), _.bind(this.printDownloads, this));
         },
 
-        printDownloads : function (d) {
+        printDownloads: function (d) {
 
             var template = Handlebars.compile(itemTemplate);
             this.$countryList.append(template(d));
@@ -69,24 +73,22 @@ define([
 
         bindEventListeners: function () {
 
-            var self = this;
-            this.$downloadItems = $(s.DONWLOAD_ITEMS);
-            this.$downloadItems.on('click', function (e) {
-                e.preventDefault();
-                self.downloadItem(e);
+        },
+
+        configurePage: function () {
+
+            this.$countryList.btsListFilter(this.$searchField, {
+                itemChild: '.download-title',
+                initial : false,
+                resetOnBlur: false,
+                emptyNode: function() {
+                    return '<li class="list-group-item well"><span>No Results!</span></li>';
+                }
             });
         },
 
-        downloadItem: function (e) {
-            window.open(e.currentTarget.href );
-        },
-
-
-        configurePage: function () {
-        },
-
         unbindEventListeners: function () {
-            this.$downloadItems.off();
+
         },
 
         dispose: function () {
