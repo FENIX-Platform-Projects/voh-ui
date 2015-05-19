@@ -80,7 +80,7 @@ define([
                 cl_location: Services.CL_LOCATION,
                 cl_income: Services.CL_INCOME,
                 cl_gender: Services.CL_GENDER,
-                cl_country : Services.CL_COUNTRY,
+                cl_country: Services.CL_COUNTRY,
                 cl_region: Services.CL_REGION
             };
 
@@ -92,7 +92,8 @@ define([
             bridget('packery', Packery);
 
             this.$resultsContainer.packery({
-                itemSelector: s.RESULT_SELECTOR
+                itemSelector: s.RESULT_SELECTOR,
+                transitionDuration: 0
             });
 
             this.WDSClient = new WDSClient({
@@ -104,12 +105,12 @@ define([
             this.chartCreator = new ChartCreator();
         },
 
-        initCountrySelector : function ( granularity ) {
+        initGeoSelector: function (granularity) {
 
             //Init country selector
             var data = [];
 
-            _.each(amplify.store.sessionStorage('cl_' + granularity ), function (n) {
+            _.each(amplify.store.sessionStorage('cl_' + granularity), function (n) {
                 data.push(createNode(n));
             });
 
@@ -134,6 +135,15 @@ define([
                     this.$geoSelector.jstree(true).deselect_node(data.node);
                 }
 
+            }, this));
+
+            this.$geoSelector.on("ready.jstree", _.bind(function () {
+
+                if (Config.DEFAULT_GEO_SELECTION && Array.isArray(Config.DEFAULT_GEO_SELECTION)) {
+                    _.each(Config.DEFAULT_GEO_SELECTION, _.bind(function (g) {
+                        this.$geoSelector.jstree(true).select_node(g);
+                    }, this));
+                }
             }, this));
 
             function createNode(item) {
@@ -222,7 +232,7 @@ define([
 
         },
 
-        onReady : function () {
+        onReady: function () {
 
             this.initPage();
 
@@ -236,15 +246,23 @@ define([
 
         printDefaultSelection: function () {
 
+            var self = this;
+
             this.$fiForm.find('[value="' + Config.DEFAULT_FI_STATUS + '"]').prop("checked", true).change();
 
             this.$variablesForm.find("input").attr('checked', false);
+            if (Config.DEFAULT_VARIABLE_SELECTION && Array.isArray(Config.DEFAULT_VARIABLE_SELECTION)) {
+                _.each(Config.DEFAULT_VARIABLE_SELECTION, function (v) {
+                    self.$variablesForm.find('[value="' + v + '"]').prop("checked", true).change();
+                });
+            }
 
             this.$geoGranularityForm.find('[value="' + Config.DEFAULT_GEO_GRANULARITY + '"]').prop("checked", true).change();
 
-            this.$showTotalCheckbox.attr('checked', false);
+            this.$showTotalCheckbox.prop("checked",  Config.DEFAULT_SHOW_TOTAL).change();
 
             this.$geoSelector.jstree("uncheck_all");
+
         },
 
         /* Event binding and callback */
@@ -252,13 +270,14 @@ define([
         bindEventListeners: function () {
 
             this.$goBtn.on('click', _.bind(this.onClickGoBtn, this));
+
             this.$resetBtn.on('click', _.bind(this.onClickResetBtn, this));
 
             this.$geoGranularityForm.find("input").on('change', _.bind(this.onGeoGranularityChange, this));
         },
 
-        onGeoGranularityChange : function (e) {
-            this.initCountrySelector($(e.currentTarget).val());
+        onGeoGranularityChange: function (e) {
+            this.initGeoSelector($(e.currentTarget).val());
         },
 
         onClickGoBtn: function () {
@@ -266,7 +285,7 @@ define([
             var inputs = this.getInputs(),
                 valid = this.validateInput(inputs);
 
-            if ( valid === true) {
+            if (valid === true) {
 
                 this.lockForm();
 
@@ -358,7 +377,7 @@ define([
                 variables: variables,
                 query_variables: query_variables,
                 total: showTotal,
-                geo_granularity : this.$geoGranularityForm.find("input[name='geo-granularity']:checked").val(),
+                geo_granularity: this.$geoGranularityForm.find("input[name='geo-granularity']:checked").val(),
                 geo: geo,
                 query_geo: geo.slice(0)
             };
@@ -410,18 +429,20 @@ define([
         onSearchError: function () {
 
             this.unlockForm();
+
             this.printError(['request_error']);
         },
 
         onSearchSuccess: function (response) {
 
             this.currentRequest.response = response;
-            this.currentRequest.processdResponse = this.processResponse(response);
+
+            this.currentRequest.processedResponse = this.processResponse(response);
 
             this.unlockForm();
 
-            if (this.currentRequest.response.length === 0 ) {
-                   this.printCourtesyMessage();
+            if (this.currentRequest.response.length === 0) {
+                this.printCourtesyMessage();
             } else {
                 this.initChartCreator();
             }
@@ -431,17 +452,46 @@ define([
 
         processResponse: function (response) {
 
-            return response;
+            var processedResponse = response.slice(0) || [];
+
+            if ( this.currentRequest.inputs.total === true ){
+
+                var geos = this.currentRequest.inputs.geo,
+                    variables = this.currentRequest.inputs.variables;
+
+                _.each(geos, _.bind(function ( g ) {
+
+                    var obj = _.findWhere(processedResponse, {geo : g, variable : "population" });
+
+                    _.each(variables, _.bind(function ( v ) {
+
+                        var addMe = $.extend(true, {}, obj);
+
+                        addMe.variable = v;
+                        addMe.group_code = "population";
+
+                        processedResponse.push(addMe);
+
+                    }, this));
+
+                    processedResponse = _.without(processedResponse, obj);
+
+                }, this));
+
+            }
+
+            return processedResponse;
         },
 
         initChartCreator: function () {
 
             this.chartCreator.init({
-                model: this.currentRequest.processdResponse,
+                model: this.currentRequest.processedResponse,
                 adapter: {
                     filters: ['variable', 'group_code'],
                     x_dimension: 'geo',
-                    y_dimension: this.currentRequest.inputs.status
+                    x_dimension_label: 'geo_label',
+                    value: this.currentRequest.inputs.status
                 },
                 template: {},
                 creator: {},
@@ -473,7 +523,7 @@ define([
             /* Add the 'w2' class to display the element with width:100%. Default width:50% */
 
             if (this.currentRequest.inputs.variables.length > 1) {
-                return (this.currentRequest.inputs.country.length > Config.COUNTRY_THRESHOLD ) ? $template.addClass('w2') : $template;
+                return (this.currentRequest.inputs.geo.length > Config.GEO_SELECTION_THRESHOLD ) ? $template.addClass('w2') : $template;
             } else {
                 return $template.addClass('w2');
             }
@@ -493,12 +543,30 @@ define([
                             'variable': variable,
                             'group_code': c.code
                         },
+                        creator: {
+                            name: _.findWhere(cd, {code: c.code}).label
+                        },
                         type: Config.CHART_TYPE
                     });
             });
 
-            return series;
+            if (this.currentRequest.inputs.total === true ){
 
+                series.push(
+                    {
+                        filters: {
+                            'variable': variable,
+                            'group_code': 'population'
+                        },
+                        creator: {
+                            name: i18nLabels.var_total,
+                            color : Config.CHART_TOTAL_COLOR
+                        },
+                        type: Config.CHART_TYPE
+                    });
+            }
+
+            return series;
         },
 
         renderChart: function ($result, variable) {
@@ -506,9 +574,9 @@ define([
             //Create dynamically the series
             var series = this.createSeriesForChartCreator(variable),
                 chart = this.chartCreator.render({
-                container: $result.find(s.CHART_CONTAINER),
-                series: series
-            });
+                    container: $result.find(s.CHART_CONTAINER),
+                    series: series
+                });
 
             this.charts.push(chart);
 
