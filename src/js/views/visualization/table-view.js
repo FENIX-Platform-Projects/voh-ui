@@ -138,6 +138,15 @@ define([
 
             }, this));
 
+            this.$geoSelector.on("ready.jstree", _.bind(function () {
+
+                if (Config.DEFAULT_GEO_SELECTION && Array.isArray(Config.DEFAULT_GEO_SELECTION)) {
+                    _.each(Config.DEFAULT_GEO_SELECTION, _.bind(function (g) {
+                        this.$geoSelector.jstree(true).select_node(g);
+                    }, this));
+                }
+            }, this));
+
             function createNode(item) {
 
                 // Expected format of the node (there are no required fields)
@@ -237,7 +246,7 @@ define([
         },
 
         printDefaultSelection: function () {
-
+/*
             this.$fiForm.find('[value="' + Config.DEFAULT_FI_STATUS + '"]').prop("checked", true).change();
 
             this.$variablesForm.find("input").attr('checked', false);
@@ -246,9 +255,27 @@ define([
 
             this.$showTotalCheckbox.attr('checked', false);
 
-            this.$geoSelector.jstree("uncheck_all");
-        },
+            this.$geoSelector.jstree("uncheck_all");*/
 
+            var self = this;
+
+            this.$fiForm.find('[value="' + Config.DEFAULT_FI_STATUS + '"]').prop("checked", true).change();
+
+            this.$variablesForm.find("input").attr('checked', false);
+            if (Config.DEFAULT_VARIABLE_SELECTION && Array.isArray(Config.DEFAULT_VARIABLE_SELECTION)) {
+                _.each(Config.DEFAULT_VARIABLE_SELECTION, function (v) {
+                    self.$variablesForm.find('[value="' + v + '"]').prop("checked", true).change();
+                });
+            }
+
+            this.$geoGranularityForm.find('[value="' + Config.DEFAULT_GEO_GRANULARITY + '"]').prop("checked", true).change();
+
+            this.$showTotalCheckbox.prop("checked",  Config.DEFAULT_SHOW_TOTAL).change();
+
+            this.$geoSelector.jstree("uncheck_all");
+
+        },
+        
         /* Event binding and callback */
 
         bindEventListeners: function () {
@@ -256,7 +283,7 @@ define([
             this.$goBtn.on('click', _.bind(this.onClickGoBtn, this));
             this.$resetBtn.on('click', _.bind(this.onClickResetBtn, this));
 
-            this.$geoGranularityForm.find("input").on('change', _.bind(this.onGeoGranularityChange, this));
+            this.$geoGranularityForm.find("input").on('change', _.bind(this.initCountrySelector, this));
         },
 
         onGeoGranularityChange : function (e) {
