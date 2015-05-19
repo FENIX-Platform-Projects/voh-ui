@@ -92,7 +92,8 @@ define([
             bridget('packery', Packery);
 
             this.$resultsContainer.packery({
-                itemSelector: s.RESULT_SELECTOR
+                itemSelector: s.RESULT_SELECTOR,
+                transitionDuration: 0
             });
 
             this.WDSClient = new WDSClient({
