@@ -99,9 +99,9 @@ define([
         initComponents: function () {
 
             this.WDSClient = new WDSClient({
-                serviceUrl: Config.WDS_URL,
-                datasource: Config.DB_NAME,
-                outputType: Config.WDS_OUTPUT_TYPE
+                serviceUrl: Config.WDS_URL_ARRAY,
+                datasource: Config.DB_NAME
+                //,outputType: Config.WDS_OUTPUT_TYPE
             });
 
             this.pivot = null;
@@ -454,25 +454,26 @@ define([
 
         processResponse: function (response) {
 
+            var fields = ['geo', 'geo_label', 'variable', 'group_code', 'ms', 's'];
+
+            response.unshift(fields);
+
             return response;
         },
 
         initOlapCreator: function () {
 
-            //console.log(this.currentRequest.response)
-
-
             this.pivot = new pivot();
 
-			pivotDataTest = JSON.parse(pivotDataTest);
+            console.log(this.currentRequest.processdResponse)
 
 			pivotDataConfig.rendererDisplay = pivotRenderers;
 			pivotDataConfig.aggregatorDisplay = pivotAggregators;
 
 
-			console.log(pivotDataTest, pivotDataConfig);
+			//console.log(pivotDataTest, pivotDataConfig);
 
-			this.pivot.render("pivot1", pivotDataTest, pivotDataConfig);
+			this.pivot.render("pivot1", this.currentRequest.processdResponse, pivotDataConfig);
         },
 
         resetResults: function () {
