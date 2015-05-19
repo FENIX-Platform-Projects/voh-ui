@@ -12,8 +12,20 @@ define([
     'fx-common/WDSClient',
     'q',
     'jstree',
-    'amplify'
-], function (Handlebars, View, Config, Services, template, errorTemplate, courtesyMessageTemplate, i18nLabels, i18Errors, WDSClient) {
+    'amplify',
+//TODO REMOVE
+	'pivot',
+	'pivotRenderers',
+	'pivotAggregators',
+	'pivotDataTest',
+	'text!pivotDataConfig'
+], function (Handlebars, View, Config, Services, template, errorTemplate, courtesyMessageTemplate, i18nLabels, i18Errors, WDSClient,
+	pivot,
+	pivotRenderers,
+	pivotAggregators,
+	pivotDataTest,
+	pivotDataConfig
+	) {
 
     'use strict';
 
@@ -427,7 +439,7 @@ define([
 
             var p1 = new pivot();
             
-			p1.render("pivot1",dataTest1_1, dataConfig1)
+			p1.render("pivot-container",pivotDataTest, pivotDataConfig)
         },
 
         resetResults: function () {

@@ -66,17 +66,21 @@ require([
                     'fenix-ui-map-config': '{FENIX_CDN}/js/fenix-ui-map/0.1/fenix-ui-map-config',
 
                     //OLAP DEPS
-					pivot:      "submodules/fenix-ui-olap/js/pivot",
-					gt_msg:     "submodules/fenix-ui-olap/lib/grid/gt_msg_en",
+					pivot:      "../../submodules/fenix-ui-olap/js/pivot",
+					gt_msg:     "../../submodules/fenix-ui-olap/lib/grid/gt_msg_en",					
+					jqueryui:   "../../submodules/fenix-ui-olap/lib/jquery-ui-1.9.2.custom.min",
+					gt_msg_grid:"../../submodules/fenix-ui-olap/lib/grid/gt_grid_all",
 					HPivot:     "//fenixapps.fao.org/repository/js/jbpivot/0.1.0-olap/jbpivot.min",
-					jqueryui:   "submodules/fenix-ui-olap/lib/jquery-ui-1.9.2.custom.min",
-					highcharts: "//fenixapps.fao.org/repository/js/highcharts/4.0.4/js/highcharts",
-					gt_msg_grid:"submodules/fenix-ui-olap/lib/grid/gt_grid_all",
+					highcharts: "//fenixapps.fao.org/repository/js/highcharts/4.0.4/js/highcharts",					
 
-					pivotRenderersFuncs:   "submodules/fenix-ui-olap/js/rend/function_rendererers",
-					pivotRenderers:        "submodules/fenix-ui-olap/js/rend/rendererers",
-					pivotAggregatorsFuncs: "submodules/fenix-ui-olap/js/rend/function_aggregators",
-					pivotAggregators:      "submodules/fenix-ui-olap/js/rend/aggregators"
+					"nls/pivot":  "../../i18n/pivot",
+
+					pivotRenderersFuncs:   "../../submodules/fenix-ui-olap/js/rend/function_rendererers",
+					pivotRenderers:        "../../submodules/fenix-ui-olap/js/rend/rendererers",
+					pivotAggregatorsFuncs: "../../submodules/fenix-ui-olap/js/rend/function_aggregators",
+					pivotAggregators:      "../../submodules/fenix-ui-olap/js/rend/aggregators",
+					pivotDataTest:         '../../submodules/fenix-ui-olap/config/dataConfig1',
+					pivotDataConfig:       '../../submodules/fenix-ui-olap/tests/data/test.json'
                 },
 
                 // Underscore and Backbone are not AMD-capable per default,
@@ -135,7 +139,8 @@ require([
 					        'jqueryui',
 							'gt_msg','gt_msg_grid',
 							'HPivot',
-							'pivotRenderers'
+							'pivotRenderers',
+							'nls/pivot'
 					    ]
 					},
 					HPivot: ['jquery','jqueryui']                    
