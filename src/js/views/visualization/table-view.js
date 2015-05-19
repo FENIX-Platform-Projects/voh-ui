@@ -448,7 +448,7 @@ define([
 			pivotDataConfig.rendererDisplay = pivotRenderers;
 			pivotDataConfig.aggregatorDisplay = pivotAggregators;
 
-			p1.render("pivot1",pivotDataTest, pivotDataConfig)
+			p1.render("pivot1", pivotDataTest, pivotDataConfig);
         },
 
         resetResults: function () {
