@@ -158,11 +158,11 @@ define([
                 jointype: 'shaded',
                 openlegend: true,
                 defaultgfi: true,
-                colorramp: 'OrRd',
+                colorramp: 'Blues',
                 lang: 'en',
                 customgfi: {
                     content: {
-                        en: "<div class='fm-popup'>{{adm0_name}} <div class='fm-popup-join-content'>{{{adm0_code}}} Index</div></div>"
+                        en: "<div class='fm-popup'>{{adm0_name}} <div class='fm-popup-join-content'>{{{adm0_code}}} %</div></div>"
                     },
                     showpopup: true
                 }

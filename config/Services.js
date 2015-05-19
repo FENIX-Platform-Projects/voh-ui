@@ -20,6 +20,5 @@ define(function ( ) {
         CL_COUNTRY: "SELECT country_code as code, country_label as label FROM codes_country;",
         CL_REGION: "SELECT region_code as code, region_label as label FROM codes_region;",
 
-        MAP_FI_POPULATION: "SELECT country, {query_variables} FROM master_aggregation WHERE variable = 'population';"
-    };
+        MAP_FI_POPULATION: "SELECT country, round( CAST({query_variables} as numeric), 3) FROM master_aggregation WHERE variable = 'population';"    };
 });

@@ -469,9 +469,6 @@ define([
             pivotDataConf.aggregatorDisplay = pivotAggregators;
             pivotDataConf.vals.push(this.currentRequest.inputs.status);
 
-
-
-
 			this.pivot.render("pivot1", this.currentRequest.processdResponse, pivotDataConf);
         },
 
