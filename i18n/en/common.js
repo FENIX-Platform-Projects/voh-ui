@@ -13,6 +13,7 @@ define({
     "reset_btn": "Reset",
     "courtesy_message" : "No results",
     "geo_granularity_country" : "Country",
-    "geo_granularity_region" : "Region"
+    "geo_granularity_region" : "Region",
+    "no_results" : "No Results"
 
 });

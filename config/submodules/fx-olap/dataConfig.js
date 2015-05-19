@@ -21,8 +21,6 @@ define({
         { label: "Average", func: "Average" }
     ],
     derivedAttributes: {
-       "group_code" : function ( mp ){
-                        z
-       }
+
     }
 });

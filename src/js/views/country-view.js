@@ -82,7 +82,7 @@ define([
                 initial : false,
                 resetOnBlur: false,
                 emptyNode: function() {
-                    return '<li class="list-group-item well"><span>No Results!</span></li>';
+                    return '<li class="list-group-item well"><span>No Results</span></li>';
                 }
             });
         },
