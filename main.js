@@ -79,8 +79,8 @@ require([
 					pivotRenderers:        "../../submodules/fenix-ui-olap/js/rend/rendererers",
 					pivotAggregatorsFuncs: "../../submodules/fenix-ui-olap/js/rend/function_aggregators",
 					pivotAggregators:      "../../submodules/fenix-ui-olap/js/rend/aggregators",
-					pivotDataTest:         '../../submodules/fenix-ui-olap/config/dataConfig1',
-					pivotDataConfig:       '../../submodules/fenix-ui-olap/tests/data/test.json'
+					pivotDataConfig:         '../../submodules/fenix-ui-olap/config/dataConfig1',
+					pivotDataTest:       '../../submodules/fenix-ui-olap/tests/data/test.json'
                 },
 
                 // Underscore and Backbone are not AMD-capable per default,

@@ -10,15 +10,17 @@ define([
     'i18n!nls/visualization-table',
     'i18n!nls/errors',
     'fx-common/WDSClient',
+	
+	'pivot',
+	'pivotRenderers',
+	'pivotAggregators',
+	'text!pivotDataTest',
+	'pivotDataConfig',
+
     'q',
     'jstree',
     'amplify',
 //TODO REMOVE
-	'pivot',
-	'pivotRenderers',
-	'pivotAggregators',
-	'pivotDataTest',
-	'text!pivotDataConfig'
 ], function (Handlebars, View, Config, Services, template, errorTemplate, courtesyMessageTemplate, i18nLabels, i18Errors, WDSClient,
 	pivot,
 	pivotRenderers,
@@ -28,6 +30,7 @@ define([
 	) {
 
     'use strict';
+
 
     var s = {
         GO_BTN: "#table-go-btn",
@@ -437,9 +440,15 @@ define([
 
             console.log(this.currentRequest.response)
 
+
             var p1 = new pivot();
-            
-			p1.render("pivot-container",pivotDataTest, pivotDataConfig)
+
+			pivotDataTest = JSON.parse(pivotDataTest);
+
+			pivotDataConfig.rendererDisplay = pivotRenderers;
+			pivotDataConfig.aggregatorDisplay = pivotAggregators;
+
+			p1.render("pivot1",pivotDataTest, pivotDataConfig)
         },
 
         resetResults: function () {
