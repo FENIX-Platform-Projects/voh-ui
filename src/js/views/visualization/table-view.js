@@ -106,7 +106,7 @@ define([
 
         },
 
-        initCountrySelector : function ( granularity ) {
+        initGeoSelector : function ( granularity ) {
 
             //Init country selector
             var data = [];
@@ -246,16 +246,6 @@ define([
         },
 
         printDefaultSelection: function () {
-/*
-            this.$fiForm.find('[value="' + Config.DEFAULT_FI_STATUS + '"]').prop("checked", true).change();
-
-            this.$variablesForm.find("input").attr('checked', false);
-
-            this.$geoGranularityForm.find('[value="' + Config.DEFAULT_GEO_GRANULARITY + '"]').prop("checked", true).change();
-
-            this.$showTotalCheckbox.attr('checked', false);
-
-            this.$geoSelector.jstree("uncheck_all");*/
 
             var self = this;
 
@@ -281,13 +271,15 @@ define([
         bindEventListeners: function () {
 
             this.$goBtn.on('click', _.bind(this.onClickGoBtn, this));
+
             this.$resetBtn.on('click', _.bind(this.onClickResetBtn, this));
 
-            this.$geoGranularityForm.find("input").on('change', _.bind(this.initCountrySelector, this));
+            this.$geoGranularityForm.find("input").on('change', _.bind(this.onGeoGranularityChange, this));
         },
 
         onGeoGranularityChange : function (e) {
-            this.initCountrySelector($(e.currentTarget).val());
+
+            this.initGeoSelector($(e.currentTarget).val());
         },
 
         onClickGoBtn: function () {
