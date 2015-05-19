@@ -104,6 +104,8 @@ define([
                 outputType: Config.WDS_OUTPUT_TYPE
             });
 
+            this.pivot = null;
+
         },
 
         initGeoSelector : function ( granularity ) {
@@ -457,17 +459,20 @@ define([
 
         initOlapCreator: function () {
 
-            console.log(this.currentRequest.response)
+            //console.log(this.currentRequest.response)
 
 
-            var p1 = new pivot();
+            this.pivot = new pivot();
 
 			pivotDataTest = JSON.parse(pivotDataTest);
 
 			pivotDataConfig.rendererDisplay = pivotRenderers;
 			pivotDataConfig.aggregatorDisplay = pivotAggregators;
 
-			p1.render("pivot1", pivotDataTest, pivotDataConfig);
+
+			console.log(pivotDataTest, pivotDataConfig);
+
+			this.pivot.render("pivot1", pivotDataTest, pivotDataConfig);
         },
 
         resetResults: function () {
