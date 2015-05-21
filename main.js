@@ -67,6 +67,9 @@ require([
                     //'bootstrap-list-filter' : "{FENIX_CDN}/js/bootstrap-list-filter/0.1.7/bootstrap-list-filter.min",
                     'bootstrap-list-filter' : "lib/bootstrap-list-filter",
 
+                    //TODO TEMP
+                    'fx-c-c/templates/base_template' : './tools/voh_chart_template',
+
                     //OLAP DEPS
 					pivot:      "../../submodules/fenix-ui-olap/js/pivot",
 					gt_msg:     "../../submodules/fenix-ui-olap/lib/grid/gt_msg_en",					

@@ -1,3 +1,4 @@
+/*global define*/
 define({
     "rows": [
         'geo_label'
