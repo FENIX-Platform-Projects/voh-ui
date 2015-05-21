@@ -1,16 +1,14 @@
-/*global define*/
 define({
     "rows": [
         'geo_label'
     ],
     "cols": ['variable', 'group_code'],
     "vals": [
-
+        'ms'
     ],
     "hiddenAttributes": [
         "geo",
-        'ms',
-        "s"
+        "s","ms"
     ],
     "InstanceRenderers": [
         {label: "Grid", func: "Table"},
@@ -19,10 +17,5 @@ define({
     "InstanceAggregators": [
         {label: "Sum", func: "Sum"},
         { label: "Average", func: "Average" }
-    ],
-    derivedAttributes: {
-       "group_code" : function ( mp ){
-
-       }
-    }
+    ]
 });
