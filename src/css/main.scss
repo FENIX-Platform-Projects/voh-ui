@@ -1,7 +1,40 @@
+/* Voh - Host CSS file */
+/* VOH Theme */
+@import 'theme/voh-variables';
+
+
+
 /* Third parties */
-//@import 'thirds-parties/swiper';
 @import 'thirds-parties/jstree';
+
+/* Fenix Utils*/
+@import '../../submodules/fenix-ui-common/css/fenix-style-no-variables';
+
+
+
+/* Typography */
+@import 'theme/voh-typography';
+
+/* Components */
+@import 'components/voh-breadcrumbs';
+@import 'components/voh-footer';
+@import 'components/voh-form';
+@import 'components/voh-highcharts';
+@import 'components/voh-leaflet';
+@import 'components/voh-pivot';
+@import 'components/voh-social';
+@import 'components/voh-submenu';
+@import 'components/voh-topmenu';
+@import 'components/voh-tabs';
+
 
 /* Pages */
 @import 'pages/home';
 @import 'pages/visutalization';
+
+
+body{
+
+   background-color: #f1f1f1;
+
+ }
