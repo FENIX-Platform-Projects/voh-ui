@@ -3533,11 +3533,11 @@ input[type="checkbox"]:checked + label {
 
 .voh-result {
   width: 50%;
-  height: 350px; }
+  height: 408px; }
   .voh-result.w2 {
     width: 100%; }
   .voh-result [data-role="content"] {
-    height: 350px; }
+    height: 358px; }
 
 .geo-selector-container {
   height: 160px;
