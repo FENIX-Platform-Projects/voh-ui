@@ -2,6 +2,7 @@
 define({
     "fi_status_severe": "F.I. Severe",
     "fi_status_moderate_severe": "F.I. Moderate + Severe",
+    "variables_title": "Variables",
     "var_age" : "Age",
     "var_location" : "Location",
     "var_education" : "Education",

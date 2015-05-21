@@ -5,3 +5,8 @@ body{
   background-color: $fenix-light-bg;
 
 }
+
+
+.btn{
+  @include fx-border-radius(0);
+}

@@ -23,7 +23,7 @@
 
 
     a{
-      color: $fx-cool-blue;
+      color: $fenix-text;
       text-transform: uppercase;
 
 
@@ -41,5 +41,5 @@
 
 .breadcrumb > li + li:before{
   content: '|';
-  color: $fx-cool-blue;
+  color: $fenix-text;
 }

@@ -1,0 +1,13 @@
+/* VOH - Radio Button */
+
+
+input[type="radio"]:checked + label {
+  color: $custom-color1;
+
+}
+
+input[type="checkbox"]:checked + label {
+  color: $custom-color1;
+
+}
+
