@@ -6,7 +6,7 @@ define([
 
     'use strict';
 
-    return $.extend(true, Common, {
+    return $.extend(true, {}, Common, {
         "map_toolbar_legend": "Click to view <br> FOOD INSECURITY <br> status on the map",
         "database_update_title": "Database Updates",
         "documents_links_title": "Documents",

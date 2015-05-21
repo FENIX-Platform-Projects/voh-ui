@@ -1,0 +1,99 @@
+/* Africa Fertilizer Footer */
+
+footer{
+  background-color: $afo-gray-dark;
+  height: 160px;
+}
+
+.afo-footer-logo-image{
+  margin-top: 20px;
+  padding-right: 15px;
+  max-width: 145px;
+}
+
+.afp-footer-social{
+  li{
+    float: right;
+    margin: 20px 6px;
+
+    @include fx-border-radius(100%);
+    cursor: pointer;
+  }
+
+  .afo-footer-social-facebook{
+      background-color: #48649f;
+  }
+
+  .afo-footer-social-youtube{
+    background-color: #cc181e;
+  }
+
+  .afo-footer-social-twitter{
+    background-color: #61a8d8;
+  }
+
+
+}
+
+
+
+#footer-menu-container{
+
+  font: $fx-text-smalltitle-normal;
+  text-transform: uppercase;
+
+  h3{
+    margin-top: 27px;
+  }
+
+  ul{
+    list-style: none;
+    padding-left: 0;
+
+    li{
+
+      float: left;
+      padding: 15px;
+
+      a{
+        color: $fenix-text;
+        line-height: 18px;
+        &:hover{
+          color: $fenix-text;
+        }
+      }
+    }
+  }
+
+}
+
+.afo-footer-credits{
+  background-color: $afo-gray-dark;
+  padding-bottom: 20px;
+  font: $fx-text-smalltitle-normal;
+}
+
+.afo-footer-sub{
+  height: 60px;
+  padding-top: 23px;
+  color: white;
+  border-top: 1px solid white;
+  @include fx-gradient(#94d4fe, #5ca7d8);
+  font: $fx-text-smalltitle-normal;
+
+
+    em{
+      font-style: normal;
+      color: $fenix-text;
+      &:last-child{
+        float: right;
+      }
+    }
+    a{
+      color: white;
+      margin: 0 35px;
+      &:hover{
+        color: white;
+      }
+    }
+}
