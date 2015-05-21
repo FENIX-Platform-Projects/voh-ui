@@ -21,9 +21,10 @@ define(function ( ) {
         TWITTER_ACCOUNT_ID: "598107149366099968",
 
         //Visualization Scores
-        GEO_SELECTION_THRESHOLD: 999,
+        GEO_SELECTION_THRESHOLD: 10,
+        GEO_LAYOUT_THRESHOLD: 4,
         CHART_TYPE: "column",
-        CHART_TOTAL_COLOR: "red"
+        CHART_TOTAL_COLOR: "#f2a940"
 
 
     };

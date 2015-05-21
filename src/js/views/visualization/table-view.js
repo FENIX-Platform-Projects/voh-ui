@@ -101,6 +101,12 @@ define([
         initComponents: function () {
 
             this.WDSClient = new WDSClient({
+                serviceUrl: Config.WDS_URL,
+                datasource: Config.DB_NAME,
+                outputType: Config.WDS_OUTPUT_TYPE
+            });
+
+            this.WDSClientOlap = new WDSClient({
                 serviceUrl: Config.WDS_URL_ARRAY,
                 datasource: Config.DB_NAME
                 //,outputType: Config.WDS_OUTPUT_TYPE
@@ -422,7 +428,7 @@ define([
 
         search: function () {
 
-            this.WDSClient.query({
+            this.WDSClientOlap.query({
                 queryTmpl: this.currentRequest.inputs.geo_granularity === 'country' ? Services.OLAP_COUNTRY : Services.OLAP_REGION,
                 queryVars: this.currentRequest.processedInputs,
                 success: _.bind(this.onSearchSuccess, this),

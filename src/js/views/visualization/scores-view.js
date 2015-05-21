@@ -523,7 +523,7 @@ define([
             /* Add the 'w2' class to display the element with width:100%. Default width:50% */
 
             if (this.currentRequest.inputs.variables.length > 1) {
-                return (this.currentRequest.inputs.geo.length > Config.GEO_SELECTION_THRESHOLD ) ? $template.addClass('w2') : $template;
+                return (this.currentRequest.inputs.geo.length > Config.GEO_LAYOUT_THRESHOLD ) ? $template.addClass('w2') : $template;
             } else {
                 return $template.addClass('w2');
             }

@@ -17,8 +17,10 @@ define(function ( ) {
         CL_LOCATION : "SELECT location_range_code as code, location_range_label as label FROM codes_location_range",
         CL_INCOME: "SELECT income_code as code, income_label as label FROM codes_income;",
         CL_GENDER: "SELECT gender_code as code, gender_label as label FROM codes_gender;",
-        CL_COUNTRY: "SELECT country_code as code, country_label as label FROM codes_country;",
-        CL_REGION: "SELECT region_code as code, region_label as label FROM codes_region;",
+        CL_COUNTRY: "select distinct country_code as code, country_label as label from master_aggregation INNER JOIN codes_country ON master_aggregation.country = codes_country.country_code order by country_label",
+        //CL_COUNTRY: "SELECT country_code as code, country_label as label FROM codes_country;",
+        CL_REGION: "select distinct region_code as code, region_label as label from master_aggregation_region INNER JOIN codes_region ON master_aggregation_region.region = codes_region.region_code order by region_label",
+        //CL_REGION: "SELECT region_code as code, region_label as label FROM codes_region;",
 
         MAP_FI_POPULATION: "SELECT country, round( CAST({query_variables} as numeric), 3) FROM master_aggregation WHERE variable = 'population';"    };
 });
