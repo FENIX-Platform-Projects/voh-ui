@@ -129,17 +129,17 @@ define([
         initMap: function(d) {
             s.map = new FM.Map(d, {
                 plugins: {
-                    zoomcontrol: 'bottomright',
-                    disclaimerfao: true,
-                    fullscreen: true,
-                    geosearch: true,
+                    zoomcontrol: false,
+                    disclaimerfao: false,
+                    fullscreen: false,
+                    geosearch: false,
                     mouseposition: false,
-                    controlloading : true,
-                    zoomResetControl: true
+                    controlloading : false,
+                    zoomResetControl: false
                 },
                 guiController: {
                     overlay: false,
-                    baselayer: true,
+                    baselayer: false,
                     wmsLoader: false
                 }
             });

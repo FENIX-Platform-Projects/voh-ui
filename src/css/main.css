@@ -1775,7 +1775,7 @@ legend {
   /*overflow: hidden;*/
   min-height: 250px;
   position: relative;
-  background-color: #f9f7f3; }
+  background-color: #f1f1f1; }
 
 .fx-catalog-modular-form-header {
   position: relative;
@@ -2076,7 +2076,7 @@ input[type="checkbox"]:checked + label {
 /* Fenix - Resume Bar Component */
 .fx-resume-bar {
   padding-right: 150px;
-  background-color: #f9f7f3;
+  background-color: #f1f1f1;
   position: relative; }
 
 #fx-resume {
@@ -2110,7 +2110,7 @@ input[type="checkbox"]:checked + label {
   -ms-border-radius: 0;
   border-radius: 0; }
   #fx-catalog-submit-btn.disabled {
-    background-color: #f9f7f3;
+    background-color: #f1f1f1;
     opacity: 1; }
 
 .fx-resume-item-selected {
@@ -2911,6 +2911,11 @@ input[type="checkbox"]:checked + label {
 /* Leaflet */
 /* Fenix Leaflet Import */
 /* Fenix Leaflet Zoom control 0.7.3*/
+/* Base */
+/* VOH - Base style File */
+body {
+  background-color: #f1f1f1; }
+
 /* Typography */
 /* VOH Typography */
 /* Components */
@@ -3047,90 +3052,13 @@ footer {
 .highcharts-title {
   font-size: 12px !important; }
 
-/* Afo Leaflet */
-.afo-simple-map .leaflet-bar {
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  border-radius: 0; }
-.afo-simple-map .leaflet-bar a, .afo-simple-map .leaflet-bar a:hover {
-  height: 23px;
-  width: 23px;
-  line-height: 23px; }
-.afo-simple-map .leaflet-bar a:first-child, .afo-simple-map .leaflet-bar a:last-child {
-  -moz-border-radius-topleft: 0;
-  -webkit-border-top-left-radius: 0;
-  border-top-left-radius: 0;
-  -moz-border-radius-topright: 0;
-  -webkit-border-top-right-radius: 0;
-  border-top-right-radius: 0;
-  -moz-border-radius-bottomright: 0;
-  -webkit-border-bottom-right-radius: 0;
-  border-bottom-right-radius: 0;
-  -moz-border-radius-bottomleft: 0;
-  -webkit-border-bottom-left-radius: 0;
-  border-bottom-left-radius: 0;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  border-radius: 0;
-  -webkit-border-radius: 100%;
-  -moz-border-radius: 100%;
-  -ms-border-radius: 100%;
-  border-radius: 100%;
-  border-color: transparent;
-  margin: 5px; }
-.afo-simple-map .leaflet-control-zoom-in,
-.afo-simple-map .leaflet-control-zoom-out {
-  font-family: 'eldorado_stroke';
-  font-size: 0;
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  text-indent: 0;
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; }
-.afo-simple-map .leaflet-control-zoom-out {
-  font-size: 0px; }
-.afo-simple-map .leaflet-touch .leaflet-control-zoom-in {
-  font-size: 0; }
-.afo-simple-map .leaflet-touch .leaflet-control-zoom-out {
-  font-size: 0; }
-.afo-simple-map .leaflet-control-zoom-in:before {
-  color: #2c87b8;
-  font-size: 24px;
-  content: "\eb2a"; }
-.afo-simple-map .leaflet-control-zoom-out:before {
-  color: #2c87b8;
-  font-size: 24px;
-  content: "\eb28"; }
+/* VOH Leaflet */
+.fm-controller-box-icons-container {
+  display: none; }
 
-#fertMap {
-  /* Specif override for the calogue map - TO BE REVIEWED */ }
-  #fertMap .leaflet-control-zoom.leaflet-bar.leaflet-control {
-    background-color: transparent !important;
-    border-color: transparent !important; }
-    #fertMap .leaflet-control-zoom.leaflet-bar.leaflet-control .leaflet-control-zoom-in,
-    #fertMap .leaflet-control-zoom.leaflet-bar.leaflet-control .leaflet-control-zoom-out {
-      height: 23px !important;
-      width: 23px !important;
-      font-size: 0px !important;
-      background-image: none;
-      position: relative; }
-  #fertMap .fm-controller-box-icons-container {
-    display: none !important; }
-  #fertMap .fm-fullscreen {
-    display: none !important; }
-  #fertMap .fm-disclaimerfao {
-    display: none !important; }
-  #fertMap .leaflet-control-scale {
-    left: 5px !important; }
+.leaflet-control-scale {
+  top: 0;
+  left: 0; }
 
 /* Afo Pivot */
 .pvtAxisContainer, .pvtVals {
@@ -3247,7 +3175,7 @@ footer {
   background-color: #dddddd;
   min-width: 250px; }
   .dropdown .dropdown-menu > li {
-    height: 50px;
+    height: 40px;
     border-bottom: 1px solid #d8d8d8;
     position: relative;
     cursor: pointer; }
@@ -3287,21 +3215,31 @@ footer {
   margin-top: 0; }
 
 /* Afo Top Menu */
-.voh-topmenu {
+.fao-header {
+  height: 105px;
+  position: relative; }
+  .fao-header .col-xs-12 {
+    height: 105px; }
+  .fao-header .fao-logo {
+    width: 412px;
+    height: 75px;
+    position: relative;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%); }
+
+.voh-topmenu .container-fluid {
   padding: 0; }
-  .voh-topmenu > .row {
-    margin: 0; }
-    .voh-topmenu > .row > .col-xs-12 {
-      padding: 0; }
-  .voh-topmenu .container-fluid {
-    padding: 0; }
 
 .navbar {
-  min-height: 50px; }
+  min-height: 40px; }
 
 .navbar-default .navbar-nav > li > a {
   color: white;
-  overflow: hidden; }
+  overflow: hidden;
+  padding-bottom: 10px;
+  padding-top: 10px; }
   .navbar-default .navbar-nav > li > a:before {
     content: '';
     position: absolute;
@@ -3336,12 +3274,12 @@ footer {
     border-right: 1px solid white; }
     .navbar-default .navbar-nav > li > a {
       text-transform: uppercase;
-      height: 50px; }
+      height: 40px; }
 
 .navbar-brand {
   background-image: url("img/afo-ico.svg");
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
   background-size: 80% 80%;
   background-repeat: no-repeat;
   background-color: white;
@@ -3510,6 +3448,23 @@ footer {
 .map-home-page {
   height: 400px; }
 
+.map-toolbar {
+  height: 30px;
+  width: 50%;
+  background-color: white;
+  padding: 5px;
+  position: relative;
+  top: -30px;
+  left: 50%;
+  text-align: center; }
+  .map-toolbar > div {
+    display: inline-block; }
+    .map-toolbar > div em {
+      font-style: normal;
+      color: #2c87b8; }
+  .map-toolbar .map-toolbar-form {
+    display: inline-block; }
+
 /* Packery css*/
 .voh-result {
   width: 50%;
@@ -3522,6 +3477,3 @@ footer {
 .geo-selector-container {
   height: 300px;
   overflow-y: auto; }
-
-body {
-  background-color: #f1f1f1; }

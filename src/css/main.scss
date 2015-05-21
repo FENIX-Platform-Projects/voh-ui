@@ -10,7 +10,8 @@
 /* Fenix Utils*/
 @import '../../submodules/fenix-ui-common/css/fenix-style-no-variables';
 
-
+/* Base */
+@import 'theme/voh-base';
 
 /* Typography */
 @import 'theme/voh-typography';
@@ -33,8 +34,3 @@
 @import 'pages/visutalization';
 
 
-body{
-
-   background-color: #f1f1f1;
-
- }

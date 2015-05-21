@@ -1,3 +1,30 @@
 .map-home-page {
   height: 400px;
 }
+
+.map-toolbar{
+  height: 30px;
+  width: 50%;
+  background-color: white;
+  padding: 5px;
+  position: relative;
+  top: -30px;
+  left: 50%;
+  text-align: center;
+
+
+  >div{
+    display: inline-block;
+
+    em{
+      font-style: normal;
+      color: $fx-cool-blue;
+    }
+
+
+  }
+
+  .map-toolbar-form{
+    display: inline-block;
+  }
+}

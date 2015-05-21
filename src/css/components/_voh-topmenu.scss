@@ -1,16 +1,26 @@
 /* Afo Top Menu */
 
-.voh-topmenu{
-  padding: 0;
+.fao-header{
+  height: 105px;
+  position: relative;
 
-  >.row{
-    margin: 0;
-    >.col-xs-12{
-      padding: 0;
+  .col-xs-12{
+    height: 105px;
 
-    }
 
   }
+
+    .fao-logo{
+      width: 412px;
+      height: 75px;
+      position: relative;
+      top: 50%;
+      @include fx-transfor-me(translateY(-50%));
+    }
+
+}
+
+.voh-topmenu{
 
   .container-fluid {
     padding: 0;
@@ -26,6 +36,8 @@
 .navbar-default .navbar-nav > li > a{
   color: white;
   overflow: hidden;
+  padding-bottom: 10px;
+  padding-top: 10px;
 
   &:before {
     // Very cool menu effect //
