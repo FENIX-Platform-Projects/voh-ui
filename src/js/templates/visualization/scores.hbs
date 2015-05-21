@@ -1,22 +1,27 @@
 <!-- Section switcher-->
 <div class="row">
     <div class="col-xs-12">
-        <ul>
-            <li><a href="#visualization/scores"> {{ section_scores }}</a></li>
+        <ul class="voh-section-switcher">
+            <li class="active"><a href="#visualization/scores"> {{ section_scores }}</a></li>
             <li><a href="#visualization/table">{{ section_table }}</a></li>
         </ul>
     </div>
 </div>
 
 <!-- Selectors -->
-<div class="row">
+<div class="row voh-visualization-selector">
     <!-- Map Container-->
-    <div class="col-xs-8">
+    <div class="col-xs-8 voh-map-cont">
+      <div class="row">
+                <div class="col-xs-12">
+                      <h1> {{ map_selector_title }}</h1>
+                 </div>
+            </div>
         <div class="row">
             <div class="col-xs-12">
                 <!-- Geo selector granularity-->
                 <div>
-                    <form id="geo-granularity-form" action="" onsubmit="return(false);">
+                    <form id="geo-granularity-form" class="geo-granularity-form" action="" onsubmit="return(false);">
                         <input id="geo-as-country" type="radio" name="geo-granularity" value="country">
                         <label for="geo-as-country"> {{ geo_granularity_country }}</label>
                         <input id="geo-as-region" type="radio" name="geo-granularity" value="region">
@@ -28,7 +33,6 @@
         </div>
         <div class="row">
             <div class="col-xs-12">
-                <div> {{ map_selector_title }}</div>
                 <div class="geo-selector-container">
                     <div id="geo-selector"> </div>
                 </div>
@@ -38,8 +42,8 @@
     </div>
 
     <!-- Other selectors Container-->
-    <div class="col-xs-4">
-        <div> {{ other_selectors_title }}</div>
+    <div class="col-xs-4 voh-other-sel">
+        <h1> {{ other_selectors_title }}</h1>
 
         <!-- FI status selectors-->
         <div>
@@ -52,21 +56,21 @@
         </div>
 
         <!-- Variables selectors-->
-        <div>
-            <div> {{ variables_title }} </div>
+        <div class="voh-other-var">
+            <h4> {{ variables_title }} </h4>
             <form id="scores-variables-form" action="" onsubmit="return(false);">
                 <input id="scores-age-sel" type="checkbox" name="variable" value="age">
-                <label for="scores-age-sel"> {{ var_age }}</label>
+                <label for="scores-age-sel"> {{ var_age }}</label><br>
                 <input id="scores-location-sel" type="checkbox" name="variable" value="location">
-                <label for="scores-location-sel"> {{ var_location }}</label>
+                <label for="scores-location-sel"> {{ var_location }}</label><br>
                 <input id="scores-education-sel" type="checkbox" name="variable" value="education">
-                <label for="scores-education-sel"> {{ var_education }}</label>
+                <label for="scores-education-sel"> {{ var_education }}</label><br>
                 <input id="scores-gender-sel" type="checkbox" name="variable" value="gender">
-                <label for="scores-gender-sel"> {{ var_gender }}</label>
+                <label for="scores-gender-sel"> {{ var_gender }}</label><br>
                 <input id="scores-marital-sel" type="checkbox" name="variable" value="marital">
-                <label for="scores-marital-sel"> {{ var_marital_status }}</label>
+                <label for="scores-marital-sel"> {{ var_marital_status }}</label><br>
                 <input id="scores-income-sel" type="checkbox" name="variable" value="income">
-                <label for="scores-income-sel"> {{ var_income }}</label>
+                <label for="scores-income-sel"> {{ var_income }}</label><br>
             </form>
         </div>
 
@@ -81,7 +85,7 @@
 
 <!-- Toolbar -->
 <div class="row">
-    <div class="col-xs-12">
+    <div class="col-xs-12 voh-vis-buttons-holder">
         <button id="scores-go-btn" class="btn btn-default pull-right" disabled> {{ go_btn }}</button>
         <button id="scores-reset-btn" class="btn btn-default pull-right" disabled> {{ reset_btn }}</button>
     </div>

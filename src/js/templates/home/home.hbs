@@ -7,11 +7,11 @@
         <div id="map" class="map-home-page" style="overflow: hidden;"></div>
 
         <!-- Map toolbar -->
-        <div id="map-toolbar">
+        <div id="map-toolbar" class="map-toolbar">
             <div>
                 {{{ map_toolbar_legend }}}
             </div>
-            <form id="map-toolbar-form" action="" onsubmit="return(false);">
+            <form id="map-toolbar-form" class="map-toolbar-form" action="" onsubmit="return(false);">
                 <input id="radio-severe-status" type="radio" name="status" value="s"><label
                     for="radio-severe-status"> {{{ fi_status_severe }}}</label>
                 <input id="radio-moderate-severe-status" type="radio" name="status" value="ms"><label
@@ -19,15 +19,15 @@
             </form>
         </div>
 
-        <!-- Download map button (Label to remove, just for test) -->
-        <div id="download-map-button">DOWNLOAD MAP</div>
+        <!-- Download map button (Label to remove, just for test)
+        <div id="download-map-button">DOWNLOAD MAP</div> -->
     </div>
 </div>
 
 <!-- Logo + Intro text-->
 <div class="row">
     <div class="col-xs-3">
-        <div>LOGO VOH</div>
+        <div><img class="voh-logo-blue" src='src/images/voh-logo-blue.svg'></div>
     </div>
     <div class="col-xs-9">
         <div> {{{ home_intro_title }}}</div>

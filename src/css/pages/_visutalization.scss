@@ -1,4 +1,139 @@
-/* Packery css*/
+/* VOH - Visualization*/
+.voh-section-switcher{
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+
+  >li {
+
+    margin-bottom: 10px;
+    display: inline-block;
+
+    >a {
+
+      padding: 0 10px;
+
+      color: $fenix-text;
+      font-weight: 500;
+      font-size: 12px;
+      text-transform: uppercase;
+      position: relative;
+
+      &:first-child{
+        padding-left: 0;
+      }
+
+
+      &:hover, &:active, &:focus{
+        text-decoration: none;
+      }
+
+
+    }
+
+
+    &.active {
+
+      >a {
+
+        &:before {
+
+          content: '';
+          position: absolute;
+          width: calc(100% - 20px);
+          height: 2px;
+          background-color: $fx-cool-blue;
+          left: 10px;
+          bottom: -2px;
+          pointer-events: none;
+        }
+
+
+        &:first-child{
+
+          &:before{
+            left: 0;
+            width: calc(100% - 10px);
+
+          }
+
+        }
+
+
+      }
+
+    }
+
+
+  }
+
+}
+
+.voh-visualization-selector{
+
+  h1{
+    margin-top: 10px;
+    height: 30px;
+    border-bottom: 1px solid $fenix-hr;
+  }
+
+  .voh-other-sel{
+
+
+    .voh-other-var{
+      h4{
+        text-transform: uppercase;
+        color: $fenix-light-hr;
+        margin-bottom: 0;
+      }
+
+      form{
+        border: 1px solid $fenix-light-hr;
+        padding: 16px;
+      }
+
+    }
+
+  }
+
+  .voh-map-com{
+
+  }
+
+}
+
+//.voh-tabs{
+//
+//  .nav-tabs {
+//
+//    @include fx-transfor-me(translateX(-10px));
+//
+//
+//  }
+//
+//  .tab-content {
+//    padding-top: 10px;
+//
+//    > div {
+//      padding: 0;
+//    }
+//
+//
+//  }
+//
+//
+//
+//
+//  li{
+//    margin: 12px 0;
+//
+//  }
+//
+//
+//
+//}
+
+
 .voh-result {
   width: 50%;
   height: 350px;
@@ -13,6 +148,16 @@
 
 
 .geo-selector-container {
-  height: 300px;
+  height: 160px;
   overflow-y: auto;
+}
+
+.geo-granularity-form{
+  height: 30px;
+}
+
+.voh-vis-buttons-holder{
+  height: 50px;
+  background-color: $custom-color2;
+  margin-top: 20px;
 }
