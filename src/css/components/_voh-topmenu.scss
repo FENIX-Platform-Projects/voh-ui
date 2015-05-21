@@ -64,7 +64,7 @@
 
       border-right: 1px solid white;
       > a{
-        font: $afo-text-menu-item;
+        //font: $afo-text-menu-item;
         text-transform: uppercase;
         height: $host-menu-height;
         //      padding: 17px 15px 34px 15px;
@@ -148,7 +148,7 @@
     }
 
     .dropdown.open{
-      background-color: $afo-submenu;
+      background-color: $fenix-light-gray;
     }
 
   }

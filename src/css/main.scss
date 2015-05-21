@@ -1,21 +1,19 @@
-/* Third parties */
-//@import 'thirds-parties/swiper';
-@import 'thirds-parties/jstree';
-
-
-
+/* Voh - Host CSS file */
 /* VOH Theme */
-
 @import 'theme/voh-variables';
 
 
+
+/* Third parties */
+@import 'thirds-parties/jstree';
+
 /* Fenix Utils*/
-
-
 @import '../../submodules/fenix-ui-common/css/fenix-style-no-variables';
 
+
+
 /* Typography */
-//@import 'themes/voh-typography';
+@import 'theme/voh-typography';
 
 /* Components */
 @import 'components/voh-breadcrumbs';
@@ -30,8 +28,6 @@
 @import 'components/voh-tabs';
 
 
-
-
 /* Pages */
 @import 'pages/home';
 @import 'pages/visutalization';
@@ -39,6 +35,6 @@
 
 body{
 
-  background-color: #f1f1f1;
+   background-color: #f1f1f1;
 
-}
+ }

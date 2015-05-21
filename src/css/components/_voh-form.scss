@@ -11,7 +11,7 @@
 
   @include fx-noshadow;
 
-  border: 2px solid $afo-green-title;
+  border: 2px solid $fx-cool-blue;
   @include fx-border-radius(0);
   font-weight: 500;
   padding: 3px 12px;
@@ -21,8 +21,9 @@
   &:focus{
     @include fx-noshadow;
     outline: none;
-    border: 2px solid $afo-green-title;
+    border: 2px solid $fx-cool-blue;
   }
+
 }
 
 .input-group-btn{
@@ -31,7 +32,7 @@
     border-left: 0;
 
     &:hover{
-      border-color:$afo-green-title;
+      border-color:$fx-cool-blue;
 
     }
 
