@@ -17,16 +17,18 @@ define([
 	'text!pivotDataTest',
 	'pivotDataConfig',
 
+    'underscore',
     'q',
     'jstree',
-    'amplify',
+    'amplify'
 //TODO REMOVE
 ], function (Handlebars, View, Config, Services, template, errorTemplate, courtesyMessageTemplate, i18nLabels, i18Errors, WDSClient,
      Pivot,
 	pivotRenderers,
 	pivotAggregators,
 	pivotDataTest,
-	pivotDataConfig
+	pivotDataConfig,
+             _
 	) {
 
     'use strict';
@@ -461,6 +463,7 @@ define([
 
         initOlapCreator: function () {
 
+
             this.pivot = new Pivot();
 
             var pivotDataConf = $.extend(true, {}, pivotDataConfig);
@@ -468,6 +471,15 @@ define([
             pivotDataConf.rendererDisplay = pivotRenderers;
             pivotDataConf.aggregatorDisplay = pivotAggregators;
             pivotDataConf.vals.push(this.currentRequest.inputs.status);
+            pivotDataConf.derivedAttributes.group_code = function ( row ) {
+
+                var cl_group_code = amplify.store.sessionStorage("cl_"+row.variable);
+                if (cl_group_code) {
+                    var obj =  _.findWhere(cl_group_code, {code: row.group_code});
+                    return obj ? obj.label : null;
+                }
+
+            };
 
 			this.pivot.render("pivot1", this.currentRequest.processdResponse, pivotDataConf);
         },

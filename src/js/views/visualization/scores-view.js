@@ -575,7 +575,12 @@ define([
             var series = this.createSeriesForChartCreator(variable),
                 chart = this.chartCreator.render({
                     container: $result.find(s.CHART_CONTAINER),
-                    series: series
+                    series: series,
+                    template : {
+                        labels : {
+                            title : i18nLabels["var_" + variable]
+                        }
+                    }
                 });
 
             this.charts.push(chart);
