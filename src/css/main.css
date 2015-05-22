@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* Voh - Host CSS file */
 /* VOH Theme */
 /* VOH Variables */
@@ -1213,6 +1214,9 @@
 .icojam_home2:before {
   content: "\e7c1"; }
 
+.icojam_geography_globe:before {
+  content: "\e7be"; }
+
 /* Roboto */
 /* Roboto Import */
 /* Roboto Regular */
@@ -1524,7 +1528,7 @@ h2 {
   color: #4e7d96; }
 
 h3 {
-  font: normal normal 300 12px/normal "Roboto";
+  font: normal normal 500 12px/normal "Roboto";
   color: #65767f; }
 
 h4 {
@@ -3519,6 +3523,54 @@ input[type="checkbox"]:checked + label {
   .map-toolbar .map-toolbar-form {
     display: inline-block; }
 
+.voh-intro-text {
+  padding-bottom: 20px;
+  border-bottom: 1px solid #cccccc;
+  margin-bottom: 20px; }
+  .voh-intro-text h3 {
+    margin-top: 0;
+    color: #2c87b8;
+    text-transform: uppercase; }
+
+.db-updates-list {
+  list-style: none;
+  padding-left: 0; }
+  .db-updates-list li {
+    position: relative;
+    padding: 15px 0 15px 70px;
+    border-bottom: 1px solid #cccccc; }
+    .db-updates-list li h3 {
+      margin-bottom: 0;
+      color: #666666; }
+    .db-updates-list li .db-update-ico {
+      position: absolute;
+      left: 0;
+      width: 60px;
+      text-align: center;
+      font-size: 45px; }
+    .db-updates-list li .db-update-country {
+      font: normal normal 300 11px/normal "Roboto";
+      color: #999999; }
+    .db-updates-list li .db-update-date {
+      font: normal normal 300 11px/normal "Roboto";
+      color: #2c87b8; }
+    .db-updates-list li .db-update-link {
+      font: normal normal 300 11px/normal "Roboto";
+      color: #666666; }
+
+.voh-home-document-list {
+  list-style: none;
+  padding-left: 0; }
+  .voh-home-document-list li {
+    padding-left: 10px;
+    position: relative;
+    margin: 8px 0; }
+    .voh-home-document-list li:before {
+      content: "•";
+      color: #2c87b8;
+      position: absolute;
+      left: 0; }
+
 /* VOH - Visualization*/
 .voh-section-switcher {
   list-style: none;
@@ -3567,7 +3619,7 @@ input[type="checkbox"]:checked + label {
 
 .voh-result {
   width: 50%;
-  height: 250px;
+  height: 275px;
   padding: 15px; }
   .voh-result.w2 {
     width: 100%; }

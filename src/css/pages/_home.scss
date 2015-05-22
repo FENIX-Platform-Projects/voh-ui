@@ -3,7 +3,7 @@
   margin: 0 -15px;
 }
 
-.map-toolbar{
+.map-toolbar {
   height: 30px;
   width: 50%;
   background-color: white;
@@ -13,27 +13,95 @@
   left: calc(50% + 15px);
   text-align: center;
 
-
-  >div{
+  > div {
     display: inline-block;
 
-    em{
+    em {
       font-style: normal;
       color: $fx-cool-blue;
     }
 
-
   }
 
-  .map-toolbar-form{
+  .map-toolbar-form {
     display: inline-block;
   }
 }
 
-.voh-intro-text{
-  h3{
+.voh-intro-text {
+  padding-bottom: 20px;
+  border-bottom: 1px solid $fenix-light-hr;
+  margin-bottom: 20px;
+
+  h3 {
+    margin-top: 0;
+    color: $fx-cool-blue;
+    text-transform: uppercase;
+  }
+
+}
+
+.voh-home-main-content {
+
+}
+
+.db-updates-list {
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    position: relative;
+    padding: 15px 0 15px 70px;
+    border-bottom: 1px solid $fenix-light-hr;
+
+    h3 {
+      margin-bottom: 0;
+      color: $fenix-text;
+    }
+
+    .db-update-ico {
+      position: absolute;
+      left: 0;
+      width: 60px;
+      text-align: center;
+      font-size: 45px;
+    }
+
+    .db-update-country {
+      font: $fx-text-h4;
+      color: $fenix-secondary-text;
+    }
+
+    .db-update-date {
+      font: $fx-text-h4;
+      color: $fx-cool-blue;
+    }
+
+    .db-update-link {
+      font: $fx-text-h4;
+      color: $fenix-text;
+    }
 
   }
 
+}
+
+.voh-home-document-list {
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    padding-left: 10px;
+    position: relative;
+    margin: 8px 0;
+
+    &:before {
+      content: "•";
+      color: $fx-cool-blue;
+      position: absolute;
+      left: 0;
+    }
+
+  }
 
 }
