@@ -495,6 +495,7 @@ define([
             //Destroy OLAP
             if (this.pivot && this.pivot.hasOwnProperty('destroy')) {
                 this.pivot.destroy();
+                $("#pivot1").empty();
             }
         },
 
