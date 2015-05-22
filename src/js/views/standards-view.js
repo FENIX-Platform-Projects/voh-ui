@@ -73,7 +73,8 @@ define([
             this.$standardsList.jstree({
                 'core': {
                     'data': this.formatModelForJsTree()
-                }
+                },
+                "plugins": ["wholerow"]
             }).on('ready.jstree', function (e, data) {
 
                 //data.instance.open_node(["id1","id2","id3"]);
