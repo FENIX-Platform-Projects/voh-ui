@@ -25,6 +25,14 @@ body{
   padding: 3px 12px;
   font-size: 12px;
   text-transform: uppercase;
+  background-color: $fx-cool-blue;
+
+  &:hover{
+    background-color: $fx-cool-blue;
+    border-color: transparent;
+    color: white;
+  }
+
 }
 
 

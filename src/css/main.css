@@ -2938,7 +2938,12 @@ body {
   min-width: 135px;
   padding: 3px 12px;
   font-size: 12px;
-  text-transform: uppercase; }
+  text-transform: uppercase;
+  background-color: #2c87b8; }
+  .btn:hover {
+    background-color: #2c87b8;
+    border-color: transparent;
+    color: white; }
 
 .btn-table-go, .btn-scores-go {
   background-color: #2c87b8; }
@@ -2962,7 +2967,7 @@ h1 {
   color: #2c87b8; }
 
 /* Components */
-/* AFO  BreadCrumbs */
+/* VOH  BreadCrumbs */
 #breadcumb_container {
   height: 35px;
   overflow: hidden;
@@ -2983,81 +2988,71 @@ h1 {
   content: '|';
   color: #666666; }
 
-/* Africa Fertilizer Footer */
-footer {
-  background-color: #dddddd;
-  height: 160px; }
+.voh-home .breadcrumb {
+  display: none; }
 
-.afo-footer-logo-image {
-  margin-top: 20px;
-  padding-right: 15px;
-  max-width: 145px; }
-
-.afp-footer-social li {
-  float: right;
-  margin: 20px 6px;
-  -webkit-border-radius: 100%;
-  -moz-border-radius: 100%;
-  -ms-border-radius: 100%;
-  border-radius: 100%;
-  cursor: pointer; }
-.afp-footer-social .afo-footer-social-facebook {
-  background-color: #48649f; }
-.afp-footer-social .afo-footer-social-youtube {
-  background-color: #cc181e; }
-.afp-footer-social .afo-footer-social-twitter {
-  background-color: #61a8d8; }
-
-#footer-menu-container {
-  font: normal normal 400 10px/normal "Roboto";
-  text-transform: uppercase; }
-  #footer-menu-container h3 {
-    margin-top: 27px; }
-  #footer-menu-container ul {
-    list-style: none;
-    padding-left: 0; }
-    #footer-menu-container ul li {
-      float: left;
-      padding: 15px; }
-      #footer-menu-container ul li a {
-        color: #666666;
-        line-height: 18px; }
-        #footer-menu-container ul li a:hover {
-          color: #666666; }
-
-.afo-footer-credits {
-  background-color: #dddddd;
-  padding-bottom: 20px;
-  font: normal normal 400 10px/normal "Roboto"; }
-
-.afo-footer-sub {
-  height: 60px;
-  padding-top: 23px;
+/* VOH Footer */
+footer.voh-footer {
+  background-color: #4fa3db;
+  min-height: 160px;
   color: white;
-  border-top: 1px solid white;
-  background-color: #94d4fe;
-  background-image: -moz-linear-gradient(top, #94d4fe, #5ca7d8);
-  background-image: -ms-linear-gradient(top, #94d4fe, #5ca7d8);
-  background-image: -o-linear-gradient(top, #94d4fe, #5ca7d8);
-  background-image: -webkit-gradient(linear, center top, center bottom, from(#94d4fe), to(#5ca7d8));
-  background-image: -webkit-linear-gradient(top, #94d4fe, #5ca7d8);
-  background-image: linear-gradient(top, #94d4fe, #5ca7d8);
-  background-image: linear-gradient(to bottom, #94d4fe, #5ca7d8);
-  -moz-background-clip: padding;
-  background-clip: padding-box;
-  -webkit-background-clip: padding-box;
-  background-repeat: no-repeat;
-  font: normal normal 400 10px/normal "Roboto"; }
-  .afo-footer-sub em {
-    font-style: normal;
-    color: #666666; }
-    .afo-footer-sub em:last-child {
-      float: right; }
-  .afo-footer-sub a {
-    color: white;
-    margin: 0 35px; }
-    .afo-footer-sub a:hover {
-      color: white; }
+  position: relative; }
+  footer.voh-footer .voh-logo-white {
+    width: 68px;
+    height: 33px;
+    margin-bottom: 10px; }
+
+.voh-footer-upper {
+  min-height: 100px;
+  background-color: #0d6cac;
+  padding: 15px; }
+
+.voh-social-holder {
+  position: absolute;
+  top: 0;
+  right: 0; }
+
+.voh-footer-social {
+  list-style: none; }
+  .voh-footer-social li {
+    float: right;
+    margin: 0 6px;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    border-radius: 100%;
+    cursor: pointer; }
+  .voh-footer-social .voh-footer-social-facebook {
+    background-color: #48649f; }
+  .voh-footer-social .voh-footer-social-youtube {
+    background-color: #cc181e; }
+  .voh-footer-social .voh-footer-social-twitter {
+    background-color: #61a8d8; }
+
+.voh-footer-bottom {
+  padding-top: 15px;
+  font: normal normal 300 11px/normal "Roboto"; }
+
+.footer-menu-container ul {
+  list-style: none;
+  padding-left: 0; }
+  .footer-menu-container ul li {
+    display: inline-block;
+    padding: 2px 15px;
+    position: relative;
+    text-transform: uppercase; }
+    .footer-menu-container ul li a {
+      color: white;
+      text-decoration: none; }
+      .footer-menu-container ul li a:hover, .footer-menu-container ul li a:active, .footer-menu-container ul li a:visited, .footer-menu-container ul li a:focus {
+        text-decoration: none; }
+    .footer-menu-container ul li:before {
+      content: '|';
+      color: white;
+      position: absolute;
+      left: 0; }
+    .footer-menu-container ul li:first-child:before {
+      content: ''; }
 
 /* Afo Form */
 .form-control {
@@ -3223,7 +3218,8 @@ input[type="checkbox"]:checked + label {
   box-shadow: none;
   border: 0;
   background-color: #f1f1f1;
-  min-width: 250px; }
+  min-width: 250px;
+  padding: 0; }
   .dropdown .dropdown-menu > li {
     height: 40px;
     border-bottom: 1px solid white;
@@ -3248,7 +3244,7 @@ input[type="checkbox"]:checked + label {
       position: relative;
       top: 50%;
       height: 100%;
-      padding-top: 16px;
+      padding-top: 12px;
       -ms-transform: translateY(-50%);
       -webkit-transform: translateY(-50%);
       transform: translateY(-50%); }
@@ -3501,9 +3497,42 @@ input[type="checkbox"]:checked + label {
   margin: 12px 0; }
 
 /* Pages */
+/* VOH Country Data */
+.voh-countrydata-list-holder .voh-download-list {
+  list-style: none;
+  padding-left: 0; }
+  .voh-countrydata-list-holder .voh-download-list li {
+    position: relative;
+    margin: 15px 0;
+    padding: 0 0 25px 70px;
+    border-bottom: 1px solid #cccccc; }
+
+.voh-download-item-body {
+  margin-bottom: 10px; }
+
+.voh-download-ico {
+  position: absolute;
+  left: 0;
+  width: 60px;
+  text-align: center;
+  font-size: 45px; }
+
 .map-home-page {
   height: 400px;
-  margin: 0 -15px; }
+  margin: 0 -15px;
+  position: relative;
+  top: -1px;
+  overflow: hidden; }
+  .map-home-page:before {
+    content: '';
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+    -webkit-box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.25); }
 
 .map-toolbar {
   height: 30px;
@@ -3513,7 +3542,8 @@ input[type="checkbox"]:checked + label {
   position: relative;
   top: -30px;
   left: calc(50% + 15px);
-  text-align: center; }
+  text-align: center;
+  z-index: 2; }
   .map-toolbar > div {
     display: inline-block; }
     .map-toolbar > div em {
@@ -3526,20 +3556,29 @@ input[type="checkbox"]:checked + label {
   padding-bottom: 20px;
   border-bottom: 1px solid #cccccc;
   margin-bottom: 20px; }
+  .voh-intro-text .voh-intro-logo-holder > div {
+    padding: 5px 20px 5px 0; }
   .voh-intro-text h3 {
     margin-top: 0;
     color: #2c87b8;
     text-transform: uppercase; }
 
+.db-updates-list-holder {
+  height: 400px;
+  overflow-y: scroll; }
+
 .db-updates-list {
   list-style: none;
-  padding-left: 0; }
+  padding-left: 0;
+  padding-right: 15px; }
   .db-updates-list li {
     position: relative;
     padding: 15px 0 15px 70px;
     border-bottom: 1px solid #cccccc; }
+    .db-updates-list li:last-child {
+      border-bottom-color: transparent; }
     .db-updates-list li h3 {
-      margin-bottom: 0;
+      margin: 0;
       color: #666666; }
     .db-updates-list li .db-update-ico {
       position: absolute;
@@ -3618,7 +3657,7 @@ input[type="checkbox"]:checked + label {
 
 .voh-result {
   width: 50%;
-  height: 275px;
+  height: 305px;
   padding: 15px; }
   .voh-result.w2 {
     width: 100%; }

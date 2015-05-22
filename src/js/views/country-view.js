@@ -79,6 +79,7 @@ define([
 
             this.$countryList.btsListFilter(this.$searchField, {
                 itemChild: '.download-title',
+                itemEl: '.voh-list-group-item',
                 initial : false,
                 resetOnBlur: false,
                 emptyNode: function() {

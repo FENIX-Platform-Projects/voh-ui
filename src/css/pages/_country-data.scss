@@ -1,0 +1,34 @@
+/* VOH Country Data */
+
+
+.voh-countrydata-list-holder{
+
+    .voh-download-list{
+      list-style: none;
+
+
+      padding-left: 0;
+
+      li{
+        position: relative;
+        margin: 15px 0;
+        padding: 0 0 25px 70px;
+        border-bottom: 1px solid $fenix-light-hr;
+
+      }
+    }
+
+
+}
+
+.voh-download-item-body{
+  margin-bottom: 10px;
+}
+
+.voh-download-ico {
+  position: absolute;
+  left: 0;
+  width: 60px;
+  text-align: center;
+  font-size: 45px;
+}
