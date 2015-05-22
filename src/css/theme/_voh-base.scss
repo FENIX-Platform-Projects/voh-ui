@@ -6,7 +6,46 @@ body{
 
 }
 
+.voh-logo-blue{
+  width: 100%;
+  height: auto;
+}
+
+.truncate {
+  min-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .btn{
   @include fx-border-radius(0);
+  height: 25px;
+  min-width: 135px;
+  padding: 3px 12px;
+  font-size: 12px;
+  text-transform: uppercase;
 }
+
+
+.btn-table-go, .btn-scores-go{
+  background-color: $fx-cool-blue;
+  &:hover{
+    background-color: $custom-color5;
+    border-color: transparent;
+    color: white;
+  }
+
+}
+
+.btn-reset{
+  background-color: $custom-color3;
+  color: $fenix-text;
+
+  &:hover{
+    background-color: $custom-color4;
+    border-color: transparent;
+    color: $fenix-text;
+  }
+}
+

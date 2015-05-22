@@ -15,6 +15,7 @@
       height: 75px;
       position: relative;
       top: 50%;
+      left:-22px;
       @include fx-transfor-me(translateY(-50%));
     }
 

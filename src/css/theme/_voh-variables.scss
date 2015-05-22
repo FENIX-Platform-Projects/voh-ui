@@ -16,8 +16,8 @@ $standard-text-bold : normal normal 500 14px/normal 'Roboto';
 $standard-text-big : normal normal 300 16px/normal 'Roboto';
 
 $fx-text-h1: normal normal 300 16px/normal 'Roboto';
-$fx-text-h2: normal normal 100 14px/normal 'Roboto';
-$fx-text-h3: normal normal 500 14px/normal 'Roboto';
+$fx-text-h2: normal normal 300 12px/normal 'Roboto';
+$fx-text-h3: normal normal 300 12px/normal 'Roboto';
 $fx-text-h4: normal normal 300 11px/normal 'Roboto';
 
 $afo-text-menu-item: normal normal 300 12px/normal 'Roboto';
@@ -32,8 +32,8 @@ $fx-cool-blue: #2c87b8;
 
 $fx-secondary-color: desaturate( $fx-cool-blue, 50% );
 
-$fx-main-color-light: #DDF3C2; // Ideal for selection
-$fx-main-color-lighter: #DDF3C2; // Ideal for hovers
+$fx-main-color-light: #f9e2c0; // Ideal for selection
+$fx-main-color-lighter: #fdf5e9; // Ideal for hovers
 
 $fenix-text: #666666;
 $fenix-secondary-text: #999999;
@@ -67,5 +67,6 @@ $fx-site-bg: $fenix-light-bg;
 $fx-border-radius: 0;
 $custom-color1: #f2a940; //Arancio
 $custom-color2: #d2ccbf; //Marroncino
-$custom-color3: #fcfaee;
-$custom-color4: #457f25;
+$custom-color3: #dfdede; //Grigio chiaro pulsanti reset
+$custom-color4: #ebebeb; //Grigio Pulsanti pressed
+$custom-color5: #27729a; //Cool blue pressed
