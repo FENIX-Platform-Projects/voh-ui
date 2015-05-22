@@ -1,3 +1,9 @@
+.voh-home{
+
+
+
+}
+
 .map-home-page {
   height: 400px;
   margin: 0 -15px;
@@ -45,17 +51,27 @@
 
 }
 
+.db-updates-list-holder{
+  height: 400px;
+  overflow-y: scroll;
+}
+
 .db-updates-list {
   list-style: none;
   padding-left: 0;
+  padding-right: 15px;
 
   li {
     position: relative;
     padding: 15px 0 15px 70px;
     border-bottom: 1px solid $fenix-light-hr;
 
+    &:last-child{
+      border-bottom-color: transparent;
+    }
+
     h3 {
-      margin-bottom: 0;
+      margin: 0;
       color: $fenix-text;
     }
 

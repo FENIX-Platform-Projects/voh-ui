@@ -47,6 +47,7 @@ define([
 
             View.prototype.attach.call(this, arguments);
 
+            $('body').addClass('voh-home');
             //update State
             amplify.publish('voh.state.change', {menu: 'home'});
 
@@ -237,6 +238,8 @@ define([
         },
 
         dispose: function () {
+
+            $('body').removeClass('voh-home');
 
             this.unbindEventListeners();
 
