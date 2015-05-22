@@ -25,36 +25,38 @@
 </div>
 
 <!-- Logo + Intro text-->
-<div class="row">
-    <div class="col-xs-3">
+<div class="row voh-intro-text">
+    <div class="hidden-xs col-sm-2">
         <div><img class="voh-logo-blue" src='src/images/voh-logo-blue.svg'></div>
     </div>
-    <div class="col-xs-9">
-        <div> {{{ home_intro_title }}}</div>
+    <div class="col-xs-12 col-sm-10 ">
+        <h3> {{{ home_intro_title }}}</h3>
         <div> {{{ home_intro_text }}}</div>
     </div>
 </div>
 
 <!-- Home Page Content: Database updates + right column -->
-<div class="row">
+<div class="row voh-home-main-content">
     <!-- Database upadate-->
     <div class="col-xs-9">
-        <div> {{ database_update_title }}</div>
+        <h1> {{ database_update_title }}</h1>
         <div>
-            <ul id="db-updates-list"></ul>
+            <ul id="db-updates-list" class="db-updates-list"></ul>
         </div>
     </div>
     <div class="col-xs-3">
         <div class="row">
             <div class="col-xs-12">
-                <div> {{ documents_links_title }} </div>
+                <h1> {{ documents_links_title }} </h1>
                 <div>
-                    <ul id="documents-list"></ul>
+                    <ul id="documents-list" class="voh-home-document-list"></ul>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12">Twitter
+            <div class="col-xs-12">
+                <h1>Twitter</h1>
+
                 <div class="afo-footer-social-twitter">
                     <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/twitter" data-widget-id={{twitter_account_id}}>Tweets of @twitter</a>
                 </div>

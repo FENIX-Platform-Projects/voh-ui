@@ -11,10 +11,10 @@
 <!-- Selectors -->
 <div class="row voh-visualization-selector">
     <!-- Map Container-->
-    <div class="col-xs-8 voh-map-cont">
+    <div class="col-xs-12 col-sm-8 voh-map-cont">
       <div class="row">
                 <div class="col-xs-12">
-                      <h1> {{ map_selector_title }}</h1>
+                      <h1 class="truncate"> {{ map_selector_title }}</h1>
                  </div>
             </div>
         <div class="row">
@@ -42,8 +42,8 @@
     </div>
 
     <!-- Other selectors Container-->
-    <div class="col-xs-4 voh-other-sel">
-        <h1> {{ other_selectors_title }}</h1>
+    <div class="col-xs-12 col-sm-4 voh-other-sel">
+        <h1 class="truncate"> {{ other_selectors_title }}</h1>
 
         <!-- FI status selectors-->
         <div>
@@ -86,8 +86,8 @@
 <!-- Toolbar -->
 <div class="row">
     <div class="col-xs-12 voh-vis-buttons-holder">
-        <button id="scores-go-btn" class="btn btn-default pull-right" disabled> {{ go_btn }}</button>
-        <button id="scores-reset-btn" class="btn btn-default pull-right" disabled> {{ reset_btn }}</button>
+        <button id="scores-go-btn" class="btn btn-default btn-scores-go pull-right" disabled> {{ go_btn }}</button>
+        <button id="scores-reset-btn" class="btn btn-default btn-reset pull-right" disabled> {{ reset_btn }}</button>
     </div>
 </div>
 
