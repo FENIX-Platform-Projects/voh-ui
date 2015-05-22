@@ -2987,81 +2987,68 @@ h1 {
 .voh-home .breadcrumb {
   display: none; }
 
-/* Africa Fertilizer Footer */
-footer {
-  background-color: #dddddd;
-  height: 160px; }
-
-.afo-footer-logo-image {
-  margin-top: 20px;
-  padding-right: 15px;
-  max-width: 145px; }
-
-.afp-footer-social li {
-  float: right;
-  margin: 20px 6px;
-  -webkit-border-radius: 100%;
-  -moz-border-radius: 100%;
-  -ms-border-radius: 100%;
-  border-radius: 100%;
-  cursor: pointer; }
-.afp-footer-social .afo-footer-social-facebook {
-  background-color: #48649f; }
-.afp-footer-social .afo-footer-social-youtube {
-  background-color: #cc181e; }
-.afp-footer-social .afo-footer-social-twitter {
-  background-color: #61a8d8; }
-
-#footer-menu-container {
-  font: normal normal 400 10px/normal "Roboto";
-  text-transform: uppercase; }
-  #footer-menu-container h3 {
-    margin-top: 27px; }
-  #footer-menu-container ul {
-    list-style: none;
-    padding-left: 0; }
-    #footer-menu-container ul li {
-      float: left;
-      padding: 15px; }
-      #footer-menu-container ul li a {
-        color: #666666;
-        line-height: 18px; }
-        #footer-menu-container ul li a:hover {
-          color: #666666; }
-
-.afo-footer-credits {
-  background-color: #dddddd;
-  padding-bottom: 20px;
-  font: normal normal 400 10px/normal "Roboto"; }
-
-.afo-footer-sub {
-  height: 60px;
-  padding-top: 23px;
+/* VOH Footer */
+footer.voh-footer {
+  background-color: #4fa3db;
+  min-height: 160px;
   color: white;
-  border-top: 1px solid white;
-  background-color: #94d4fe;
-  background-image: -moz-linear-gradient(top, #94d4fe, #5ca7d8);
-  background-image: -ms-linear-gradient(top, #94d4fe, #5ca7d8);
-  background-image: -o-linear-gradient(top, #94d4fe, #5ca7d8);
-  background-image: -webkit-gradient(linear, center top, center bottom, from(#94d4fe), to(#5ca7d8));
-  background-image: -webkit-linear-gradient(top, #94d4fe, #5ca7d8);
-  background-image: linear-gradient(top, #94d4fe, #5ca7d8);
-  background-image: linear-gradient(to bottom, #94d4fe, #5ca7d8);
-  -moz-background-clip: padding;
-  background-clip: padding-box;
-  -webkit-background-clip: padding-box;
-  background-repeat: no-repeat;
-  font: normal normal 400 10px/normal "Roboto"; }
-  .afo-footer-sub em {
-    font-style: normal;
-    color: #666666; }
-    .afo-footer-sub em:last-child {
-      float: right; }
-  .afo-footer-sub a {
-    color: white;
-    margin: 0 35px; }
-    .afo-footer-sub a:hover {
-      color: white; }
+  position: relative; }
+  footer.voh-footer .voh-logo-white {
+    width: 68px;
+    height: 33px;
+    margin-bottom: 10px; }
+
+.voh-footer-upper {
+  min-height: 100px;
+  background-color: #0d6cac;
+  padding: 15px; }
+
+.voh-social-holder {
+  position: absolute;
+  top: 0;
+  right: 0; }
+
+.voh-footer-social {
+  list-style: none; }
+  .voh-footer-social li {
+    float: right;
+    margin: 0 6px;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    border-radius: 100%;
+    cursor: pointer; }
+  .voh-footer-social .voh-footer-social-facebook {
+    background-color: #48649f; }
+  .voh-footer-social .voh-footer-social-youtube {
+    background-color: #cc181e; }
+  .voh-footer-social .voh-footer-social-twitter {
+    background-color: #61a8d8; }
+
+.voh-footer-bottom {
+  padding-top: 15px;
+  font: normal normal 300 11px/normal "Roboto"; }
+
+.footer-menu-container ul {
+  list-style: none;
+  padding-left: 0; }
+  .footer-menu-container ul li {
+    display: inline-block;
+    padding: 2px 15px;
+    position: relative;
+    text-transform: uppercase; }
+    .footer-menu-container ul li a {
+      color: white;
+      text-decoration: none; }
+      .footer-menu-container ul li a:hover, .footer-menu-container ul li a:active, .footer-menu-container ul li a:visited, .footer-menu-container ul li a:focus {
+        text-decoration: none; }
+    .footer-menu-container ul li:before {
+      content: '|';
+      color: white;
+      position: absolute;
+      left: 0; }
+    .footer-menu-container ul li:first-child:before {
+      content: ''; }
 
 /* Afo Form */
 .form-control {
@@ -3508,7 +3495,20 @@ input[type="checkbox"]:checked + label {
 /* Pages */
 .map-home-page {
   height: 400px;
-  margin: 0 -15px; }
+  margin: 0 -15px;
+  position: relative;
+  top: -1px;
+  overflow: hidden; }
+  .map-home-page:before {
+    content: '';
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+    -webkit-box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.25);
+    box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.25); }
 
 .map-toolbar {
   height: 30px;
@@ -3518,7 +3518,8 @@ input[type="checkbox"]:checked + label {
   position: relative;
   top: -30px;
   left: calc(50% + 15px);
-  text-align: center; }
+  text-align: center;
+  z-index: 2; }
   .map-toolbar > div {
     display: inline-block; }
     .map-toolbar > div em {
@@ -3531,6 +3532,8 @@ input[type="checkbox"]:checked + label {
   padding-bottom: 20px;
   border-bottom: 1px solid #cccccc;
   margin-bottom: 20px; }
+  .voh-intro-text .voh-intro-logo-holder > div {
+    padding: 5px 20px 5px 0; }
   .voh-intro-text h3 {
     margin-top: 0;
     color: #2c87b8;

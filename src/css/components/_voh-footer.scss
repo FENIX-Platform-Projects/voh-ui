@@ -1,99 +1,102 @@
-/* Africa Fertilizer Footer */
+/* VOH Footer */
 
-footer{
-  background-color: $fenix-light-gray;
-  height: 160px;
+footer.voh-footer{
+  background-color: $custom-color7;
+  min-height: 160px;
+  color: white;
+  position: relative;
+
+
+  .voh-logo-white{
+    width: 68px;
+    height: 33px;
+    margin-bottom: 10px;
+  }
+
 }
 
-.afo-footer-logo-image{
-  margin-top: 20px;
-  padding-right: 15px;
-  max-width: 145px;
+.voh-footer-upper{
+  min-height: 100px;
+  background-color: $custom-color6;
+  padding: 15px;
 }
 
-.afp-footer-social{
+.voh-social-holder{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.voh-footer-social{
+
+  list-style: none;
+
   li{
     float: right;
-    margin: 20px 6px;
+    margin: 0 6px;
 
     @include fx-border-radius(100%);
     cursor: pointer;
   }
 
-  .afo-footer-social-facebook{
+  .voh-footer-social-facebook{
       background-color: #48649f;
   }
 
-  .afo-footer-social-youtube{
+  .voh-footer-social-youtube{
     background-color: #cc181e;
   }
 
-  .afo-footer-social-twitter{
+  .voh-footer-social-twitter{
     background-color: #61a8d8;
   }
 
 
 }
 
+.voh-footer-bottom{
+  padding-top: 15px;
+  font: $fx-text-h4;
+}
 
 
-#footer-menu-container{
-
-  font: $fx-text-smalltitle-normal;
-  text-transform: uppercase;
-
-  h3{
-    margin-top: 27px;
-  }
-
+.footer-menu-container{
   ul{
     list-style: none;
     padding-left: 0;
 
     li{
+      display: inline-block;
+      padding: 2px 15px;
+      position: relative;
 
-      float: left;
-      padding: 15px;
+      text-transform: uppercase;
 
       a{
-        color: $fenix-text;
-        line-height: 18px;
-        &:hover{
-          color: $fenix-text;
-        }
-      }
-    }
-  }
-
-}
-
-.afo-footer-credits{
-  background-color: $fenix-light-gray;
-  padding-bottom: 20px;
-  font: $fx-text-smalltitle-normal;
-}
-
-.afo-footer-sub{
-  height: 60px;
-  padding-top: 23px;
-  color: white;
-  border-top: 1px solid white;
-  @include fx-gradient(#94d4fe, #5ca7d8);
-  font: $fx-text-smalltitle-normal;
-
-
-    em{
-      font-style: normal;
-      color: $fenix-text;
-      &:last-child{
-        float: right;
-      }
-    }
-    a{
-      color: white;
-      margin: 0 35px;
-      &:hover{
         color: white;
+        text-decoration: none;
+
+
+        &:hover, &:active, &:visited, &:focus{
+          text-decoration: none;
+        }
+
       }
+
+      &:before{
+        content: '|';
+        color: white;
+        position: absolute;
+        left: 0;
+      }
+
+      &:first-child:before{
+        content: '';
+      }
+
+
     }
+
+
+  }
 }
