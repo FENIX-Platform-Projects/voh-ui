@@ -1,8 +1,8 @@
+
 (function($) {
+    $.fn.btsListFilter = function(inputEl, opts) {
 
-    'use strict';
-
-    $.fn.btsListFilter = function(inputEl, options) {
+        'use strict';
 
         var searchlist = this,
             searchlist$ = $(this),
@@ -29,7 +29,7 @@
             };
         }
 
-        options = $.extend({
+        opts = $.extend({
             delay: 300,
             minLength: 1,
             initial: true,
@@ -38,11 +38,12 @@
             sourceData: null,
             sourceTmpl: '<a class="list-group-item" href="#"><span>{title}</span></a>',
             sourceNode: function(data) {
-                return tmpl(options.sourceTmpl, data);
+                return tmpl(opts.sourceTmpl, data);
             },
             emptyNode: function(data) {
                 return '<a class="list-group-item well" href="#"><span>No Results</span></a>';
             },
+            itemClassTmp: 'bts-dynamic-item',
             itemEl: '.list-group-item',
             itemChild: null,
             itemFilter: function(item, val) {
@@ -51,43 +52,44 @@
                 val = val && val.replace(new RegExp("[({[^.$*+?\\\]})]","g"),'');
 
                 var text = $(item).text(),
-                    i = options.initial ? '^' : '',
-                    regSearch = new RegExp( val,'i');
-
+                    i = opts.initial ? '^' : '',
+                    regSearch = new RegExp(i + val,'i');
                 return regSearch.test( text );
             }
-        }, options);
+        }, opts);
 
 
 
-        inputEl$.on(options.eventKey, debouncer(function(e) {
+        inputEl$.on(opts.eventKey, debouncer(function(e) {
 
             var val = $(this).val();
 
-            if(options.itemEl)
-                items$ = searchlist$.find(options.itemEl);
+            if(opts.itemEl)
+                items$ = searchlist$.find(opts.itemEl);
 
-            if(options.itemChild)
-                items$ = items$.find(options.itemChild);
+            if(opts.itemChild)
+                items$ = items$.find(opts.itemChild);
 
             var contains = items$.filter(function(){
-                    return options.itemFilter.call(searchlist, this, val);
+                    return opts.itemFilter.call(searchlist, this, val);
                 }),
                 containsNot = items$.not(contains);
 
-            if (options.itemChild){
-                contains = contains.parents(options.itemEl);
-                containsNot = containsNot.parents(options.itemEl).hide();
+            if (opts.itemChild){
+                contains = contains.parents(opts.itemEl);
+                containsNot = containsNot.parents(opts.itemEl).hide();
             }
 
-            if(val!=='' && val.length >= options.minLength)
+            //If search string exists
+            if(val!=='' && val.length >= opts.minLength)
             {
                 contains.show();
                 containsNot.hide();
 
-
-                if($.type(options.sourceData)==='function')
+                 //If remote search
+                if($.type(opts.sourceData)==='function')
                 {
+
                     contains.hide();
                     containsNot.hide();
 
@@ -99,26 +101,24 @@
                             callReq.stop();
                     }
 
-                    callReq = options.sourceData.call(searchlist, val, function(data) {
+                    callReq = opts.sourceData.call(searchlist, val, function(data) {
                         callReq = null;
                         contains.hide();
                         containsNot.hide();
-                        searchlist$.find('.bts-dynamic-item').remove();
+                        searchlist$.find('.'+opts.itemClassTmp).remove();
 
-                        console.log("123")
 
                         if(!data || data.length===0)
-                            $( options.emptyNode.call(searchlist) ).addClass('bts-dynamic-item').appendTo(searchlist$);
-                        else {
-                            console.log("qui")
+                            $( opts.emptyNode.call(searchlist) ).addClass(opts.itemClassTmp).appendTo(searchlist$);
+                        else
                             for(var i in data)
-                                $( options.sourceNode.call(searchlist, data[i]) ).addClass('bts-dynamic-item').appendTo(searchlist$);
-                        }
-
+                                $( opts.sourceNode.call(searchlist, data[i]) ).addClass(opts.itemClassTmp).appendTo(searchlist$);
                     });
-                } else if(contains.length===0) {
-                    searchlist$.find('.bts-dynamic-item').remove();
-                    $( options.emptyNode.call(searchlist) ).addClass('bts-dynamic-item').appendTo(searchlist$);
+                } else {
+                    searchlist$.find('.'+opts.itemClassTmp).remove();
+                    if(contains.length===0) {
+                        $( opts.emptyNode.call(searchlist) ).addClass(opts.itemClassTmp).appendTo(searchlist$);
+                    }
                 }
 
             }
@@ -126,13 +126,13 @@
             {
                 contains.show();
                 containsNot.show();
-                searchlist$.find('.bts-dynamic-item').remove();
+                searchlist$.find('.'+opts.itemClassTmp).remove();
             }
-        }, options.delay));
+        }, opts.delay));
 
-        if(options.resetOnBlur)
+        if(opts.resetOnBlur)
             inputEl$.on('blur', function(e) {
-                $(this).val('').trigger(options.eventKey);
+                $(this).val('').trigger(opts.eventKey);
             });
 
         return searchlist$;

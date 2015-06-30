@@ -97,7 +97,7 @@ define([
             });
 
             this.WDSClient = new WDSClient({
-                serviceUrl: Config.WDS_URL,
+                //serviceUrl: Config.WDS_URL,
                 datasource: Config.DB_NAME,
                 outputType: Config.WDS_OUTPUT_TYPE
             });
@@ -176,8 +176,8 @@ define([
 
                 if (stored === undefined) {
 
-                    this.WDSClient.query({
-                        queryTmpl: this.codelists_conf[cd],
+                    this.WDSClient.retrieve({
+                        payload: {query : this.codelists_conf[cd]},
                         success: _.bind(this.onPreloadCodelistSuccess, this, cd),
                         error: _.bind(this.onPreloadCodelistError, this)
                     });
@@ -418,7 +418,7 @@ define([
 
         search: function () {
 
-            this.WDSClient.query({
+            this.WDSClient.retrieve({
                 queryTmpl: this.currentRequest.inputs.geo_granularity === 'country' ? Services.CHART_COUNTRY : Services.CHART_REGION,
                 queryVars: this.currentRequest.processedInputs,
                 success: _.bind(this.onSearchSuccess, this),

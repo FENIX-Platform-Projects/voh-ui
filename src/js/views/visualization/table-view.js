@@ -101,7 +101,7 @@ define([
         initComponents: function () {
 
             this.WDSClient = new WDSClient({
-                serviceUrl: Config.WDS_URL,
+                //serviceUrl: Config.WDS_URL,
                 datasource: Config.DB_NAME,
                 outputType: Config.WDS_OUTPUT_TYPE
             });
