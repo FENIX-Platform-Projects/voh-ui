@@ -182,11 +182,18 @@ define([
         onMapStatusChange: function (e) {
 
             this.setMapStatus($(e.currentTarget).val());
-            this.WDSClient.query({
-                queryTmpl: Services.MAP_FI_POPULATION,
+            this.WDSClient.retrieve({
+/*                queryTmpl: Services.MAP_FI_POPULATION,
                 queryVars: {'query_variables': $(e.currentTarget).val()},
                 success: _.bind(this.updateJoinLayer, this),
-                error: _.bind(this.onUpdateJoinLayerError, this)
+                error: _.bind(this.onUpdateJoinLayerError, this)*/
+                payload: {
+                    query: Services.MAP_FI_POPULATION,
+                    queryVars: {'query_variables': $(e.currentTarget).val()},
+                    outputType: "object"
+                },
+                success: _.bind(this.updateJoinLayer, this),
+                error: _.bind(this.onUpdateJoinLayerError, this)              
             });
         },
 
