@@ -202,6 +202,9 @@ define([
         },
 
         updateJoinLayer: function (data) {
+            
+            data.shift();
+
             s.joinlayer.layer.joindata = [];
             _.each(data, _.bind(function (f) {
                 var keys = Object.keys(f);
@@ -209,6 +212,7 @@ define([
                 d[f[keys[0]]] = f[keys[1]];
                 s.joinlayer.layer.joindata.push(d);
             }, this));
+
             s.joinlayer.redraw();
         },
 
