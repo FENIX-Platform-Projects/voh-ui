@@ -177,6 +177,7 @@ define([
 
                     this.WDSClient.retrieve({
                         payload: {query : this.codelists_conf[cd]},
+                        outputType: "object",
                         success: _.bind(this.onPreloadCodelistSuccess, this, cd),
                         error: _.bind(this.onPreloadCodelistError, this)
                     });

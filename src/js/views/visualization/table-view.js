@@ -183,8 +183,9 @@ define([
 
                 if (stored === undefined) {
 
-                    this.WDSClient.query({
-                        queryTmpl: this.codelists_conf[cd],
+                    this.WDSClient.retrieve({
+                        payload: {query : this.codelists_conf[cd]},
+                        outputType: "object",
                         success: _.bind(this.onPreloadCodelistSuccess, this, cd),
                         error: _.bind(this.onPreloadCodelistError, this)
                     });
