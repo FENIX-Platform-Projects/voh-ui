@@ -10,12 +10,12 @@ define([
     'i18n!nls/visualization-table',
     'i18n!nls/errors',
     'fx-common/WDSClient',
-	
-	'pivot',
-	'pivotRenderers',
-	'pivotAggregators',
-	'text!pivotDataTest',
-	'pivotDataConfig',
+
+    'pivot',
+    'pivotRenderers',
+    'pivotAggregators',
+    'text!pivotDataTest',
+    'pivotDataConfig',
 
     'underscore',
     'q',
@@ -23,13 +23,12 @@ define([
     'amplify'
 //TODO REMOVE
 ], function (Handlebars, View, Config, Services, template, errorTemplate, courtesyMessageTemplate, i18nLabels, i18Errors, WDSClient,
-     Pivot,
-	pivotRenderers,
-	pivotAggregators,
-	pivotDataTest,
-	pivotDataConfig,
-             _
-	) {
+             Pivot,
+             pivotRenderers,
+             pivotAggregators,
+             pivotDataTest,
+             pivotDataConfig,
+             _) {
 
     'use strict';
 
@@ -90,7 +89,7 @@ define([
                 cl_location: Services.CL_LOCATION,
                 cl_income: Services.CL_INCOME,
                 cl_gender: Services.CL_GENDER,
-                cl_country : Services.CL_COUNTRY,
+                cl_country: Services.CL_COUNTRY,
                 cl_region: Services.CL_REGION
             };
 
@@ -100,25 +99,25 @@ define([
         initComponents: function () {
 
             this.WDSClient = new WDSClient({
-                //serviceUrl: Config.WDS_URL,
+                serviceUrl: Config.WDS_URL,
                 datasource: Config.DB_NAME,
                 outputType: Config.WDS_OUTPUT_TYPE
             });
 
             this.WDSClientOlap = new WDSClient({
-                serviceUrl: Config.WDS_URL_ARRAY,
-                datasource: Config.DB_NAME
-                //,outputType: Config.WDS_OUTPUT_TYPE
+                serviceUrl: Config.WDS_URL,
+                datasource: Config.DB_NAME,
+                outputType: Config.WDS_OUTPUT_TYPE
             });
 
         },
 
-        initGeoSelector : function ( granularity ) {
+        initGeoSelector: function (granularity) {
 
             //Init country selector
             var data = [];
 
-            _.each(amplify.store.sessionStorage('cl_' + granularity ), function (n) {
+            _.each(amplify.store.sessionStorage('cl_' + granularity), function (n) {
                 data.push(createNode(n));
             });
 
@@ -240,7 +239,7 @@ define([
 
         },
 
-        onReady : function () {
+        onReady: function () {
 
             this.initPage();
 
@@ -267,12 +266,12 @@ define([
 
             this.$geoGranularityForm.find('[value="' + Config.DEFAULT_GEO_GRANULARITY + '"]').prop("checked", true).change();
 
-            this.$showTotalCheckbox.prop("checked",  Config.DEFAULT_SHOW_TOTAL).change();
+            this.$showTotalCheckbox.prop("checked", Config.DEFAULT_SHOW_TOTAL).change();
 
             this.$geoSelector.jstree("uncheck_all");
 
         },
-        
+
         /* Event binding and callback */
 
         bindEventListeners: function () {
@@ -284,7 +283,7 @@ define([
             this.$geoGranularityForm.find("input").on('change', _.bind(this.onGeoGranularityChange, this));
         },
 
-        onGeoGranularityChange : function (e) {
+        onGeoGranularityChange: function (e) {
 
             this.initGeoSelector($(e.currentTarget).val());
         },
@@ -294,7 +293,7 @@ define([
             var inputs = this.getInputs(),
                 valid = this.validateInput(inputs);
 
-            if ( valid === true) {
+            if (valid === true) {
 
                 this.lockForm();
 
@@ -386,7 +385,7 @@ define([
                 variables: variables,
                 query_variables: query_variables,
                 total: showTotal,
-                geo_granularity : this.$geoGranularityForm.find("input[name='geo-granularity']:checked").val(),
+                geo_granularity: this.$geoGranularityForm.find("input[name='geo-granularity']:checked").val(),
                 geo: geo,
                 query_geo: geo.slice(0)
             };
@@ -427,7 +426,7 @@ define([
 
         search: function () {
 
-            this.WDSClientOlap.query({
+            this.WDSClientOlap.retrieve({
                 payload: {
                     query: this.currentRequest.inputs.geo_granularity === 'country' ? Services.OLAP_COUNTRY : Services.OLAP_REGION,
                     queryVars: this.currentRequest.processedInputs
@@ -450,7 +449,7 @@ define([
 
             this.unlockForm();
 
-            if (this.currentRequest.response.length === 0 ) {
+            if (this.currentRequest.response.length === 0) {
                 this.printCourtesyMessage();
             } else {
                 this.initOlapCreator();
@@ -478,17 +477,17 @@ define([
             pivotDataConf.rendererDisplay = pivotRenderers;
             pivotDataConf.aggregatorDisplay = pivotAggregators;
             pivotDataConf.vals.push(this.currentRequest.inputs.status);
-            pivotDataConf.derivedAttributes.group_code = function ( row ) {
+            pivotDataConf.derivedAttributes.group_code = function (row) {
 
-                var cl_group_code = amplify.store.sessionStorage("cl_"+row.variable);
+                var cl_group_code = amplify.store.sessionStorage("cl_" + row.variable);
                 if (cl_group_code) {
-                    var obj =  _.findWhere(cl_group_code, {code: row.group_code});
+                    var obj = _.findWhere(cl_group_code, {code: row.group_code});
                     return obj ? obj.label : null;
                 }
 
             };
 
-			this.pivot.render("pivot1", this.currentRequest.processdResponse, pivotDataConf);
+            this.pivot.render("pivot1", this.currentRequest.processdResponse, pivotDataConf);
         },
 
         resetResults: function () {
