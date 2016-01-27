@@ -1,26 +1,62 @@
 /*global require*/
 
+//develop
+var pathProjectRoot = ".";
+var projectRoot = "../..";
+//var projectRoot = "http://localhost:8080";
+
+//distribution
+//var projectRoot = "http://www.fao.org/fenixrepo/cdn/projects/flude/1.0.0",
+//var projectRoot = "//fenixrepo.fao.org/cdn/projects/flude/1.0.0",
+//pathProjectRoot = projectRoot;
+
+require.config({
+    config: {
+        text: {
+            useXhr: function (url, protocol, hostname, port) {
+                return true;
+            }
+        }
+    },
+    paths: {
+        compilerPaths: pathProjectRoot + '/submodules/fenix-ui-common/js/Compiler',
+        commonPaths: pathProjectRoot + '/submodules/fenix-ui-common/js/paths',
+        menuPaths: pathProjectRoot + '/submodules/fenix-ui-menu/js/paths',
+        chartPaths: pathProjectRoot + '/submodules/fenix-ui-chart-creator/src/js/paths',
+        olapPaths: pathProjectRoot + '/submodules/fenix-ui-olap/js/paths'
+    }
+});
+
 require([
-    './submodules/fenix-ui-common/js/Compiler',
-    './submodules/fenix-ui-common/js/paths',
-    './submodules/fenix-ui-chart-creator/src/js/paths',
-    './submodules/fenix-ui-menu/js/paths'
-], function (Compiler, Common, ChartCreator, Menu) {
+    "compilerPaths",
+    "commonPaths",
+    "chartPaths",
+    "menuPaths",
+    'olapPaths'
+], function (Compiler, Common, ChartCreator, Menu, Olap) {
 
     'use strict';
+    var submodules_path = projectRoot + '/submodules';
 
     var menuConfig = Menu;
-    menuConfig.baseUrl = '../../submodules/fenix-ui-menu/js';
+    menuConfig.baseUrl = submodules_path + '/fenix-ui-menu/js';
 
     var commonConfig = Common;
-    commonConfig.baseUrl = '../../submodules/fenix-ui-common/js';
+    commonConfig.baseUrl = submodules_path + '/fenix-ui-common/js';
 
     var chartCreatorConfig = ChartCreator;
-    chartCreatorConfig.baseUrl = '../../submodules/fenix-ui-chart-creator/src/js';
+    chartCreatorConfig.baseUrl = submodules_path + '/fenix-ui-chart-creator/src/js';
 
-    Compiler.resolve([menuConfig, commonConfig, chartCreatorConfig],
+    var olapConfig = Olap;
+    olapConfig.baseUrl = submodules_path + '/fenix-ui-olap/js';
+
+    Compiler.resolve([menuConfig, commonConfig, chartCreatorConfig, olapConfig],
         {
-            placeholders: {"FENIX_CDN": "//fenixapps.fao.org/repository"},
+            placeholders: {
+                //"FENIX_CDN": "http://www.fao.org/fenixrepo/cdn"
+                "FENIX_CDN": "//fenixrepo.fao.org/cdn"
+                //"FENIX_CDN": "http://lprapp16.fao.org/external/fenixrepo/cdn"
+            },
             config: {
 
                 //Set the config for the i18n
@@ -29,7 +65,7 @@ require([
                 },
 
                 // The path where your JavaScripts are located
-                baseUrl: './src/js',
+                baseUrl: pathProjectRoot + '/src/js',
 
                 // Specify the paths of vendor libraries
                 paths: {
@@ -47,45 +83,46 @@ require([
                     json: "../../json",
 
                     amplify: '{FENIX_CDN}/js/amplify/1.1.2/amplify.min',
-                    packery : '{FENIX_CDN}/js/packery/1.4.1/packery.pkgd.min',
-                    jqueryBridget : '{FENIX_CDN}/js/jquery.bridget/1.1.0/jquery.bridget',
-                    jstree : '{FENIX_CDN}/js/jstree/3.0.8/dist/jstree.min',
+                    packery: '{FENIX_CDN}/js/packery/1.4.1/packery.pkgd.min',
+                    jqueryBridget: '{FENIX_CDN}/js/jquery.bridget/1.1.0/jquery.bridget',
+                    jstree: '{FENIX_CDN}/js/jstree/3.0.8/dist/jstree.min',
                     //,swiper: '{FENIX_CDN}/js/swiper/3.07/dist/js/swiper.jquery.min'
-                    q : '{FENIX_CDN}/js/q/1.1.2/q',
+                    q: '{FENIX_CDN}/js/q/1.1.2/q',
 
 
                     // fenix-map-js
                     'import-dependencies': '{FENIX_CDN}/js/FENIX/utils/import-dependencies-1.0',
                     leaflet: '{FENIX_CDN}/js/leaflet/0.7.3/leaflet',
                     'jquery.power.tip': '{FENIX_CDN}/js/jquery.power.tip/1.2.0/jquery.powertip.min',
-                    'jquery-ui':   '{FENIX_CDN}/js/jquery-ui/1.10.3/jquery-ui-1.10.3.custom.min',
+                    'jquery-ui': '{FENIX_CDN}/js/jquery-ui/1.10.3/jquery-ui-1.10.3.custom.min',
                     'jquery.i18n.properties': '{FENIX_CDN}/js/jquery/1.0.9/jquery.i18n.properties-min',
                     'jquery.hoverIntent': '{FENIX_CDN}/js/jquery.hoverIntent/1.8.0/jquery.hoverIntent.min',
 
                     'fenix-ui-map': '{FENIX_CDN}/js/fenix-ui-map/0.1/fenix-ui-map.min',
                     'fenix-ui-map-config': '{FENIX_CDN}/js/fenix-ui-map/0.1/fenix-ui-map-config',
                     //'bootstrap-list-filter' : "{FENIX_CDN}/js/bootstrap-list-filter/0.1.7/bootstrap-list-filter.min",
-                    'bootstrap-list-filter' : "lib/bootstrap-list-filter",
+                    'bootstrap-list-filter': "lib/bootstrap-list-filter",
 
                     //TODO TEMP
-                    'fx-c-c/templates/base_template' : './tools/voh_chart_template',
+                    'fx-c-c/templates/base_template': './tools/voh_chart_template',
 
                     //OLAP DEPS
-					pivot:      "../../submodules/fenix-ui-olap/js/pivot",
-					gt_msg:     "../../submodules/fenix-ui-olap/lib/grid/gt_msg_en",					
-					jqueryui:   "../../submodules/fenix-ui-olap/lib/jquery-ui-1.9.2.custom.min",
-					gt_msg_grid:"../../submodules/fenix-ui-olap/lib/grid/gt_grid_all",
-					HPivot:     "//fenixapps.fao.org/repository/js/jbpivot/0.1.0-olap/jbpivot.min",
-					highcharts: "//fenixapps.fao.org/repository/js/highcharts/4.0.4/js/highcharts",					
+                    pivot: "../../submodules/fenix-ui-olap/js/pivot",
+                    gt_msg: "../../submodules/fenix-ui-olap/lib/grid/gt_msg_en",
+                    jqueryui: "../../submodules/fenix-ui-olap/lib/jquery-ui-1.9.2.custom.min",
+                    gt_msg_grid: "../../submodules/fenix-ui-olap/lib/grid/gt_grid_all",
+                    HPivot: "//fenixapps.fao.org/repository/js/jbpivot/0.1.0-olap/jbpivot.min",
+                    highcharts: "//fenixapps.fao.org/repository/js/highcharts/4.0.4/js/highcharts",
 
-					"nls/pivot":  "../../i18n/pivot",
+                    "nls/pivot": "../../i18n/pivot",
 
-					pivotRenderersFuncs:   "../../submodules/fenix-ui-olap/js/rend/function_rendererers",
-					pivotRenderers:        "../../submodules/fenix-ui-olap/js/rend/rendererers",
-					pivotAggregatorsFuncs: "../../submodules/fenix-ui-olap/js/rend/function_aggregators",
-					pivotAggregators:      "../../submodules/fenix-ui-olap/js/rend/aggregators",
-					pivotDataConfig:         '../../config/submodules/fx-olap/dataConfig',
-					pivotDataTest:       '../../submodules/fenix-ui-olap/tests/data/test.json'
+                    pivotRenderersFuncs: "../../submodules/fenix-ui-olap/js/rend/function_rendererers",
+                    pivotRenderers: "../../submodules/fenix-ui-olap/js/rend/rendererers",
+                    pivotAggregatorsFuncs: "../../submodules/fenix-ui-olap/js/rend/function_aggregators",
+                    pivotAggregators: "../../submodules/fenix-ui-olap/js/rend/aggregators",
+                    pivotDataConfig: '../../config/submodules/fx-olap/dataConfig',
+                    pivotDataTest: '../../submodules/fenix-ui-olap/tests/data/test.json',
+                    'fx-olap/config/gridoption': '../../config/submodules/fx-olap/gridoption',
                 },
 
                 // Underscore and Backbone are not AMD-capable per default,
@@ -107,17 +144,17 @@ require([
                     handlebars: {
                         exports: 'Handlebars'
                     },
-                   /* swiper: {
-                        deps: ['jquery']
-                    },*/
+                    /* swiper: {
+                     deps: ['jquery']
+                     },*/
                     amplify: {
                         deps: ['jquery'],
                         exports: 'amplifyjs'
                     },
-                    jstree : {
+                    jstree: {
                         deps: ['jquery']
                     },
-                    packery : ["jquery"],
+                    packery: ["jquery"],
                     application: {
                         deps: ['bootstrap']
                     },
@@ -135,23 +172,23 @@ require([
                         ]
                     },
                     //OLAP DEPS
-					jqueryui: ['jquery'],
-					highcharts:  ['jquery'],
-					gt_msg:      ['jquery'],
-					gt_msg_grid: ['jquery','gt_msg'],
-					pivotRenderers: ['pivotRenderersFuncs'],	
-					pivotAggregators: ['pivotAggregatorsFuncs','jquery'],			
-					pivot: {
-					    deps: [
-					        'jquery',
-					        'jqueryui',
-							'gt_msg','gt_msg_grid',
-							'HPivot',
-							'pivotRenderers',
-							'nls/pivot'
-					    ]
-					},
-					HPivot: ['jquery','jqueryui']                    
+                    jqueryui: ['jquery'],
+                    highcharts: ['jquery'],
+                    gt_msg: ['jquery'],
+                    gt_msg_grid: ['jquery', 'gt_msg'],
+                    pivotRenderers: ['pivotRenderersFuncs'],
+                    pivotAggregators: ['pivotAggregatorsFuncs', 'jquery'],
+                    pivot: {
+                        deps: [
+                            'jquery',
+                            'jqueryui',
+                            'gt_msg', 'gt_msg_grid',
+                            'HPivot',
+                            'pivotRenderers',
+                            'nls/pivot'
+                        ]
+                    },
+                    HPivot: ['jquery', 'jqueryui']
                 }
                 // For easier development, disable browser caching
                 // Of course, this should be removed in a production environment
@@ -171,7 +208,7 @@ require([
             controllerSuffix: '-controller',
             root: '/voh/',
             pushState: false,
-            scrollTo : false
+            scrollTo: false
         });
     });
 });

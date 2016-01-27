@@ -534,7 +534,9 @@ define([
         renderCharts: function () {
 
             for (var variable in this.currentRequest.chartModels) {
-                this.appendResult(variable, this.currentRequest.chartModels[variable]);
+                if (this.currentRequest.chartModels.hasOwnProperty(variable)) {
+                    this.appendResult(variable, this.currentRequest.chartModels[variable]);
+                }
             }
 
         },
