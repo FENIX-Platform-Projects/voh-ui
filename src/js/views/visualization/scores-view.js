@@ -17,7 +17,7 @@ define([
     'q',
     'jstree',
     'amplify'
-], function (Handlebars, View, Config, Services, template, resultTemplate, errorTemplate, courtesyMessageTemplate, i18nLabels, i18Errors, WDSClient, ChartCreator, Packery, bridget) {
+], function (Handlebars, View, C, Services, template, resultTemplate, errorTemplate, courtesyMessageTemplate, i18nLabels, i18Errors, WDSClient, ChartCreator, Packery, bridget) {
 
     'use strict';
 
@@ -97,12 +97,11 @@ define([
             });
 
             this.WDSClient = new WDSClient({
-                //serviceUrl: Config.WDS_URL,
-                datasource: Config.DB_NAME,
-                outputType: Config.WDS_OUTPUT_TYPE
+                //serviceUrl: C.WDS_URL,
+                datasource: C.DB_NAME,
+                outputType: C.WDS_OUTPUT_TYPE
             });
 
-            this.chartCreator = new ChartCreator();
         },
 
         initGeoSelector: function (granularity) {
@@ -125,13 +124,13 @@ define([
                     "themes": {"stripes": true},
                     'data': data
                 },
-                "plugins": ["wholerow", "ui", "checkbox"]
+                "plugins": ["wholerow",  "checkbox"]
 
             });
 
             this.$geoSelector.on("select_node.jstree", _.bind(function (e, data) {
 
-                if (data.selected.length > Config.GEO_SELECTION_THRESHOLD) {
+                if (data.selected.length > C.GEO_SELECTION_THRESHOLD) {
                     this.$geoSelector.jstree(true).deselect_node(data.node);
                 }
 
@@ -139,8 +138,8 @@ define([
 
             this.$geoSelector.on("ready.jstree", _.bind(function () {
 
-                if (Config.DEFAULT_GEO_SELECTION && Array.isArray(Config.DEFAULT_GEO_SELECTION)) {
-                    _.each(Config.DEFAULT_GEO_SELECTION, _.bind(function (g) {
+                if (C.DEFAULT_GEO_SELECTION && Array.isArray(C.DEFAULT_GEO_SELECTION)) {
+                    _.each(C.DEFAULT_GEO_SELECTION, _.bind(function (g) {
                         this.$geoSelector.jstree(true).select_node(g);
                     }, this));
                 }
@@ -248,18 +247,18 @@ define([
 
             var self = this;
 
-            this.$fiForm.find('[value="' + Config.DEFAULT_FI_STATUS + '"]').prop("checked", true).change();
+            this.$fiForm.find('[value="' + C.DEFAULT_FI_STATUS + '"]').prop("checked", true).change();
 
             this.$variablesForm.find("input").attr('checked', false);
-            if (Config.DEFAULT_VARIABLE_SELECTION && Array.isArray(Config.DEFAULT_VARIABLE_SELECTION)) {
-                _.each(Config.DEFAULT_VARIABLE_SELECTION, function (v) {
+            if (C.DEFAULT_VARIABLE_SELECTION && Array.isArray(C.DEFAULT_VARIABLE_SELECTION)) {
+                _.each(C.DEFAULT_VARIABLE_SELECTION, function (v) {
                     self.$variablesForm.find('[value="' + v + '"]').prop("checked", true).change();
                 });
             }
 
-            this.$geoGranularityForm.find('[value="' + Config.DEFAULT_GEO_GRANULARITY + '"]').prop("checked", true).change();
+            this.$geoGranularityForm.find('[value="' + C.DEFAULT_GEO_GRANULARITY + '"]').prop("checked", true).change();
 
-            this.$showTotalCheckbox.prop("checked",  Config.DEFAULT_SHOW_TOTAL).change();
+            this.$showTotalCheckbox.prop("checked",  C.DEFAULT_SHOW_TOTAL).change();
 
             this.$geoSelector.jstree("uncheck_all");
 
@@ -419,8 +418,10 @@ define([
         search: function () {
 
             this.WDSClient.retrieve({
-                queryTmpl: this.currentRequest.inputs.geo_granularity === 'country' ? Services.CHART_COUNTRY : Services.CHART_REGION,
-                queryVars: this.currentRequest.processedInputs,
+                payload: {
+                    query: this.currentRequest.inputs.geo_granularity === 'country' ? Services.CHART_COUNTRY : Services.CHART_REGION,
+                    queryVars: this.currentRequest.processedInputs
+                },
                 success: _.bind(this.onSearchSuccess, this),
                 error: _.bind(this.onSearchError, this)
             });
@@ -437,20 +438,18 @@ define([
 
             this.currentRequest.response = response;
 
-            this.currentRequest.processedResponse = this.processResponse(response);
-
             this.unlockForm();
 
             if (this.currentRequest.response.length === 0) {
                 this.printCourtesyMessage();
             } else {
-                this.initChartCreator();
+                this.renderResults();
             }
         },
 
         /* Results rendering */
 
-        processResponse: function (response) {
+        addTotalToResponse: function (response) {
 
             var processedResponse = response.slice(0) || [];
 
@@ -461,14 +460,17 @@ define([
 
                 _.each(geos, _.bind(function ( g ) {
 
-                    var obj = _.findWhere(processedResponse, {geo : g, variable : "population" });
+                    var obj = _.find(processedResponse, function ( row ) {
+
+                        return row[C.INDEX_GEO_CODE] === g && row[C.INDEX_VARIABLE_CODE] === "population"
+                    });
 
                     _.each(variables, _.bind(function ( v ) {
 
-                        var addMe = $.extend(true, {}, obj);
+                        var addMe = obj.slice(0);
 
-                        addMe.variable = v;
-                        addMe.group_code = "population";
+                        addMe[C.INDEX_VARIABLE_CODE] = v;
+                        addMe[C.INDEX_GROUP_CODE]  = "population";
 
                         processedResponse.push(addMe);
 
@@ -483,107 +485,117 @@ define([
             return processedResponse;
         },
 
-        initChartCreator: function () {
+        renderResults: function () {
 
-            this.chartCreator.init({
-                model: this.currentRequest.processedResponse,
-                adapter: {
-                    filters: ['variable', 'group_code'],
-                    x_dimension: 'geo',
-                    x_dimension_label: 'geo_label',
-                    value: this.currentRequest.inputs.status
-                },
-                template: {},
-                creator: {},
-                onReady: _.bind(this.printResults, this)
-            });
+            this.currentRequest.processdResponse = this.addTotalToResponse(this.currentRequest.response);
 
-        },
-
-        printResults: function () {
+            this.currentRequest.chartModels = {};
 
             //Print a number of results equals to the selected variables
             _.each(this.currentRequest.inputs.variables, _.bind(function (v) {
 
-                this.appendResult(v);
+                this.currentRequest.chartModels[v] = this.createChartModel(v);
+
             }, this));
+
+            this.renderCharts();
+
         },
 
-        appendResult: function (variable) {
+        createChartModel: function (v) {
+
+            var cd = amplify.store.sessionStorage('cl_' + v);
+
+            //filter response by variable
+            var model = _.filter(this.currentRequest.processdResponse, function ( row ) {
+                return row[C.INDEX_VARIABLE_CODE] == v;
+            });
+
+            // add variable label and group_code label
+
+            _.each(model, function(row){
+
+                var groupCode = row[C.INDEX_GROUP_CODE],
+                    label;
+
+                label = groupCode === "population" ? "Population" : _.findWhere(cd, {code: groupCode}).label;
+
+                // group_code label
+                row[C.INDEX_GROUP_LABEL] = label;
+                //variable label
+                row[C.INDEX_VARIABLE_LABEL] = i18nLabels["var_" + v];
+
+            }, this);
+
+            return model;
+
+        },
+
+        renderCharts: function () {
+
+            for (var variable in this.currentRequest.chartModels) {
+                this.appendResult(variable, this.currentRequest.chartModels[variable]);
+            }
+
+        },
+
+        appendResult: function (variable, model) {
 
             var $result = this.setResultWidth($(resultTemplate));
 
             // add to packery layout
             this.$resultsContainer.append($result).packery('appended', $result);
 
-            this.renderChart($result, variable);
+            this.renderChart($result, variable, model);
         },
 
         setResultWidth: function ($template) {
             /* Add the 'w2' class to display the element with width:100%. Default width:50% */
 
             if (this.currentRequest.inputs.variables.length > 1) {
-                return (this.currentRequest.inputs.geo.length > Config.GEO_LAYOUT_THRESHOLD ) ? $template.addClass('w2') : $template;
+                return (this.currentRequest.inputs.geo.length > C.GEO_LAYOUT_THRESHOLD ) ? $template.addClass('w2') : $template;
             } else {
                 return $template.addClass('w2');
             }
 
         },
 
-        createSeriesForChartCreator: function (variable) {
+        renderChart: function ($result, variable, model) {
 
-            var cd = amplify.store.sessionStorage('cl_' + variable),
-                series = [];
+            var chartCreator = new ChartCreator(),
+                valueIndex = this.currentRequest.inputs.status.toLowerCase() === 's' ? C.INDEX_STATUS_S : C.INDEX_STATUS_MS;
 
-            _.each(cd, function (c) {
+            $.when(chartCreator.init({
+                model: _.sortBy(model, function(row) { return row[C.INDEX_GROUP_CODE]; }),
+                adapter: {
+                    // used in init just for MATRIX and FENIX
+                    //xOrder: 'asc',
+                    xDimensions: [C.INDEX_GROUP_LABEL],
+                    yDimensions: [C.INDEX_VARIABLE_LABEL],
+                    valueDimensions: valueIndex,
+                    seriesDimensions: [C.INDEX_GEO_LABEL]
 
-                series.push(
-                    {
-                        filters: {
-                            'variable': variable,
-                            'group_code': c.code
-                        },
-                        creator: {
-                            name: _.findWhere(cd, {code: c.code}).label
-                        },
-                        type: Config.CHART_TYPE
-                    });
-            });
+                }
+            })).then(function(creator) {
 
-            if (this.currentRequest.inputs.total === true ){
-
-                series.push(
-                    {
-                        filters: {
-                            'variable': variable,
-                            'group_code': 'population'
-                        },
-                        creator: {
-                            name: i18nLabels.var_total,
-                            color : Config.CHART_TOTAL_COLOR
-                        },
-                        type: Config.CHART_TYPE
-                    });
-            }
-
-            return series;
-        },
-
-        renderChart: function ($result, variable) {
-
-            //Create dynamically the series
-            var series = this.createSeriesForChartCreator(variable),
-                chart = this.chartCreator.render({
+                var o = {
                     container: $result.find(s.CHART_CONTAINER),
-                    series: series,
-                    template : {
+                    template: {
                         labels : {
                             title : i18nLabels["var_" + variable]
                         }
+                    },
+                    creator: {
+                        chartObj: {
+                            chart: {
+                                type: "column"
+                            }
+                        }
                     }
-                });
+                };
 
-            this.charts.push(chart);
+                creator.render(o);
+            });
 
         },
 

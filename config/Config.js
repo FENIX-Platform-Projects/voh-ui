@@ -7,9 +7,17 @@ define(function ( ) {
 
         //WDS and Data
         DB_NAME : 'voh',
-        WDS_URL : 'http://fenixapps2.fao.org/wds_5/rest/fenix/query',
+        WDS_URL : 'http://fenixapps2.fao.org/wds-5.2.1/rest/crud',
         WDS_URL_ARRAY : 'http://fenixapps2.fao.org/wds_5/rest/table/json',
-        WDS_OUTPUT_TYPE : 'object',
+        WDS_OUTPUT_TYPE : 'array',
+        INDEX_GEO_CODE: 0,
+        INDEX_GEO_LABEL: 1,
+        INDEX_VARIABLE_CODE: 2,
+        INDEX_GROUP_CODE: 3,
+        INDEX_STATUS_MS: 4,
+        INDEX_STATUS_S: 5,
+        INDEX_GROUP_LABEL: 6,
+        INDEX_VARIABLE_LABEL: 7,
 
         //General
         DEFAULT_FI_STATUS : 's',

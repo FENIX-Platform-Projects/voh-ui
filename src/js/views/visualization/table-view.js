@@ -33,7 +33,6 @@ define([
 
     'use strict';
 
-
     var s = {
         GO_BTN: "#table-go-btn",
         RESET_BTN: "#table-reset-btn",
@@ -429,8 +428,10 @@ define([
         search: function () {
 
             this.WDSClientOlap.query({
-                queryTmpl: this.currentRequest.inputs.geo_granularity === 'country' ? Services.OLAP_COUNTRY : Services.OLAP_REGION,
-                queryVars: this.currentRequest.processedInputs,
+                payload: {
+                    query: this.currentRequest.inputs.geo_granularity === 'country' ? Services.OLAP_COUNTRY : Services.OLAP_REGION,
+                    queryVars: this.currentRequest.processedInputs
+                },
                 success: _.bind(this.onSearchSuccess, this),
                 error: _.bind(this.onSearchError, this)
             });
