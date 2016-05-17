@@ -13,6 +13,5 @@ define(function() {
     //match('country', 'country#show');
     //match('standards(/)(:id)', 'standards#show');
     //match('*anything', '404#show');
-    match('*anything', 'visualization-table#show');
-  };
+    match('', 'visualization-table#show');  };
 });
