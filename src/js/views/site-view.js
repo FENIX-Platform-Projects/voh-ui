@@ -42,6 +42,8 @@ define([
 
         initComponents : function () {
 
+            return;
+
             //Top Menu
             this.topMenu = new Menu({
                 url: 'config/submodules/fx-menu/top_menu.json',

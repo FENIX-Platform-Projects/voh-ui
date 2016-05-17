@@ -1,14 +1,3 @@
-<!-- Section switcher-->
-<div class="row">
-    <div class="col-xs-12">
-        <ul class="voh-section-switcher">
-            <li><a href="#visualization/scores"> {{ section_scores}}</a></li>
-            <li class="active"><a href="#visualization/table">{{ section_table }}</a></li>
-        </ul>
-    </div>
-</div>
-
-
 <!-- Selectors -->
 <div class="row voh-visualization-selector">
     <!-- Map Container-->
@@ -88,6 +77,16 @@
 <!-- Toolbar -->
 <div class="row">
     <div class="col-xs-12 voh-vis-buttons-holder">
+        <!-- Section switcher-->
+        <div class="row">
+            <div class="col-xs-12">
+                <ul class="voh-section-switcher">
+                    <li><a href="#visualization/scores"> {{ section_scores}}</a></li>
+                    <li class="active"><a href="#visualization/table">{{ section_table }}</a></li>
+                </ul>
+            </div>
+        </div>
+
         <button id="table-go-btn" class="btn btn-default btn-table-go pull-right"> {{ go_btn }}</button>
         <button id="table-reset-btn" class="btn btn-default btn-reset pull-right"> {{ reset_btn }}</button>
     </div>

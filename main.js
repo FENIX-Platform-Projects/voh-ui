@@ -6,8 +6,8 @@ var projectRoot = "../..";
 //var projectRoot = "http://localhost:8080";
 
 //distribution
-//var projectRoot = "http://www.fao.org/fenixrepo/cdn/projects/flude/1.0.0",
-//var projectRoot = "//fenixrepo.fao.org/cdn/projects/flude/1.0.0",
+//var projectRoot = "http://www.fao.org/fenixrepo/cdn/projects/voh/",
+//var projectRoot = "//fenixrepo.fao.org/cdn/projects/voh/",
 //pathProjectRoot = projectRoot;
 
 require.config({
@@ -83,7 +83,7 @@ require([
                     json: "../../json",
 
                     amplify: '{FENIX_CDN}/js/amplify/1.1.2/amplify.min',
-                    packery: '{FENIX_CDN}/js/packery/1.4.1/packery.pkgd.min',
+                    packery: '{FENIX_CDN}/js/packery/1.4.3/dist/packery.pkgd.min',
                     jqueryBridget: '{FENIX_CDN}/js/jquery.bridget/1.1.0/jquery.bridget',
                     jstree: '{FENIX_CDN}/js/jstree/3.0.8/dist/jstree.min',
                     //,swiper: '{FENIX_CDN}/js/swiper/3.07/dist/js/swiper.jquery.min'
