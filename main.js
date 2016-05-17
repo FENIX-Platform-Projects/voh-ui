@@ -6,8 +6,8 @@ var projectRoot = "../..";
 //var projectRoot = "http://localhost:8080";
 
 //distribution
-//var projectRoot = "http://www.fao.org/fenixrepo/cdn/projects/voh/",
-//var projectRoot = "//fenixrepo.fao.org/cdn/projects/voh/",
+//var projectRoot = "http://www.fao.org/fenixrepo/voh/",
+//var projectRoot = "//fenixrepo.fao.org/voh/",
 //pathProjectRoot = projectRoot;
 
 require.config({
@@ -71,24 +71,22 @@ require([
                 paths: {
                     domReady: "{FENIX_CDN}/js/requirejs/plugins/domready/2.0.1/domReady",
                     i18n: "{FENIX_CDN}/js/requirejs/plugins/i18n/2.0.4/i18n",
-                    nls: "../../i18n",
-                    bootstrap: "//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min",
-
+                    bootstrap: "{FENIX_CDN}/js/bootstrap/3.3.4/js/bootstrap.min",
                     underscore: "{FENIX_CDN}/js/underscore/1.7.0/underscore.min",
+
                     backbone: "{FENIX_CDN}/js/backbone/1.1.2/backbone.min",
                     handlebars: "{FENIX_CDN}/js/handlebars/2.0.0/handlebars",
-                    chaplin: "{FENIX_CDN}/js/chaplin/1.0.1/chaplin.min",
+                    chaplin: "{FENIX_CDN}/js/chaplin/1.1.1/chaplin.min",
 
-                    config: "../../config",
-                    json: "../../json",
+                    nls: projectRoot + "/i18n",
+                    config: projectRoot + "/config",
+                    json: projectRoot + "/json",
 
                     amplify: '{FENIX_CDN}/js/amplify/1.1.2/amplify.min',
                     packery: '{FENIX_CDN}/js/packery/1.4.3/dist/packery.pkgd.min',
                     jqueryBridget: '{FENIX_CDN}/js/jquery.bridget/1.1.0/jquery.bridget',
                     jstree: '{FENIX_CDN}/js/jstree/3.0.8/dist/jstree.min',
-                    //,swiper: '{FENIX_CDN}/js/swiper/3.07/dist/js/swiper.jquery.min'
                     q: '{FENIX_CDN}/js/q/1.1.2/q',
-
 
                     // fenix-map-js
                     'import-dependencies': '{FENIX_CDN}/js/FENIX/utils/import-dependencies-1.0',
@@ -101,28 +99,30 @@ require([
                     'fenix-ui-map': '{FENIX_CDN}/js/fenix-ui-map/0.1/fenix-ui-map.min',
                     'fenix-ui-map-config': '{FENIX_CDN}/js/fenix-ui-map/0.1/fenix-ui-map-config',
                     //'bootstrap-list-filter' : "{FENIX_CDN}/js/bootstrap-list-filter/0.1.7/bootstrap-list-filter.min",
-                    'bootstrap-list-filter': "lib/bootstrap-list-filter",
+                    //'bootstrap-list-filter': "lib/bootstrap-list-filter",
 
                     //TODO TEMP
-                    'fx-c-c/templates/base_template': './tools/voh_chart_template',
+                    'fx-c-c/templates/base_template': projectRoot + '/src/js/tools/voh_chart_template',
 
                     //OLAP DEPS
-                    pivot: "../../submodules/fenix-ui-olap/js/pivot",
-                    gt_msg: "../../submodules/fenix-ui-olap/lib/grid/gt_msg_en",
-                    jqueryui: "../../submodules/fenix-ui-olap/lib/jquery-ui-1.9.2.custom.min",
-                    gt_msg_grid: "../../submodules/fenix-ui-olap/lib/grid/gt_grid_all",
-                    HPivot: "//fenixapps.fao.org/repository/js/jbpivot/0.1.0-olap/jbpivot.min",
-                    highcharts: "//fenixapps.fao.org/repository/js/highcharts/4.0.4/js/highcharts",
+                    pivot: projectRoot +"/submodules/fenix-ui-olap/js/pivot",
+                    gt_msg: projectRoot +"/submodules/fenix-ui-olap/lib/grid/gt_msg_en",
+                    jqueryui: projectRoot +"/submodules/fenix-ui-olap/lib/jquery-ui-1.9.2.custom.min",
+                    gt_msg_grid: projectRoot +"/submodules/fenix-ui-olap/lib/grid/gt_grid_all",
+                    HPivot: "{FENIX_CDN}/js/jbpivot/0.1.0-olap/jbpivot.min",
+                    highcharts: "{FENIX_CDN}/js/highcharts/4.0.4/js/highcharts",
 
-                    "nls/pivot": "../../i18n/pivot",
+                    "nls/pivot": projectRoot + "/i18n/pivot",
 
-                    pivotRenderersFuncs: "../../submodules/fenix-ui-olap/js/rend/function_rendererers",
-                    pivotRenderers: "../../submodules/fenix-ui-olap/js/rend/rendererers",
-                    pivotAggregatorsFuncs: "../../submodules/fenix-ui-olap/js/rend/function_aggregators",
-                    pivotAggregators: "../../submodules/fenix-ui-olap/js/rend/aggregators",
-                    pivotDataConfig: '../../config/submodules/fx-olap/dataConfig',
-                    pivotDataTest: '../../submodules/fenix-ui-olap/tests/data/test.json',
-                    'fx-olap/config/gridoption': '../../config/submodules/fx-olap/gridoption',
+                    pivotRenderersFuncs: projectRoot +"/submodules/fenix-ui-olap/js/rend/function_rendererers",
+                    pivotRenderers: projectRoot +"/submodules/fenix-ui-olap/js/rend/rendererers",
+                    pivotAggregatorsFuncs:projectRoot+ "/submodules/fenix-ui-olap/js/rend/function_aggregators",
+                    pivotAggregators: projectRoot+"/submodules/fenix-ui-olap/js/rend/aggregators",
+                    pivotDataConfig: projectRoot+ '/config/submodules/fx-olap/dataConfig',
+                    pivotDataTest: projectRoot+'/submodules/fenix-ui-olap/tests/data/test.json',
+                    'fx-olap/config/gridoption': projectRoot + '/config/submodules/fx-olap/gridoption',
+
+                    "chaplin/views/layout" :  "views/layout"
                 },
 
                 // Underscore and Backbone are not AMD-capable per default,
@@ -212,3 +212,4 @@ require([
         });
     });
 });
+

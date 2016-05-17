@@ -17,6 +17,7 @@ define([
 
         start: function () {
             var args = [].slice.call(arguments);
+
             // You can fetch some data here and start app
             // (by calling supermethod) after that.
             Chaplin.Application.prototype.start.apply(this, args);
