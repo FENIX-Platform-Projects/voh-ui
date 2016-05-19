@@ -76,19 +76,18 @@
 
 <!-- Toolbar -->
 <div class="row">
-    <div class="col-xs-12 voh-vis-buttons-holder">
-        <!-- Section switcher-->
-        <div class="row">
-            <div class="col-xs-12">
-                <ul class="voh-section-switcher">
-                    <li><a rel="external" href="#visualization/scores"> {{ section_scores}}</a></li>
-                    <li class="active"><a href="#visualization/table">{{ section_table }}</a></li>
-                </ul>
-            </div>
-        </div>
+    <div class="col-xs-12 voh-vis-buttons-holder clearfix">
 
-        <button id="table-go-btn" class="btn btn-default btn-table-go pull-right"> {{ go_btn }}</button>
-        <button id="table-reset-btn" class="btn btn-default btn-reset pull-right"> {{ reset_btn }}</button>
+        <!-- Section switcher-->
+        <ul class="voh-section-switcher pull-left">
+            <li><a rel="external" href="#visualization/scores"> {{ section_scores}}</a></li>
+            <li class="active"><a href="#visualization/table">{{ section_table }}</a></li>
+        </ul>
+
+        <div class="btn-group pull-right" role="group">
+            <button id="table-go-btn" class="btn btn-default btn-table-go"> {{ go_btn }}</button>
+            <button id="table-reset-btn" class="btn btn-default btn-reset"> {{ reset_btn }}</button>
+        </div>
     </div>
 </div>
 

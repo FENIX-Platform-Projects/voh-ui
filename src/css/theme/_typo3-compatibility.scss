@@ -1,0 +1,161 @@
+/* Typo3 FAO Compatibility */
+
+
+a.jstree-anchor{
+  outline: 0;
+  border: 0;
+
+  &:hover,&:focus, &:active:focus{
+    text-decoration: none;
+    outline: 0;
+    border: 0;
+
+  }
+
+}
+
+.pvtAxisContainer, .pvtVals{
+  padding: 5px !important;
+
+}
+
+input::-moz-focus-inner {
+  border: 0;
+}
+
+body.super-extreme-filter {
+    .fx-filter-form-module {
+            width: 50%;
+    }
+
+
+  #side-faostat{
+
+    .obj-box.box-faostat{
+          height: 311px;
+
+
+      #filter-submit-btn-faostat{
+        position: relative;
+        top: 58px;
+      }
+    }
+  }
+
+}
+
+body {
+  color: black;
+  background: none;
+  background-color: #f0f0f0;
+}
+
+a:-webkit-any-link {
+  cursor: pointer;
+}
+
+
+#pivot1_fx-olap-ui{
+  table{
+    *{
+      -webkit-box-sizing: content-box !important;
+      -moz-box-sizing: content-box !important;
+      box-sizing: content-box !important;
+    }
+  }
+
+}
+
+
+
+
+footer {
+
+  h4{
+    color: white;
+  }
+
+
+}
+
+
+
+
+    .fx-sandbox {
+      padding: 0 5px;
+
+      //font-size: 11px !important;
+
+
+
+      .compare-wrapper {
+        border-color: #d2d0d0;
+      }
+
+      div.main-internal {
+        padding: 0;
+      }
+
+      h1 {
+        font-size: 14px;
+        margin-bottom: 0;
+      }
+
+
+      h2 {
+        border-color: transparent;
+        margin-bottom: 0px;
+        margin-top: 10px;
+        font-size: 12px;
+      }
+
+      h1.flude-analysis-title {
+        color: black;
+        font-size: 18px;
+      }
+
+      .flude-analysis-title-results {
+        margin-top: 0;
+        color: #5191C8;
+        margin-bottom: 10px;
+      }
+
+      .obj-box-header {
+        height: 30px;
+        padding: 6px 15px;
+
+        .whole-btn {
+
+          top: 2px;
+          color: white;
+
+        }
+
+      }
+
+      #flude-download-btn {
+        color: white;
+      }
+
+      .filter-opener-faostat, .filter-opener-flude {
+
+      }
+
+      .highcharts-legend-item {
+
+        text {
+          font-size: 11px !important;
+        }
+
+      }
+
+      .flude-topic-selector {
+        width: calc(100% - 250px) !important;
+      }
+
+    }// END OF SANDBOX
+
+
+
+// END OF MAIN CONTENT
+

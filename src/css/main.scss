@@ -1,8 +1,15 @@
 /* Voh - Host CSS file */
 /* VOH Theme */
+
+
+.fx-sandbox{
+  padding: 0 5px;
+  @import 'fx-boot/bootstrap';
+}
+
+@import 'theme/typo3-compatibility';
+
 @import 'theme/voh-variables';
-
-
 
 /* Third parties */
 @import 'thirds-parties/jstree';
@@ -30,8 +37,6 @@
 @import 'components/voh-tabs';
 
 /* Pages */
-@import 'pages/country-data';
-@import 'pages/home';
 @import 'pages/visutalization';
 
 
