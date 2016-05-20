@@ -55,14 +55,45 @@ a:-webkit-any-link {
 }
 
 
-#pivot1_fx-olap-ui{
-  table{
+.voh-section-switcher{
+  margin-top: 15px !important;
+}
+
+.voh-section-buttons{
+  margin-top: 9px !important;
+}
+
+
+.pvtRows:before, .pvtCols:before{
+  top: 1px;
+  left: -5px;
+}
+
+#results-container{
+
+  .fs-icojam-icon{
+    font-size: 45px;
+  }
+
+
+
+  .gt-viewport{
+    font-family: "Lucida Console", Monaco, monospace;
+    font-size: 11px !important;
+  }
+
+  .gt-hd-row td, .gt-row td{
+    vertical-align: middle;
+  }
+
+
     *{
       -webkit-box-sizing: content-box !important;
       -moz-box-sizing: content-box !important;
       box-sizing: content-box !important;
     }
-  }
+
+
 
 }
 

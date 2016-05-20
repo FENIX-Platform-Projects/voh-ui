@@ -2,9 +2,13 @@
 .voh-section-switcher{
   list-style: none;
   padding-left: 0;
-  margin-bottom: 0;
+
 
   >li {
+
+    &:first-child{
+      margin-right: 15px ;
+    }
 
     margin-bottom: 10px;
     display: inline-block;
@@ -74,7 +78,7 @@
   h1{
     margin-top: 10px;
     height: 30px;
-    border-bottom: 1px solid $fenix-hr;
+    //border-bottom: 1px solid $fenix-hr;
   }
 
   .voh-other-sel{
@@ -85,11 +89,13 @@
         text-transform: uppercase;
         color: $fenix-light-hr;
         margin-bottom: 0;
+        font-size: 12px;
       }
 
       form{
         border: 1px solid $fenix-light-hr;
-        padding: 16px;
+        padding: 5px 15px;
+        margin-bottom: 15px;
 
 
         label{
@@ -179,9 +185,9 @@
   background-color: $custom-color2;
   margin-top: 20px;
   margin-bottom: 20px;
-
-  .btn{
-    margin: 12px 3px;
-  }
+  //
+  //.btn{
+  //  margin: 12px 3px;
+  //}
 
 }

@@ -4,6 +4,8 @@ body{
 
   background-color: $fenix-light-bg;
 
+  font-family: "FrutigerLTW02-45Light", Arial, Helvetica, Verdana, sans-serif;
+
 }
 
 .voh-logo-blue{
@@ -18,21 +20,56 @@ body{
   text-overflow: ellipsis;
 }
 
-.btn{
-  @include fx-border-radius(0);
-  height: 25px;
-  min-width: 135px;
-  padding: 3px 12px;
-  font-size: 12px;
-  text-transform: uppercase;
-  background-color: $fx-cool-blue;
+//.btn{
+//  @include fx-border-radius(0);
+//  height: 25px;
+//  min-width: 135px;
+//  padding: 3px 12px;
+//  font-size: 12px;
+//  text-transform: uppercase;
+//  background-color: $fx-cool-blue;
+//
+//  &:hover{
+//    background-color: $fx-cool-blue;
+//    border-color: transparent;
+//    color: white;
+//  }
+//
+//}
 
-  &:hover{
-    background-color: $fx-cool-blue;
-    border-color: transparent;
-    color: white;
+.obj-box-header {
+  padding: 5px 15px;
+  height: 34px;
+  border: 1px solid #C2C2C2;
+  background: #fafafa;
+  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.05);
+  h1{
+    margin-top: 7px;
+    font-size: 14px;
+
+
   }
 
+}
+
+.obj-box {
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  background-color: white;
+  border-color: #d2d0d0;
+  border-image: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  border-radius: 0;
+  border-style: solid;
+  padding: 20px;
+  width: auto;
+  margin: 0;
 }
 
 

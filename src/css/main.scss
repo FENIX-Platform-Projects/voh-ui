@@ -7,8 +7,6 @@
   @import 'fx-boot/bootstrap';
 }
 
-@import 'theme/typo3-compatibility';
-
 @import 'theme/voh-variables';
 
 /* Third parties */
@@ -17,11 +15,6 @@
 /* Fenix Utils*/
 @import '../../submodules/fenix-ui-common/css/fenix-style-no-variables';
 
-/* Base */
-@import 'theme/voh-base';
-
-/* Typography */
-@import 'theme/voh-typography';
 
 /* Components */
 @import 'components/voh-breadcrumbs';
@@ -36,7 +29,16 @@
 @import 'components/voh-topmenu';
 @import 'components/voh-tabs';
 
+
 /* Pages */
 @import 'pages/visutalization';
 
 
+/* Base */
+@import 'theme/voh-base';
+
+/* Typography */
+@import 'theme/voh-typography';
+
+
+@import 'theme/typo3-compatibility';
