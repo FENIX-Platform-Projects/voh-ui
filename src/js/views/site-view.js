@@ -6,7 +6,7 @@ define([
     'globals/State',
     'views/base/view',
     'fx-menu/start',
-    'i18n!nls/site',
+    'i18n!nls/labels',
     'text!templates/site.hbs'
 ], function ($, Chaplin, _, State, View, Menu, i18nLabels, template) {
 

@@ -8,8 +8,7 @@ define([
     'text!templates/visualization/scores-result.hbs',
     'text!templates/common/error.hbs',
     'text!templates/common/courtesy-message.hbs',
-    'i18n!nls/visualization-scores',
-    'i18n!nls/errors',
+    'i18n!nls/labels',
     'fx-common/WDSClient',
     'fx-c-c/start',
     'packery',
@@ -17,7 +16,7 @@ define([
     'q',
     'jstree',
     'amplify'
-], function (Handlebars, View, C, Services, template, resultTemplate, errorTemplate, courtesyMessageTemplate, i18nLabels, i18Errors, WDSClient, ChartCreator, Packery, bridget) {
+], function (Handlebars, View, C, Services, template, resultTemplate, errorTemplate, courtesyMessageTemplate, i18nLabels, WDSClient, ChartCreator, Packery, bridget) {
 
     'use strict';
 
@@ -93,7 +92,8 @@ define([
 
             this.$resultsContainer.packery({
                 itemSelector: s.RESULT_SELECTOR,
-                transitionDuration: 0
+                transitionDuration: 0,
+                gutter: 15
             });
 
             this.WDSClient = new WDSClient({
@@ -339,7 +339,7 @@ define([
         printError: function (errors) {
 
             var template = Handlebars.compile(errorTemplate);
-            this.$errorHolder.html(template({error: i18Errors[errors[0]]}));
+            this.$errorHolder.html(template({error: i18nLabels[errors[0]]}));
         },
 
         printCourtesyMessage: function () {

@@ -3,7 +3,7 @@ define([
     'views/base/view',
     'text!templates/country/country.hbs',
     'text!templates/country/download_item.hbs',
-    'i18n!nls/country',
+    'i18n!nls/labels',
     'handlebars',
     'text!json/country/downloads.json',
     'bootstrap-list-filter',

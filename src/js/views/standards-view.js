@@ -4,7 +4,7 @@ define([
     'views/base/view',
     'text!templates/standards/standards.hbs',
     'text!templates/standards/standard_item.hbs',
-    'i18n!nls/standards',
+    'i18n!nls/labels',
     'handlebars',
     'lib/utils',
     'jstree',

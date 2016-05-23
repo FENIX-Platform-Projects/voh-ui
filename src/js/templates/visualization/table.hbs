@@ -4,8 +4,8 @@
     <div class="col-xs-8 voh-map-cont">
         <div class="row">
             <div class="col-xs-12">
-                  <h1> {{ map_selector_title }}</h1>
-             </div>
+                <h1> {{ map_selector_title }}</h1>
+            </div>
         </div>
         <div class="row">
             <div class="col-xs-12">
@@ -24,7 +24,7 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="geo-selector-container">
-                    <div id="geo-selector"> </div>
+                    <div id="geo-selector"></div>
                 </div>
             </div>
         </div>
@@ -80,8 +80,8 @@
 
         <!-- Section switcher-->
         <ul class="voh-section-switcher pull-left">
-            <li>Show result as: </li>
-            <li><a  href="visualization/scores"> {{ section_scores}}</a></li>
+            <li>Show result as:</li>
+            <li><a href="visualization/scores"> {{ section_scores}}</a></li>
             <li class="active"><a href="visualization/table">{{ section_table }}</a></li>
         </ul>
 
@@ -105,19 +105,22 @@
         <div id="results-container">
 
             <div class="obj-box-header">
-                <h1>Results</h1>
+                <h1>{{ results }}</h1>
             </div>
 
             <div class="obj-box">
-                <div data-role="message">
-                    <h3 class="text-center">
-                        Where is the data?
-                    </h3>
 
-                    <h5 class="text-center fs-output-preview-message">
-                        <span class="fs-icojam-icon icojam_rotate_4"></span><br>
-                        Please make a selection above and press <i>Show Data</i>
-                    </h5>
+                <div data-role="courtesy">
+                    <div data-role="message">
+                        <h3 class="text-center">
+                            {{ where_is_the_data }}
+                        </h3>
+
+                        <h5 class="text-center fs-output-preview-message">
+                            <span class="fs-icojam-icon icojam_rotate_4"></span><br>
+                            {{ placeholder_make_a_selection }}<i>{{ placeholder_show_data }}</i>
+                        </h5>
+                    </div>
                 </div>
 
                 <div id="pivot1"></div>

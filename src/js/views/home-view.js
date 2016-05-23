@@ -6,7 +6,7 @@ define([
     'text!templates/home/home.hbs',
     'text!templates/home/database_update_item.hbs',
     'text!templates/home/document_item.hbs',
-    'i18n!nls/home',
+    'i18n!nls/labels',
     'handlebars',
     'text!json/home/database_updates.json',
     'text!json/home/documents.json',

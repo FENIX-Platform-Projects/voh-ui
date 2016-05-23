@@ -7,8 +7,7 @@ define([
     'text!templates/visualization/table.hbs',
     'text!templates/common/error.hbs',
     'text!templates/common/courtesy-message.hbs',
-    'i18n!nls/visualization-table',
-    'i18n!nls/errors',
+    'i18n!nls/labels',
     'fx-common/WDSClient',
 
     'pivot',
@@ -22,7 +21,7 @@ define([
     'jstree',
     'amplify'
 //TODO REMOVE
-], function (Handlebars, View, Config, Services, template, errorTemplate, courtesyMessageTemplate, i18nLabels, i18Errors, WDSClient,
+], function (Handlebars, View, Config, Services, template, errorTemplate, courtesyMessageTemplate, i18nLabels, WDSClient,
              Pivot,
              pivotRenderers,
              pivotAggregators,
@@ -44,7 +43,8 @@ define([
         CHART_CONTAINER: '[data-role="chart-container"]',
         TOTAL_CHECKBOX: "#checkbox-show-total",
         GEO_SELECTOR: "#geo-selector",
-        GEO_GRANULARITY_FORM: "#geo-granularity-form"
+        GEO_GRANULARITY_FORM: "#geo-granularity-form",
+        COURTESY : "[data-role='courtesy']"
     };
 
     var VisualizationView = View.extend({
@@ -327,6 +327,19 @@ define([
             this.resetResults();
 
             this.resetError();
+
+            this.showCourtesyMessage();
+
+        },
+
+        showCourtesyMessage : function () {
+
+            this.$el.find(s.COURTESY).show();
+        },
+
+        hideCourtesyMessage : function () {
+
+            this.$el.find(s.COURTESY).hide();
         },
 
         /* Data request process */
@@ -349,7 +362,7 @@ define([
         printError: function (errors) {
 
             var template = Handlebars.compile(errorTemplate);
-            this.$errorHolder.html(template({error: i18Errors[errors[0]]}));
+            this.$errorHolder.html(template({error: i18nLabels[errors[0]]}));
         },
 
         printCourtesyMessage: function () {
@@ -450,6 +463,8 @@ define([
         },
 
         onSearchSuccess: function (response) {
+
+            this.hideCourtesyMessage();
 
             this.currentRequest.response = response;
             this.currentRequest.processdResponse = this.processResponse(response);
