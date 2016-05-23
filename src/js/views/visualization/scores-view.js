@@ -97,7 +97,7 @@ define([
             });
 
             this.WDSClient = new WDSClient({
-                //serviceUrl: C.WDS_URL,
+                serviceUrl: C.WDS_URL,
                 datasource: C.DB_NAME,
                 outputType: C.WDS_OUTPUT_TYPE
             });
@@ -109,7 +109,7 @@ define([
             //Init country selector
             var data = [];
 
-            _.each(amplify.store('cl_' + granularity), function (n) {
+            _.each(amplify.store.sessionStorage('cl_' + granularity), function (n) {
                 var node = createNode(n);
 
                 if (node.id) {
@@ -176,7 +176,7 @@ define([
             _.each(this.codelists, _.bind(function (cd) {
 
                 //Check if codelist is cached otherwise query
-                var stored = amplify.store(cd);
+                var stored = amplify.store.sessionStorage(cd);
 
                 if (stored === undefined) {
 
@@ -215,7 +215,7 @@ define([
 
         onPreloadCodelistSuccess: function (cd, response) {
 
-            amplify.store(cd, response);
+            amplify.store.sessionStorage(cd, response);
 
             this.onCodelistCached(cd);
         },
@@ -510,7 +510,7 @@ define([
 
         createChartModel: function (v) {
 
-            var cd = amplify.store('cl_' + v);
+            var cd = amplify.store.sessionStorage('cl_' + v);
 
             //filter response by variable
             var model = _.filter(this.currentRequest.processdResponse, function ( row ) {

@@ -117,7 +117,7 @@ define([
             //Init country selector
             var data = [];
 
-            _.each(amplify.store('cl_' + granularity), function (n) {
+            _.each(amplify.store.sessionStorage('cl_' + granularity), function (n) {
 
                 var node = createNode(n);
 
@@ -185,7 +185,7 @@ define([
             _.each(this.codelists, _.bind(function (cd) {
 
                 //Check if codelist is cached otherwise query
-                var stored = amplify.store(cd);
+                var stored = amplify.store.sessionStorage(cd);
 
                 if (stored === undefined) {
 
@@ -224,7 +224,7 @@ define([
 
         onPreloadCodelistSuccess: function (cd, response) {
 
-            amplify.store(cd, response);
+            amplify.store.sessionStorage(cd, response);
 
             this.onCodelistCached(cd);
         },
@@ -501,7 +501,7 @@ define([
             pivotDataConf.vals.push(this.currentRequest.inputs.status);
             pivotDataConf.derivedAttributes.group_code = function (row) {
 
-                var cl_group_code = amplify.store("cl_" + row.variable);
+                var cl_group_code = amplify.store.sessionStorage("cl_" + row.variable);
                 if (cl_group_code) {
                     var obj = _.findWhere(cl_group_code, {code: row.group_code});
                     return obj ? obj.label : null;

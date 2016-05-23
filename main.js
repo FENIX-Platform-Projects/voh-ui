@@ -53,6 +53,8 @@ require([
     Compiler.resolve([menuConfig, commonConfig, chartCreatorConfig, olapConfig],
         {
 
+            placeholders: {"FENIX_CDN": "http://fenixrepo.fao.org/cdn"},
+
             config: {
 
                 //Set the config for the i18n
