@@ -15,11 +15,28 @@ a.jstree-anchor{
 }
 
 
+
 .fx-sandbox{
-  div.csc-default ul li{
-    margin-bottom: 0;
-    left: 0;
+  div ul li{
+    margin-bottom: 0 !important;
+    left: 0 !important;
   }
+
+   h2{
+      font-weight: 500 !important;
+      font-size: 12px !important;
+      padding-top: 0 !important;
+      margin-bottom: 0 !important;
+     border: 0 !important;
+  }
+
+  h4{
+    font-weight: 500 !important;
+    font-size: 12px !important;
+    padding-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
 }
 
 .obj-box-olap{
