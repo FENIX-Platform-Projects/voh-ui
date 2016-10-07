@@ -5,7 +5,6 @@ define({
     ],
     "cols": ['variable', 'group_code'],
     "vals": [
-        'ms'
     ],
     "hiddenAttributes": [
         "geo",

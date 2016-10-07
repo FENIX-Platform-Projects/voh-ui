@@ -111,7 +111,30 @@
 <!-- Results container -->
 <div class="row">
     <div class="col-xs-12">
-        <div id="results-container">
+        <div id="results-container" >
+
+            <div class="obj-box-header">
+                <h1>{{ results }}</h1>
+            </div>
+
+            <div class="obj-box obj-box-olap">
+
+                <div data-role="courtesy">
+                    <div data-role="message">
+                        <h3 class="text-center">
+                            {{ where_is_the_data }}
+                        </h3>
+
+                        <h5 class="text-center fs-output-preview-message">
+                            <span class="fs-icojam-icon icojam_rotate_4"></span><br>
+                            {{ placeholder_make_a_selection }}<i>{{ placeholder_show_data }}</i>
+                        </h5>
+                    </div>
+                </div>
+
+                <div id="res-container"></div>
+
+            </div>
 
         </div>
     </div>

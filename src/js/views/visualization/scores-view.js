@@ -25,9 +25,10 @@ define([
         RESET_BTN: "#scores-reset-btn",
         ERROR_HOLDER: ".error-holder",
         COURTESY_MESSAGE_HOLDER: ".courtesy-message-holder",
+        COURTESY : "[data-role='courtesy']",
         FI_FORM: "#scores-fi-form",
         VARIABLE_FORM: "#scores-variables-form",
-        RESULTS_CONTAINER: '#results-container',
+        RESULTS_CONTAINER: '#res-container',
         RESULT_SELECTOR: '.voh-result',
         CHART_CONTAINER: '[data-role="chart-container"]',
         TOTAL_CHECKBOX: "#checkbox-show-total",
@@ -317,6 +318,8 @@ define([
             this.resetResults();
 
             this.resetError();
+
+            this.showCourtesyMessage();
         },
 
         /* Data request process */
@@ -449,6 +452,8 @@ define([
             if (this.currentRequest.response.length === 0) {
                 this.printCourtesyMessage();
             } else {
+                this.hideCourtesyMessage();
+
                 this.renderResults();
             }
         },
@@ -524,7 +529,7 @@ define([
                 var groupCode = row[C.INDEX_GROUP_CODE],
                     label;
 
-                label = groupCode === "population" ? "Population" : _.findWhere(cd, {code: groupCode}).label;
+                label = groupCode === "population" ? "Total" : _.findWhere(cd, {code: groupCode}).label;
 
                 // group_code label
                 row[C.INDEX_GROUP_LABEL] = label;
@@ -638,7 +643,19 @@ define([
             this.$courtesyMessageHolder.empty();
         },
 
-        /* Disposition */
+        hideCourtesyMessage : function () {
+
+
+            this.$el.find(s.COURTESY).hide();
+        },
+
+    showCourtesyMessage : function () {
+
+        this.$el.find(s.COURTESY).show();
+    },
+
+
+    /* Disposition */
 
         unbindEventListeners: function () {
             this.$goBtn.off();

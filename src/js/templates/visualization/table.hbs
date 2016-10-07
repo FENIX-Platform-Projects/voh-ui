@@ -104,8 +104,10 @@
     <div class="col-xs-12">
         <div id="results-container">
 
-            <div class="obj-box-header">
-                <h1>{{ results }}</h1>
+            <div class="obj-box-header clearfix" >
+                <h1 class="pull-left">{{ results }}</h1>
+                <button id="table-download-btn" class="btn btn-primary btn-reset pull-right"> {{ download_btn }}</button>
+
             </div>
 
             <div class="obj-box obj-box-olap">
@@ -125,7 +127,6 @@
 
                 <div id="pivot1"></div>
             </div>
-
 
         </div>
     </div>

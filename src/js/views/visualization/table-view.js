@@ -34,6 +34,7 @@ define([
     var s = {
         GO_BTN: "#table-go-btn",
         RESET_BTN: "#table-reset-btn",
+        DOWNLOAD_BTN: "#table-download-btn",
         ERROR_HOLDER: ".error-holder",
         COURTESY_MESSAGE_HOLDER: ".courtesy-message-holder",
         FI_FORM: "#table-fi-form",
@@ -64,6 +65,7 @@ define([
 
             this.$goBtn = this.$el.find(s.GO_BTN);
             this.$resetBtn = this.$el.find(s.RESET_BTN);
+            this.$downloadBtn = this.$el.find(s.DOWNLOAD_BTN);
             this.$errorHolder = this.$el.find(s.ERROR_HOLDER);
             this.$courtesyMessageHolder = this.$el.find(s.COURTESY_MESSAGE_HOLDER);
 
@@ -109,6 +111,8 @@ define([
                 datasource: Config.DB_NAME,
                 outputType: Config.WDS_OUTPUT_TYPE
             });
+
+            this.hideDownloadButton();
 
         },
 
@@ -287,6 +291,8 @@ define([
 
             this.$resetBtn.on('click', _.bind(this.onClickResetBtn, this));
 
+            this.$downloadBtn.on('click', _.bind(this.onClickDownloadBtn, this));
+
             this.$geoGranularityForm.find("input").on('change', _.bind(this.onGeoGranularityChange, this));
         },
 
@@ -320,6 +326,53 @@ define([
             }
         },
 
+        onClickDownloadBtn : function () {
+
+            exportToCsv( "VOH_export_" + new Date() + "".replace(/[^a-z0-9]/gi, '_').toLowerCase() +".csv", this.currentRequest.processdResponse)
+
+            function exportToCsv(filename, rows) {
+                var processRow = function (row) {
+                    var finalVal = '';
+                    for (var j = 0; j < row.length; j++) {
+                        var innerValue = row[j] === null ? '' : row[j].toString();
+                        if (row[j] instanceof Date) {
+                            innerValue = row[j].toLocaleString();
+                        };
+                        var result = innerValue.replace(/"/g, '""');
+                        if (result.search(/("|,|\n)/g) >= 0)
+                            result = '"' + result + '"';
+                        if (j > 0)
+                            finalVal += ',';
+                        finalVal += result;
+                    }
+                    return finalVal + '\n';
+                };
+
+                var csvFile = '';
+                for (var i = 0; i < rows.length; i++) {
+                    csvFile += processRow(rows[i]);
+                }
+
+                var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
+                if (navigator.msSaveBlob) { // IE 10+
+                    navigator.msSaveBlob(blob, filename);
+                } else {
+                    var link = document.createElement("a");
+                    if (link.download !== undefined) { // feature detection
+                        // Browsers that support HTML5 download attribute
+                        var url = URL.createObjectURL(blob);
+                        link.setAttribute("href", url);
+                        link.setAttribute("download", filename);
+                        link.style.visibility = 'hidden';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    }
+                }
+            }
+
+        },
+
         onClickResetBtn: function () {
 
             this.printDefaultSelection();
@@ -329,6 +382,8 @@ define([
             this.resetError();
 
             this.showCourtesyMessage();
+
+            this.hideDownloadButton();
 
         },
 
@@ -466,16 +521,27 @@ define([
 
             this.hideCourtesyMessage();
 
-            this.currentRequest.response = response;
+            this.currentRequest.response = response.shift();
             this.currentRequest.processdResponse = this.processResponse(response);
 
             this.unlockForm();
 
             if (this.currentRequest.response.length === 0) {
                 this.printCourtesyMessage();
+                this.hideDownloadButton();
+
             } else {
+                this.showDownloadButton();
                 this.initOlapCreator();
             }
+        },
+
+        showDownloadButton : function () {
+            this.$downloadBtn.show();
+        },
+
+        hideDownloadButton : function () {
+            this.$downloadBtn.hide();
         },
 
         /* Results rendering */
@@ -491,6 +557,7 @@ define([
 
         initOlapCreator: function () {
 
+            var self = this;
 
             this.pivot = new Pivot();
 
@@ -508,8 +575,24 @@ define([
                 }
 
             };
+            pivotDataConf.onDataLoaded = function () {
+                //force label renaming
+                //geo_label -> country or region
+                $("#pivot1 span:contains(geo_label)").html(self.currentRequest.inputs.geo_granularity === 'country' ? "Country" : "Region");
+
+                //population -> total
+                $("#pivot1 span:contains(population)").html("Total");
+
+                //group_code -> Group
+                $("#pivot1 span:contains(group_code)").html("Group");
+
+                //variable -> Variable
+                $("#pivot1 span:contains(variable)").html("Variable");
+
+            };
 
             this.pivot.render("pivot1", this.currentRequest.processdResponse, pivotDataConf);
+
         },
 
         resetResults: function () {
