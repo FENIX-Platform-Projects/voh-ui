@@ -14136,3 +14136,9 @@ footer h4 {
     width: calc(100% - 250px) !important; }
 
 /*# sourceMappingURL=main.css.map */
+
+
+#map {
+  height: 500px
+}
+
