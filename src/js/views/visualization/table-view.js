@@ -397,9 +397,14 @@ define([
             this.$mapformRadioBtns
                 .on('change', _.bind(this.onMapStatusChange, this))
                 .filter('[value="' + Config.DEFAULT_FI_STATUS + '"]')
-                .prop("checked", true)
-                .change();
+                .prop("checked", true);
+
+            var self = this;
+            setTimeout(function() {
+                self.$mapformRadioBtns.trigger('change');
+            },10);
         },
+
 
         onGeoGranularityChange: function (e) {
 

@@ -1,5 +1,29 @@
 <!-- Selectors -->
 <div class="row voh-visualization-selector">
+
+    <div id="wrapperMap" style="height:443px">
+
+        <div class="fx-sandbox">
+
+            <div id="map" class="map-home-page"></div>
+
+            <!-- Map toolbar -->
+            <div id="map-toolbar" class="map-toolbar">
+                <div class="map-toolbar-title-custom">
+                    {{{ map_toolbar_legend }}}
+                </div>
+                <form id="map-toolbar-form" class="map-toolbar-form" action="" onsubmit="return(false);">
+                    <input id="radio-severe-status" type="radio" name="status" value="s"><label
+                        for="radio-severe-status"> {{{ fi_status_severe }}}</label>
+                    <input id="radio-moderate-severe-status" type="radio" name="status" value="ms"><label
+                        for="radio-moderate-severe-status">{{{ fi_status_moderate_severe }}}</label>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
     <!-- Map Container-->
     <div class="col-xs-12 col-sm-8 voh-map-cont">
       <div class="row">

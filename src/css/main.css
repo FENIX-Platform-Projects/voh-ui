@@ -11069,7 +11069,7 @@ button_new_2:before {
 /* Fenix Typography */
 body {
   color: #666666;
-  font: normal normal 300 13px/normal "Roboto"; }
+  font: normal normal 300 13px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana; }
 
 a {
   color: #2c87b8; }
@@ -11083,19 +11083,19 @@ a {
   color: #666666; }
 
 h1 {
-  font: normal normal 300 16px/normal "Roboto";
+  font: normal normal 300 16px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana;
   color: #2c87b8; }
 
 h2 {
-  font: normal normal 300 12px/normal "Roboto";
+  font: normal normal 300 12px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana;
   color: #4e7d96; }
 
 h3 {
-  font: normal normal 500 12px/normal "Roboto";
+  font: normal normal 500 12px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana;
   color: #65767f; }
 
 h4 {
-  font: normal normal 300 11px/normal "Roboto";
+  font: normal normal 300 11px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana;
   color: #727272; }
 
 h1 small, h2 small, h3 small, h4 small, h5 small, h6 small, .h1 small, .h2 small, .h3 small, .h4 small, .h5 small, .h6 small, h1 .small, h2 .small, h3 .small, h4 .small, h5 .small, h6 .small, .h1 .small, .h2 .small, .h3 .small, .h4 .small, .h5 .small, .h6 .small {
@@ -11136,7 +11136,7 @@ input[type="button"]::-moz-focus-inner {
   background-color: #2c87b8;
   color: white;
   border-color: transparent;
-  font: normal normal 300 13px/normal "Roboto"; }
+  font: normal normal 300 13px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana; }
   .btn:hover {
     background-color: transparent;
     color: #2c87b8;
@@ -11153,7 +11153,7 @@ input[type="button"]::-moz-focus-inner {
   background-color: transparent;
   color: #666666;
   border-color: transparent;
-  font: normal normal 300 13px/normal "Roboto"; }
+  font: normal normal 300 13px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana; }
   .fx-button-reset:hover {
     background-color: transparent;
     color: #666666;
@@ -11239,7 +11239,7 @@ input[type="button"]::-moz-focus-inner {
   text-align: center;
   background-color: #f1f1f1; }
   .fx-catalog-header em {
-    font: normal normal 400 10px/normal "Roboto"; }
+    font: normal normal 400 10px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana; }
 
 .fx-catalog-header-btn {
   cursor: pointer; }
@@ -11326,7 +11326,7 @@ input[type="button"]::-moz-focus-inner {
 .fx-circle-number {
   color: white;
   display: inline-block;
-  font: normal normal 500 14px/normal "Roboto";
+  font: normal normal 500 14px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana;
   height: 20px;
   width: 20px;
   line-height: 20px;
@@ -11613,7 +11613,7 @@ input[type=text]::-ms-clear {
 
 /* Fenix - Labels Component */
 label {
-  font: normal normal 300 13px/normal "Roboto"; }
+  font: normal normal 300 13px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana; }
 
 /* Fenix - Legend Component */
 legend {
@@ -11644,7 +11644,7 @@ legend {
   .fx-md-viewer-wrapper .metadata-viewer-title {
     width: 30%;
     font-size: 12px;
-    font: normal normal 300 13px/normal "Roboto";
+    font: normal normal 300 13px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana;
     font-weight: 500;
     padding-right: 25px;
     cursor: pointer; }
@@ -11666,15 +11666,15 @@ legend {
       transition: all 0.3s ease 0s; }
   .fx-md-viewer-wrapper .metadata-viewer-value {
     width: 70%;
-    font: normal normal 300 13px/normal "Roboto";
+    font: normal normal 300 13px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana;
     font-size: 12px; }
   .fx-md-viewer-wrapper .popover-title {
     background-color: transparent;
-    font: normal normal 300 13px/normal "Roboto"; }
+    font: normal normal 300 13px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana; }
     .fx-md-viewer-wrapper .popover-title .text-info {
       color: #2c87b8; }
   .fx-md-viewer-wrapper .popover-content {
-    font: normal normal 300 13px/normal "Roboto"; }
+    font: normal normal 300 13px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana; }
 
 /* Fenix - Modular Form Component */
 .fx-catalog-modular-form-holder {
@@ -11805,7 +11805,7 @@ div[data-module="sector"] .fx-catalog-modular-form-content {
   padding-top: 5px; }
   .obj-box-title h4 {
     color: #2c87b8;
-    font: normal normal 300 11px/normal "Roboto"; }
+    font: normal normal 300 11px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana; }
 
 /* Fenix - Panel Component */
 .panel-group {
@@ -11832,7 +11832,7 @@ div[data-module="sector"] .fx-catalog-modular-form-content {
     border-radius: 0;
     padding: 10px; }
     .panel-group .panel-heading .panel-title {
-      font: normal normal 300 16px/normal "Roboto"; }
+      font: normal normal 300 16px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana; }
       .panel-group .panel-heading .panel-title a {
         color: #666666;
         text-transform: uppercase; }
@@ -11848,7 +11848,7 @@ div[data-module="sector"] .fx-catalog-modular-form-content {
     background-color: transparent;
     color: #666666;
     border-color: transparent;
-    font: normal normal 300 13px/normal "Roboto";
+    font: normal normal 300 13px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana;
     text-align: left;
     position: relative; }
     .panel-group .panel-body .btn:hover {
@@ -12090,7 +12090,7 @@ input[type="checkbox"]:checked + label {
   color: #2c87b8;
   padding-left: 15px;
   padding-top: 5px;
-  font: normal normal 400 10px/normal "Roboto";
+  font: normal normal 400 10px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana;
   position: absolute;
   top: 0; }
 
@@ -12126,7 +12126,7 @@ input[type="checkbox"]:checked + label {
     width: 20%;
     padding-left: 15px; }
     .fx-resume-item-selected .fx-resume-module-title em {
-      font: normal normal 400 10px/normal "Roboto";
+      font: normal normal 400 10px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana;
       color: #2c87b8;
       font-size: 12px;
       /* Not expected */
@@ -12735,7 +12735,7 @@ input[type="checkbox"]:checked + label {
 
 .fx-sessionstore-item-title {
   text-transform: uppercase;
-  font: normal normal 700 10px/normal "Roboto"; }
+  font: normal normal 700 10px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana; }
 
 .fx-sessionstore-item-info {
   min-height: 50px;
@@ -12744,7 +12744,7 @@ input[type="checkbox"]:checked + label {
 .fx-sessionstore-item-movemetodesk {
   float: left;
   text-transform: uppercase;
-  font: normal normal 700 10px/normal "Roboto";
+  font: normal normal 700 10px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana;
   cursor: pointer;
   margin-top: 10px;
   position: relative; }
@@ -12752,7 +12752,7 @@ input[type="checkbox"]:checked + label {
 .fx-sessionstore-item-removeme {
   float: right;
   text-transform: uppercase;
-  font: normal normal 700 10px/normal "Roboto";
+  font: normal normal 700 10px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana;
   cursor: pointer;
   margin-top: 10px;
   position: relative; }
@@ -12771,7 +12771,7 @@ input[type="checkbox"]:checked + label {
   background: none;
   color: white;
   display: inline-block;
-  font: normal normal 500 14px/normal "Roboto";
+  font: normal normal 500 14px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana;
   height: 20px;
   width: 20px;
   line-height: 20px;
@@ -12800,7 +12800,7 @@ input[type="checkbox"]:checked + label {
 
 /* Fenix - JQwidgets */
 .jqx-widget {
-  font: normal normal 300 13px/normal "Roboto"; }
+  font: normal normal 300 13px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana; }
 
 .jqx-widget-content {
   color: #666666;
@@ -13334,7 +13334,7 @@ footer.voh-footer {
 
 .voh-footer-bottom {
   padding-top: 15px;
-  font: normal normal 300 11px/normal "Roboto"; }
+  font: normal normal 300 11px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana; }
 
 .footer-menu-container ul {
   list-style: none;
@@ -13631,7 +13631,7 @@ input[type="radio"]:disabled + label {
     .dropdown .dropdown-menu > li > a {
       text-transform: uppercase;
       color: #666666;
-      font: normal normal 300 12px/normal "Roboto";
+      font: normal normal 300 12px/normal "FrutigerLTW02-45Light", Arial, Helvetica, Verdana;
       position: relative;
       top: 50%;
       height: 100%;
@@ -14141,9 +14141,16 @@ footer h4 {
 .map-toolbar-title-custom {
   display: inline-block; }
 
-P
 .map-toolbar-form {
   display: inline-block;
   margin-left: 15px; }
+
+.voh-visualization-selector h1 {
+  color: #65767f;
+  font-weight: normal;
+  font-size: 1.313em !important;
+  border-top: 2px solid #EDEDF0;
+  padding-top: 3px;
+  margin-bottom: 15px; }
 
 /*# sourceMappingURL=main.css.map */

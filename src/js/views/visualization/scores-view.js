@@ -15,7 +15,8 @@ define([
     'jqueryBridget',
     'q',
     'jstree',
-    'amplify'
+    'amplify',
+    'fenix-ui-map'
 ], function (Handlebars, View, C, Services, template, resultTemplate, errorTemplate, courtesyMessageTemplate, i18nLabels, WDSClient, ChartCreator, Packery, bridget) {
 
     'use strict';
@@ -25,7 +26,7 @@ define([
         RESET_BTN: "#scores-reset-btn",
         ERROR_HOLDER: ".error-holder",
         COURTESY_MESSAGE_HOLDER: ".courtesy-message-holder",
-        COURTESY : "[data-role='courtesy']",
+        COURTESY: "[data-role='courtesy']",
         FI_FORM: "#scores-fi-form",
         VARIABLE_FORM: "#scores-variables-form",
         RESULTS_CONTAINER: '#res-container',
@@ -33,7 +34,14 @@ define([
         CHART_CONTAINER: '[data-role="chart-container"]',
         TOTAL_CHECKBOX: "#checkbox-show-total",
         GEO_SELECTOR: "#geo-selector",
-        GEO_GRANULARITY_FORM: "#geo-granularity-form"
+        GEO_GRANULARITY_FORM: "#geo-granularity-form",
+
+        MAP_TOOLBAR_FORM: '#map-toolbar-form',
+        FORM_RADIO_BTNS: 'input[type="radio"][name="status"]',
+        DB_UPDATES_LIST: '#db-updates-list',
+        DOCUMENTS_LIST: '#documents-list',
+        DOWNLOAD_MAP_BTN: '#download-map-button',
+        MAP: '#map'
     };
 
     var VisualizationView = View.extend({
@@ -85,6 +93,9 @@ define([
             };
 
             this.codelists = Object.keys(this.codelists_conf);
+
+            this.$mapToolbarForm = this.$el.find(s.MAP_TOOLBAR_FORM);
+            this.$mapformRadioBtns = this.$mapToolbarForm.find(s.FORM_RADIO_BTNS);
         },
 
         initComponents: function () {
@@ -103,7 +114,95 @@ define([
                 outputType: C.WDS_OUTPUT_TYPE
             });
 
+            this.initMap(s.MAP);
+
         },
+
+        initMap: function (d) {
+
+            s.map = new FM.Map(d, {
+                plugins: {
+                    zoomcontrol: false,
+                    disclaimerfao: false,
+                    fullscreen: false,
+                    geosearch: false,
+                    mouseposition: false,
+                    controlloading: false,
+                    zoomResetControl: false
+                },
+                guiController: {
+                    overlay: false,
+                    baselayer: false,
+                    wmsLoader: false
+                }
+            });
+
+            s.map.createMap(30, 0, 2);
+
+            s.joinlayer = new FM.layer({
+                layers: 'fenix:gaul0_3857',
+                layertitle: i18nLabels.food_insecurity,
+                opacity: '0.7',
+                joincolumn: 'adm0_code',
+                joincolumnlabel: 'adm0_name',
+                joindata: [],
+                mu: "Index",
+                legendsubtitle: "Index",
+                layertype: 'JOIN',
+                jointype: 'shaded',
+                openlegend: false,
+                defaultgfi: true,
+                colorramp: 'Blues',
+                lang: 'en',
+                customgfi: {
+                    content: {
+                        en: "<div class='fm-popup'>{{adm0_name}} <div class='fm-popup-join-content'>{{{adm0_code}}} %</div></div>"
+                    },
+                    showpopup: true
+                }
+            });
+            s.map.addLayer(s.joinlayer);
+
+            s.map.addLayer(new FM.layer({
+                layers: 'fenix:gaul0_line_3857',
+                layertitle: 'Country Boundaries',
+                urlWMS: 'http://fenix.fao.org/geoserver',
+                opacity: '0.9',
+                lang: 'en'
+            }));
+        },
+
+        onMapStatusChange: function (e) {
+
+            if (this.WDSClient)
+                this.WDSClient.retrieve({
+                    payload: {
+                        query: Services.MAP_FI_POPULATION,
+                        queryVars: {'query_variables': $(e.currentTarget).val()},
+                        outputType: "object"
+                    },
+                    success: _.bind(this.updateJoinLayer, this)
+                });
+        },
+
+        updateJoinLayer: function (data) {
+
+            if (data.length === 0) return;
+
+            data.shift();
+
+            s.joinlayer.layer.joindata = [];
+
+            _.each(data, _.bind(function (f) {
+                var keys = Object.keys(f);
+                var d = {};
+                d[f[keys[0]]] = f[keys[1]];
+                s.joinlayer.layer.joindata.push(d);
+            }, this));
+
+            s.joinlayer.redraw();
+        },
+
 
         initGeoSelector: function (granularity) {
 
@@ -130,7 +229,7 @@ define([
                     "themes": {"stripes": true},
                     'data': data
                 },
-                "plugins": ["wholerow",  "checkbox"]
+                "plugins": ["wholerow", "checkbox"]
 
             });
 
@@ -182,7 +281,7 @@ define([
                 if (stored === undefined) {
 
                     this.WDSClient.retrieve({
-                        payload: {query : this.codelists_conf[cd]},
+                        payload: {query: this.codelists_conf[cd]},
                         outputType: "object",
                         success: _.bind(this.onPreloadCodelistSuccess, this, cd),
                         error: _.bind(this.onPreloadCodelistError, this)
@@ -265,13 +364,14 @@ define([
 
             this.$geoGranularityForm.find('[value="' + C.DEFAULT_GEO_GRANULARITY + '"]').prop("checked", true).change();
 
-            this.$showTotalCheckbox.prop("checked",  C.DEFAULT_SHOW_TOTAL).change();
+            this.$showTotalCheckbox.prop("checked", C.DEFAULT_SHOW_TOTAL).change();
 
             this.$geoSelector.jstree("uncheck_all");
 
         },
 
         /* Event binding and callback */
+
 
         bindEventListeners: function () {
 
@@ -280,6 +380,16 @@ define([
             this.$resetBtn.on('click', _.bind(this.onClickResetBtn, this));
 
             this.$geoGranularityForm.find("input").on('change', _.bind(this.onGeoGranularityChange, this));
+
+            this.$mapformRadioBtns
+                .on('change', _.bind(this.onMapStatusChange, this))
+                .filter('[value="' + C.DEFAULT_FI_STATUS + '"]')
+                .prop("checked", true);
+
+            var self = this;
+            setTimeout(function() {
+                self.$mapformRadioBtns.trigger('change');
+            },10);
         },
 
         onGeoGranularityChange: function (e) {
@@ -464,24 +574,24 @@ define([
 
             var processedResponse = response.slice(0) || [];
 
-            if ( this.currentRequest.inputs.total === true ){
+            if (this.currentRequest.inputs.total === true) {
 
                 var geos = this.currentRequest.inputs.geo,
                     variables = this.currentRequest.inputs.variables;
 
-                _.each(geos, _.bind(function ( g ) {
+                _.each(geos, _.bind(function (g) {
 
-                    var obj = _.find(processedResponse, function ( row ) {
+                    var obj = _.find(processedResponse, function (row) {
 
                         return row[C.INDEX_GEO_CODE] === g && row[C.INDEX_VARIABLE_CODE] === "population"
                     });
 
-                    _.each(variables, _.bind(function ( v ) {
+                    _.each(variables, _.bind(function (v) {
 
                         var addMe = obj.slice(0);
 
                         addMe[C.INDEX_VARIABLE_CODE] = v;
-                        addMe[C.INDEX_GROUP_CODE]  = "population";
+                        addMe[C.INDEX_GROUP_CODE] = "population";
 
                         processedResponse.push(addMe);
 
@@ -518,13 +628,13 @@ define([
             var cd = amplify.store.sessionStorage('cl_' + v);
 
             //filter response by variable
-            var model = _.filter(this.currentRequest.processdResponse, function ( row ) {
+            var model = _.filter(this.currentRequest.processdResponse, function (row) {
                 return row[C.INDEX_VARIABLE_CODE] == v;
             });
 
             // add variable label and group_code label
 
-            _.each(model, function(row){
+            _.each(model, function (row) {
 
                 var groupCode = row[C.INDEX_GROUP_CODE],
                     label;
@@ -579,7 +689,9 @@ define([
                 valueIndex = this.currentRequest.inputs.status.toLowerCase() === 's' ? C.INDEX_STATUS_S : C.INDEX_STATUS_MS;
 
             $.when(chartCreator.init({
-                model: _.sortBy(model, function(row) { return row[C.INDEX_GROUP_CODE]; }),
+                model: _.sortBy(model, function (row) {
+                    return row[C.INDEX_GROUP_CODE];
+                }),
                 adapter: {
                     // used in init just for MATRIX and FENIX
                     //xOrder: 'asc',
@@ -589,13 +701,13 @@ define([
                     seriesDimensions: [C.INDEX_GEO_LABEL]
 
                 }
-            })).then(function(creator) {
+            })).then(function (creator) {
 
                 var o = {
                     container: $result.find(s.CHART_CONTAINER),
                     template: {
-                        labels : {
-                            title : i18nLabels["var_" + variable]
+                        labels: {
+                            title: i18nLabels["var_" + variable]
                         }
                     },
                     creator: {
@@ -643,19 +755,19 @@ define([
             this.$courtesyMessageHolder.empty();
         },
 
-        hideCourtesyMessage : function () {
+        hideCourtesyMessage: function () {
 
 
             this.$el.find(s.COURTESY).hide();
         },
 
-    showCourtesyMessage : function () {
+        showCourtesyMessage: function () {
 
-        this.$el.find(s.COURTESY).show();
-    },
+            this.$el.find(s.COURTESY).show();
+        },
 
 
-    /* Disposition */
+        /* Disposition */
 
         unbindEventListeners: function () {
             this.$goBtn.off();
