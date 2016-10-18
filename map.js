@@ -6,9 +6,7 @@ var projectRoot = "../..";
 //var projectRoot = "http://localhost:8080";
 
 //distribution
-var projectRoot = "http://www.fao.org/fenixrepo/voh-map/",
-//var projectRoot = "//fenixrepo.fao.org/voh/",
-pathProjectRoot = projectRoot;
+//var projectRoot = "http://www.fao.org/fenixrepo/voh-map/", pathProjectRoot = projectRoot;
 
 require.config({
     config: {
@@ -240,25 +238,11 @@ require([
         },
 
         initVariables: function () {
-
             this.$mapToolbarForm = this.$el.find(s.MAP_TOOLBAR_FORM);
             this.$mapformRadioBtns = this.$mapToolbarForm.find(s.FORM_RADIO_BTNS);
-
-            //database updates
-            //this.$dbUpdatesList = this.$el.find(s.DB_UPDATES_LIST);
-
-            //document list
-            //this.$documentsList = this.$el.find(s.DOCUMENTS_LIST);
-
-            //document list
-            //this.$downloadMapBtn = this.$el.find(s.DOWNLOAD_MAP_BTN);
-
         },
 
         initComponents: function () {
-
-            //this.initDatabaseUpdatesList();
-            //this.initDocumentsLinkList();
 
             this.WDSClient = new WDSClient({
                 serviceUrl: Config.WDS_URL,
@@ -270,35 +254,19 @@ require([
         },
 
         configurePage: function () {
-
             //Activate the default food insecurity status on the map
             this.$mapformRadioBtns.filter('[value="' + Config.DEFAULT_FI_STATUS + '"]').prop("checked", true).change();
         },
 
         bindEventListeners: function () {
-
             //If a map toolbar radio btn is changed -> update Map
             this.$mapformRadioBtns.on('change', _.bind(this.onMapStatusChange, this));
-
-            //If the download btn is clicked
-            //this.$downloadMapBtn.on('click', _.bind(this.onClickDownloadMap, this));
-
-        },
-
-        //Page section initialization
-        initDatabaseUpdatesList: function () {
-
-            _.each(JSON.parse(dbUpdatesModels), _.bind(this.printDatabaseUpdate, this));
         },
 
         printDatabaseUpdate: function (u) {
 
             var template = Handlebars.compile(dbUpdatesTemplate);
             this.$dbUpdatesList.append(template(u));
-        },
-
-        initDocumentsLinkList: function () {
-            _.each(JSON.parse(documentsModels), _.bind(this.printDocuments, this));
         },
 
         printDocuments: function (d) {
@@ -362,26 +330,20 @@ require([
         onMapStatusChange: function (e) {
 
             this.WDSClient.retrieve({
-/*                queryTmpl: Services.MAP_FI_POPULATION,
-                queryVars: {'query_variables': $(e.currentTarget).val()},
-                success: _.bind(this.updateJoinLayer, this),
-                error: _.bind(this.onUpdateJoinLayerError, this)*/
                 payload: {
                     query: Services.MAP_FI_POPULATION,
                     queryVars: {'query_variables': $(e.currentTarget).val()},
                     outputType: "object"
                 },
-                success: _.bind(this.updateJoinLayer, this),
-                error: _.bind(this.onUpdateJoinLayerError, this)              
+                success: _.bind(this.updateJoinLayer, this)
             });
         },
 
-        onUpdateJoinLayerError: function(e) {
-
-        },
-
         updateJoinLayer: function (data) {
+            //console.log('updateJoinLayer',data);
             
+            if(data.length===0) return;
+
             data.shift();
 
             s.joinlayer.layer.joindata = [];
