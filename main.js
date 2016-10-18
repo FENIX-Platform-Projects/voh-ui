@@ -88,14 +88,14 @@ require([
 
                     // fenix-map-js
                     'import-dependencies': '{FENIX_CDN}/js/FENIX/utils/import-dependencies-1.0',
-                    leaflet: '{FENIX_CDN}/js/leaflet/0.7.3/leaflet',
+                    'leaflet': '{FENIX_CDN}/js/leaflet/0.7.3/leaflet',
                     'jquery.power.tip': '{FENIX_CDN}/js/jquery.power.tip/1.2.0/jquery.powertip.min',
                     'jquery-ui': '{FENIX_CDN}/js/jquery-ui/1.10.3/jquery-ui-1.10.3.custom.min',
                     'jquery.i18n.properties': '{FENIX_CDN}/js/jquery/1.0.9/jquery.i18n.properties-min',
                     'jquery.hoverIntent': '{FENIX_CDN}/js/jquery.hoverIntent/1.8.0/jquery.hoverIntent.min',
 
-                    'fenix-ui-map': '{FENIX_CDN}/js/fenix-ui-map/0.1/fenix-ui-map.min',
-                    'fenix-ui-map-config': '{FENIX_CDN}/js/fenix-ui-map/0.1/fenix-ui-map-config',
+                    'fenix-ui-map': '{FENIX_CDN}/fenix/fenix-ui-map/0.1.2/fenix-ui-map.min',
+                    'fenix-ui-map-config': '{FENIX_CDN}/fenix/fenix-ui-map/0.1.2/fenix-ui-map-config',
                     //'bootstrap-list-filter' : "{FENIX_CDN}/js/bootstrap-list-filter/0.1.7/bootstrap-list-filter.min",
                     //'bootstrap-list-filter': "lib/bootstrap-list-filter",
 

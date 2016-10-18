@@ -19,9 +19,11 @@ define([
     'underscore',
     'q',
     'jstree',
-    'amplify'
+    'amplify',
+    'fenix-ui-map'
 //TODO REMOVE
-], function (Handlebars, View, Config, Services, template, errorTemplate, courtesyMessageTemplate, i18nLabels, WDSClient,
+], function (Handlebars, View, Config, Services, template, errorTemplate, 
+             courtesyMessageTemplate, i18nLabels, WDSClient,
              Pivot,
              pivotRenderers,
              pivotAggregators,
@@ -45,7 +47,14 @@ define([
         TOTAL_CHECKBOX: "#checkbox-show-total",
         GEO_SELECTOR: "#geo-selector",
         GEO_GRANULARITY_FORM: "#geo-granularity-form",
-        COURTESY : "[data-role='courtesy']"
+        COURTESY : "[data-role='courtesy']",
+
+        MAP_TOOLBAR_FORM: '#map-toolbar-form',
+        FORM_RADIO_BTNS: 'input[type="radio"][name="status"]',
+        DB_UPDATES_LIST: '#db-updates-list',
+        DOCUMENTS_LIST: '#documents-list',
+        DOWNLOAD_MAP_BTN: '#download-map-button',
+        MAP: '#map'        
     };
 
     var VisualizationView = View.extend({
@@ -96,6 +105,9 @@ define([
             };
 
             this.codelists = Object.keys(this.codelists_conf);
+
+            this.$mapToolbarForm = this.$el.find(s.MAP_TOOLBAR_FORM);
+            this.$mapformRadioBtns = this.$mapToolbarForm.find(s.FORM_RADIO_BTNS);            
         },
 
         initComponents: function () {
@@ -114,6 +126,93 @@ define([
 
             this.hideDownloadButton();
 
+            this.initMap(s.MAP);
+
+        },
+
+        initMap: function(d) {
+
+            s.map = new FM.Map(d, {
+                plugins: {
+                    zoomcontrol: false,
+                    disclaimerfao: false,
+                    fullscreen: false,
+                    geosearch: false,
+                    mouseposition: false,
+                    controlloading : false,
+                    zoomResetControl: false
+                },
+                guiController: {
+                    overlay: false,
+                    baselayer: false,
+                    wmsLoader: false
+                }
+            });
+
+            s.map.createMap(30, 0, 2);
+
+            s.joinlayer = new FM.layer({
+                layers: 'fenix:gaul0_3857',
+                layertitle: i18nLabels.food_insecurity,
+                opacity: '0.7',
+                joincolumn: 'adm0_code',
+                joincolumnlabel: 'adm0_name',
+                joindata: [],
+                mu: "Index",
+                legendsubtitle: "Index",
+                layertype: 'JOIN',
+                jointype: 'shaded',
+                openlegend: false,
+                defaultgfi: true,
+                colorramp: 'Blues',
+                lang: 'en',
+                customgfi: {
+                    content: {
+                        en: "<div class='fm-popup'>{{adm0_name}} <div class='fm-popup-join-content'>{{{adm0_code}}} %</div></div>"
+                    },
+                    showpopup: true
+                }
+            });
+            s.map.addLayer(s.joinlayer);
+
+            s.map.addLayer(new FM.layer({
+                layers: 'fenix:gaul0_line_3857',
+                layertitle: 'Country Boundaries',
+                urlWMS: 'http://fenix.fao.org/geoserver',
+                opacity: '0.9',
+                lang: 'en'
+            }));
+        },
+
+        onMapStatusChange: function (e) {
+
+            if(this.WDSClient)
+            this.WDSClient.retrieve({
+                payload: {
+                    query: Services.MAP_FI_POPULATION,
+                    queryVars: {'query_variables': $(e.currentTarget).val()},
+                    outputType: "object"
+                },
+                success: _.bind(this.updateJoinLayer, this)
+            });
+        },
+
+        updateJoinLayer: function (data) {
+            
+            if(data.length===0) return;
+
+            data.shift();
+
+            s.joinlayer.layer.joindata = [];
+
+            _.each(data, _.bind(function (f) {
+                var keys = Object.keys(f);
+                var d = {};
+                d[f[keys[0]]] = f[keys[1]];
+                s.joinlayer.layer.joindata.push(d);
+            }, this));
+
+            s.joinlayer.redraw();
         },
 
         initGeoSelector: function (granularity) {
@@ -294,6 +393,12 @@ define([
             this.$downloadBtn.on('click', _.bind(this.onClickDownloadBtn, this));
 
             this.$geoGranularityForm.find("input").on('change', _.bind(this.onGeoGranularityChange, this));
+
+            this.$mapformRadioBtns
+                .on('change', _.bind(this.onMapStatusChange, this))
+                .filter('[value="' + Config.DEFAULT_FI_STATUS + '"]')
+                .prop("checked", true)
+                .change();
         },
 
         onGeoGranularityChange: function (e) {

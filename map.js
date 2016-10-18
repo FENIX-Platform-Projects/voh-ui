@@ -209,9 +209,10 @@ require([
     'fx-common/WDSClient',
     'amplify',
     'fenix-ui-map'
-], function ($, jQuery,_, Config, Services, template, dbUpdatesTemplate, documentTemplate, i18nLabels, Handlebars, dbUpdatesModels, documentsModels, WDSClient) {
+], function ($, jQuery,_, Config, Services, template, 
+    dbUpdatesTemplate, documentTemplate, 
+    i18nLabels, Handlebars, dbUpdatesModels, documentsModels, WDSClient) {
 
-    window.FMCONFIG.BASEURL_LANG = 'http://www.fao.org/fenixrepo/cdn/fenix/fenix-ui-map/0.1.2/i18n/';
     var s = {
         MAP_TOOLBAR_FORM: '#map-toolbar-form',
         FORM_RADIO_BTNS: 'input[type="radio"][name="status"]',
@@ -224,10 +225,6 @@ require([
     var HomeView = {
 
         attach: function () {
-
-            //$('body').addClass('voh-home');
-            //update State
-            //amplify.publish('voh.state.change', {menu: 'home'});
 
             this.$el = $(Handlebars.compile(template)(i18nLabels)).appendTo('#wrapperMap');
 
@@ -254,28 +251,15 @@ require([
         },
 
         configurePage: function () {
-            //Activate the default food insecurity status on the map
             this.$mapformRadioBtns.filter('[value="' + Config.DEFAULT_FI_STATUS + '"]').prop("checked", true).change();
         },
 
         bindEventListeners: function () {
-            //If a map toolbar radio btn is changed -> update Map
             this.$mapformRadioBtns.on('change', _.bind(this.onMapStatusChange, this));
         },
 
-        printDatabaseUpdate: function (u) {
-
-            var template = Handlebars.compile(dbUpdatesTemplate);
-            this.$dbUpdatesList.append(template(u));
-        },
-
-        printDocuments: function (d) {
-            var template = Handlebars.compile(documentTemplate);
-            this.$documentsList.append(template(d));
-        },
-
-
         initMap: function(d) {
+
             s.map = new FM.Map(d, {
                 plugins: {
                     zoomcontrol: false,
@@ -292,6 +276,7 @@ require([
                     wmsLoader: false
                 }
             });
+
             s.map.createMap(30, 0, 2);
 
             s.joinlayer = new FM.layer({
@@ -340,13 +325,13 @@ require([
         },
 
         updateJoinLayer: function (data) {
-            //console.log('updateJoinLayer',data);
             
             if(data.length===0) return;
 
             data.shift();
 
             s.joinlayer.layer.joindata = [];
+
             _.each(data, _.bind(function (f) {
                 var keys = Object.keys(f);
                 var d = {};
