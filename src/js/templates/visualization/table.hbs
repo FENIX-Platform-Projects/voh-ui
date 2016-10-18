@@ -1,28 +1,29 @@
 <!-- Selectors -->
-<div class="row voh-visualization-selector">
+<div id="wrapperMap" style="height:443px">
 
-    <div id="wrapperMap" style="height:443px">
 
-        <div class="fx-sandbox">
 
-            <div id="map" class="map-home-page"></div>
+        <div id="map" class="map-home-page"></div>
 
-            <!-- Map toolbar -->
-            <div id="map-toolbar" class="map-toolbar">
-                <div class="map-toolbar-title-custom">
-                    {{{ map_toolbar_legend }}}
-                </div>
-                <form id="map-toolbar-form" class="map-toolbar-form" action="" onsubmit="return(false);">
-                    <input id="radio-severe-status" type="radio" name="status" value="s"><label
-                        for="radio-severe-status"> {{{ fi_status_severe }}}</label>
-                    <input id="radio-moderate-severe-status" type="radio" name="status" value="ms"><label
-                        for="radio-moderate-severe-status">{{{ fi_status_moderate_severe }}}</label>
-                </form>
+        <!-- Map toolbar -->
+        <div id="map-toolbar" class="map-toolbar">
+            <div class="map-toolbar-title-custom">
+                {{{ map_toolbar_legend }}}
             </div>
-
+            <form id="map-toolbar-form" class="map-toolbar-form" action="" onsubmit="return(false);">
+                <input id="radio-severe-status1" type="radio" data-target='map' name="status" value="s"><label
+                    for="radio-severe-status1"> {{{ fi_status_severe }}}</label>
+                <input id="radio-moderate-severe-status1" type="radio" name="status" data-target='map' value="ms"><label
+                    for="radio-moderate-severe-status1">{{{ fi_status_moderate_severe }}}</label>
+            </form>
         </div>
 
-    </div>
+
+</div>
+
+<div class="row voh-visualization-selector">
+
+
 
     <!-- Map Container-->
     <div class="col-xs-8 voh-map-cont">
@@ -36,9 +37,9 @@
                 <!-- Geo selector granularity-->
                 <div>
                     <form id="geo-granularity-form" class="geo-granularity-form" action="" onsubmit="return(false);">
-                        <input id="geo-as-country" type="radio" name="geo-granularity" value="country">
+                        <input id="geo-as-country" type="radio" name="geo-granularity" value="country" data-target='visualization'>
                         <label for="geo-as-country"> {{ geo_granularity_country }}</label>
-                        <input id="geo-as-region" type="radio" name="geo-granularity" value="region">
+                        <input id="geo-as-region" type="radio" name="geo-granularity" value="region" data-target='visualization'>
                         <label for="geo-as-region">{{ geo_granularity_region }}</label>
                     </form>
                 </div>
@@ -99,7 +100,7 @@
 
 
 <!-- Toolbar -->
-<div class="row">
+<div class="voh-vis-buttons-holder-row">
     <div class="col-xs-12 voh-vis-buttons-holder clearfix">
 
         <!-- Section switcher-->

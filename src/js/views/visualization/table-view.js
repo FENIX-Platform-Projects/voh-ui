@@ -50,7 +50,7 @@ define([
         COURTESY : "[data-role='courtesy']",
 
         MAP_TOOLBAR_FORM: '#map-toolbar-form',
-        FORM_RADIO_BTNS: 'input[type="radio"][name="status"]',
+        FORM_RADIO_BTNS: 'input[type="radio"][name="status"][data-target="map"]',
         DB_UPDATES_LIST: '#db-updates-list',
         DOCUMENTS_LIST: '#documents-list',
         DOWNLOAD_MAP_BTN: '#download-map-button',
