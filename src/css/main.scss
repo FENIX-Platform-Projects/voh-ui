@@ -44,6 +44,18 @@
 @import 'theme/typo3-compatibility';
 
 
+
 #map {
-  height: 500px
+  height: 400px
 }
+
+
+.map-toolbar-title-custom{
+  display: inline-block;
+}
+P
+.map-toolbar-form{
+  display: inline-block;
+  margin-left: 15px;
+}
+

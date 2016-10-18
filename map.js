@@ -6,9 +6,9 @@ var projectRoot = "../..";
 //var projectRoot = "http://localhost:8080";
 
 //distribution
-//var projectRoot = "http://www.fao.org/fenixrepo/voh/",
+var projectRoot = "http://www.fao.org/fenixrepo/voh-map/",
 //var projectRoot = "//fenixrepo.fao.org/voh/",
-//pathProjectRoot = projectRoot;
+pathProjectRoot = projectRoot;
 
 require.config({
     config: {
@@ -213,6 +213,7 @@ require([
     'fenix-ui-map'
 ], function ($, jQuery,_, Config, Services, template, dbUpdatesTemplate, documentTemplate, i18nLabels, Handlebars, dbUpdatesModels, documentsModels, WDSClient) {
 
+    window.FMCONFIG.BASEURL_LANG = 'http://www.fao.org/fenixrepo/cdn/fenix/fenix-ui-map/0.1.2/i18n/';
     var s = {
         MAP_TOOLBAR_FORM: '#map-toolbar-form',
         FORM_RADIO_BTNS: 'input[type="radio"][name="status"]',
@@ -230,7 +231,7 @@ require([
             //update State
             //amplify.publish('voh.state.change', {menu: 'home'});
 
-            this.$el = $(Handlebars.compile(template)(i18nLabels)).appendTo('#wrapper');
+            this.$el = $(Handlebars.compile(template)(i18nLabels)).appendTo('#wrapperMap');
 
             this.initVariables();
             this.initComponents();

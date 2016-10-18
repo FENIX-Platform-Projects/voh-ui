@@ -14135,10 +14135,15 @@ footer h4 {
   .fx-sandbox .flude-topic-selector {
     width: calc(100% - 250px) !important; }
 
-/*# sourceMappingURL=main.css.map */
-
-
 #map {
-  height: 500px
-}
+  height: 400px; }
 
+.map-toolbar-title-custom {
+  display: inline-block; }
+
+P
+.map-toolbar-form {
+  display: inline-block;
+  margin-left: 15px; }
+
+/*# sourceMappingURL=main.css.map */
