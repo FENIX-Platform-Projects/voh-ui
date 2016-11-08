@@ -64,7 +64,7 @@ define({
     "checkbox_show_total": "Show total",
     "section_scores" : "Scores",
     "section_table" : "Table",
-    results : "Results (values are shown as percentage)",
+    results : "Results (values are shown as percentage of food insecure adults)",
     where_is_the_data : "Where is the data?",
     placeholder_make_a_selection : "Please make a selection above and press ",
     show_data : "Show Data"
