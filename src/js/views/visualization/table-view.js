@@ -162,7 +162,7 @@ define([
                 legendsubtitle: "Index",
                 layertype: 'JOIN',
                 jointype: 'shaded',
-                openlegend: false,
+                openlegend: true,
                 defaultgfi: true,
                 colorramp: 'Blues',
                 lang: 'en',
