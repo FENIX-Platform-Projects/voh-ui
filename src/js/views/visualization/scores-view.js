@@ -120,7 +120,7 @@ define([
 
         initMap: function (d) {
 
-            s.map = new FM.Map(d, {
+            this.map = new FM.Map(d, {
                 plugins: {
                     zoomcontrol: false,
                     disclaimerfao: false,
@@ -137,9 +137,9 @@ define([
                 }
             });
 
-            s.map.createMap(30, 0, 2);
+            this.map.createMap(30, 0, 2);
 
-            s.joinlayer = new FM.layer({
+            this.joinlayer = new FM.layer({
                 layers: 'fenix:gaul0_3857',
                 layertitle: i18nLabels.food_insecurity,
                 opacity: '0.7',
@@ -150,7 +150,7 @@ define([
                 legendsubtitle: "Index",
                 layertype: 'JOIN',
                 jointype: 'shaded',
-                openlegend: true,
+                openlegend: false,
                 defaultgfi: true,
                 colorramp: 'Blues',
                 lang: 'en',
@@ -161,15 +161,88 @@ define([
                     showpopup: true
                 }
             });
-            s.map.addLayer(s.joinlayer);
+            this.map.addLayer(this.joinlayer);
 
-            s.map.addLayer(new FM.layer({
+            this.map.addLayer(new FM.layer({
                 layers: 'fenix:gaul0_line_3857',
                 layertitle: 'Country Boundaries',
                 urlWMS: 'http://fenix.fao.org/geoserver',
                 opacity: '0.9',
                 lang: 'en'
             }));
+
+/*
+//DEBUG
+window.MAP = this.map;
+window.LAY = this.joinlayer;
+*/
+//DRAMATIC PATCH :-(
+FM.LayerLegend._loadLegend = function(url, alternativeUrl, toRendedID) {
+        var img = new Image();
+        img.name = url;
+        img.src = url;
+
+        var html = '<img id="'+toRendedID + '-img" src="'+ img.src +'" class="decoded">';
+        img.onload = function() {
+            $('#' + toRendedID + '-content').html(html);
+            $('#' + toRendedID + '-img').css('width', this.width);
+            $('#' + toRendedID + '-img').css('height', this.height);
+        }
+        img.onerror  = function() {
+            if ( alternativeUrl )
+                FM.LayerLegend._loadLegend(alternativeUrl, null, toRendedID)
+            else
+                FM.LayerLegend._nolegend(toRendedID);
+            // reload the image with different parameters (without legend_options)
+            // if returns again error, then le legend is not available
+            // '&LEGEND_OPTIONS=forceRule:True;dx:0.1;dy:0.1;mx:0.1;my:0.1;border:false;fontAntiAliasing:true;fontColor:0x47576F;fontSize:10;bgColor:0xF9F7F3'+
+        }
+    },
+FM.LayerLegend.getLegend = function(l, toRendedID, isReload) {
+    // based on the layer type get the legendURL or Request
+    $('#' + toRendedID + '-legend-layertitle').empty();
+    $('#' + toRendedID + '-legendtitle').empty();
+    $('#' + toRendedID + '-legendsubtitle').empty();
+    $('#' + toRendedID + '-content').empty();
+
+    if (l.layer.layertitle) {
+        $('#' + toRendedID + '-legend-layertitle').append(l.layer.layertitle);
+    }
+    if (l.layer.legendtitle) {
+        $('#' + toRendedID + '-legendtitle').append(l.layer.legendtitle);
+    }
+    if (l.layer.legendsubtitle) {
+        $('#' + toRendedID + '-legendsubtitle').append(l.layer.legendsubtitle);
+    }
+    /* TODO: handle better, especially the l.layer.openlegend value*/
+    var html = '';
+    if (l.layer.legendHTML) {
+        html = l.layer.legendHTML;
+        $('#' + toRendedID + '-content').append(html);
+    }
+    else {
+        var url = l.layer.urlWMS  + '?';
+        url += '&service=WMS' +
+            '&version=1.1.0' +
+            '&REQUEST=GetLegendGraphic' +
+            '&layer=' + l.layer.layers +
+            '&Format=image/png';
+            //'&LEGEND_OPTIONS=forceRule:True;dx:0.1;dy:0.1;mx:0.1;my:0.1;border:false;fontAntiAliasing:true;fontColor:0x47576F;fontSize:10;bgColor:0xF9F7F3';
+        if (l.layer.style != null && l.layer.style != '' )
+            url +=  '&style=' + l.layer.style;
+        if (l.layer.sldurl )
+             url +=  '&sld=' + l.layer.sldurl;
+
+        var alternativeUrl = url;
+        url += '&LEGEND_OPTIONS=forceLabels:on;forceRule:True;dx:0;dy:0;mx:0;my:0;border:false;fontAntiAliasing:true;fontColor:0x47576F;fontSize:10;bgColor:0xF9F7F3';
+
+        FM.LayerLegend._loadLegend(url, alternativeUrl, toRendedID)
+    }
+
+    $('#' + toRendedID + '-holder').hide();
+    $('#' + toRendedID + '-holder').slideDown();
+    l.layer.openlegend = true;
+};            
         },
 
         onMapStatusChange: function (e) {
@@ -187,20 +260,23 @@ define([
 
         updateJoinLayer: function (data) {
 
+            var self = this;
+
             if (data.length === 0) return;
 
             data.shift();
 
-            s.joinlayer.layer.joindata = [];
+            this.joinlayer.layer.joindata = [];
 
             _.each(data, _.bind(function (f) {
                 var keys = Object.keys(f);
                 var d = {};
                 d[f[keys[0]]] = f[keys[1]];
-                s.joinlayer.layer.joindata.push(d);
+                self.joinlayer.layer.joindata.push(d);
             }, this));
 
-            s.joinlayer.redraw();
+            this.joinlayer.redraw();
+            FM.LayerLegend.getLegend(this.joinlayer, this.joinlayer.id + '-controller-item-getlegend', false);            
         },
 
 
