@@ -105,7 +105,7 @@ require([
                     //OLAP DEPS
                     pivot: projectRoot +"/submodules/fenix-ui-olap/js/pivot",
                     gt_msg: projectRoot +"/submodules/fenix-ui-olap/lib/grid/gt_msg_en",
-                    jqueryui: projectRoot +"/submodules/fenix-ui-olap/lib/jquery-ui-1.9.2.custom.min",
+                    //jquery-ui: projectRoot +"/submodules/fenix-ui-olap/lib/jquery-ui-1.9.2.custom.min",
                     gt_msg_grid: projectRoot +"/submodules/fenix-ui-olap/lib/grid/gt_grid_all",
                     HPivot: "{FENIX_CDN}/js/jbpivot/0.1.0-olap/jbpivot.min",
                     highcharts: "{FENIX_CDN}/js/highcharts/4.0.4/js/highcharts",
@@ -170,7 +170,7 @@ require([
                         ]
                     },
                     //OLAP DEPS
-                    jqueryui: ['jquery'],
+                    'jquery-ui': ['jquery'],
                     highcharts: ['jquery'],
                     gt_msg: ['jquery'],
                     gt_msg_grid: ['jquery', 'gt_msg'],
@@ -179,14 +179,14 @@ require([
                     pivot: {
                         deps: [
                             'jquery',
-                            'jqueryui',
+                            'jquery-ui',
                             'gt_msg', 'gt_msg_grid',
                             'HPivot',
                             'pivotRenderers',
                             'nls/pivot'
                         ]
                     },
-                    HPivot: ['jquery', 'jqueryui']
+                    HPivot: ['jquery', 'jquery-ui']
                 }
                 // For easier development, disable browser caching
                 // Of course, this should be removed in a production environment

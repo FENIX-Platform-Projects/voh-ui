@@ -62,9 +62,9 @@ define({
     "map_selector_title": "Check Food Insecurity (F.I) for geographic area",
     "other_selectors_title": "Additional Filter",
     "checkbox_show_total": "Show total",
-    "section_scores" : "Scores",
+    "section_scores" : "Chart",
     "section_table" : "Table",
-    results : "Results (values are shown as percentage of food insecure adults)",
+    results : "Results (values are shown as percentage of adults 15 or older)",
     where_is_the_data : "Where is the data?",
     placeholder_make_a_selection : "Please make a selection above and press ",
     show_data : "Show Data"
